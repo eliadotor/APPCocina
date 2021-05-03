@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4502255C26405F3000876A16 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4502255B26405F3000876A16 /* Home.swift */; };
+		4502255D26405F3000876A16 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4502255B26405F3000876A16 /* Home.swift */; };
+		4502257D264060EE00876A16 /* DetallesReceta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4502257C264060EE00876A16 /* DetallesReceta.swift */; };
+		4502257E264060EE00876A16 /* DetallesReceta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4502257C264060EE00876A16 /* DetallesReceta.swift */; };
+		450225842640611C00876A16 /* CreadorReceta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450225832640611C00876A16 /* CreadorReceta.swift */; };
+		450225852640611C00876A16 /* CreadorReceta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450225832640611C00876A16 /* CreadorReceta.swift */; };
 		45BAAFB6263494490021A780 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BAAFB5263494490021A780 /* Tests_iOS.swift */; };
 		45BAAFC1263494490021A780 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BAAFC0263494490021A780 /* Tests_macOS.swift */; };
 		45BAAFC3263494490021A780 /* APPCocinaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BAAF9A263494450021A780 /* APPCocinaApp.swift */; };
@@ -35,6 +41,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4502255B26405F3000876A16 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		4502257C264060EE00876A16 /* DetallesReceta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetallesReceta.swift; sourceTree = "<group>"; };
+		450225832640611C00876A16 /* CreadorReceta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreadorReceta.swift; sourceTree = "<group>"; };
 		45BAAF9A263494450021A780 /* APPCocinaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPCocinaApp.swift; sourceTree = "<group>"; };
 		45BAAF9B263494450021A780 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		45BAAF9C263494480021A780 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -83,6 +92,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4502255A26405EDF00876A16 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				45BAAF9B263494450021A780 /* ContentView.swift */,
+				4502255B26405F3000876A16 /* Home.swift */,
+				4502257C264060EE00876A16 /* DetallesReceta.swift */,
+				450225832640611C00876A16 /* CreadorReceta.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		45BAAF94263494450021A780 = {
 			isa = PBXGroup;
 			children = (
@@ -99,7 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				45BAAF9A263494450021A780 /* APPCocinaApp.swift */,
-				45BAAF9B263494450021A780 /* ContentView.swift */,
+				4502255A26405EDF00876A16 /* View */,
 				45BAAF9C263494480021A780 /* Assets.xcassets */,
 			);
 			path = Shared;
@@ -309,7 +329,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				45BAAFC5263494490021A780 /* ContentView.swift in Sources */,
+				4502257D264060EE00876A16 /* DetallesReceta.swift in Sources */,
+				4502255C26405F3000876A16 /* Home.swift in Sources */,
 				45BAAFC3263494490021A780 /* APPCocinaApp.swift in Sources */,
+				450225842640611C00876A16 /* CreadorReceta.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,7 +341,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				45BAAFC6263494490021A780 /* ContentView.swift in Sources */,
+				4502257E264060EE00876A16 /* DetallesReceta.swift in Sources */,
+				4502255D26405F3000876A16 /* Home.swift in Sources */,
 				45BAAFC4263494490021A780 /* APPCocinaApp.swift in Sources */,
+				450225852640611C00876A16 /* CreadorReceta.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
