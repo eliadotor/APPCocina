@@ -14,18 +14,17 @@ struct ContentView: View {
             Home().tabItem {
                 Image(systemName: "note.text")
             }.tag(0)
-            Alertas().tabItem {
+            Menus().tabItem {
                 Image(systemName: "calendar")
             }.tag(1)
             Codigos().tabItem {
                 Image(systemName: "qrcode.viewfinder")
             }.tag(2)
             Listas().tabItem {
-                Image(systemName: "list.bullet") /* El nombre entre paréntesis es el
-                    nombre de la imagen de tu carpeta assets.xcassets */
-            }.tag(3) // Para indicar la posición de las pestañas
-            Recetas().tabItem {
-                Image(systemName: "gearshape")
+                Image(systemName: "list.bullet") 
+            }.tag(3)
+            Cuenta().tabItem {
+                Image(systemName: "person.crop.circle")
             }.tag(4)
             
         }
