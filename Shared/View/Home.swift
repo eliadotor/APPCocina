@@ -27,7 +27,7 @@ struct Home: View {
                 BotonCrearReceta(navegacion: $navegacion)
                 Estructura(tituloSeccion: "Destacados")
                 Estructura(tituloSeccion: "Recientes")
-            }.navigationBarTitle("App Cocina")
+            }.navigationBarTitle("", displayMode: .automatic)
         }
     }
 }
@@ -75,7 +75,7 @@ struct BotonCrearReceta: View {
                                        isActive: $navegacion),
                         alignment: .center)
             
-        }.navigationBarTitle("", displayMode: .automatic)
+        }
     }
 }
 
