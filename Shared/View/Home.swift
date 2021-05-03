@@ -13,6 +13,13 @@ struct Home: View {
     var body: some View {
         NavigationView {
             ScrollView() {
+                HStack {
+                    Text("App Cocina")
+                        .font(.largeTitle)
+                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                        .padding(.horizontal)
+                    Spacer()
+                }
                 TextField("Buscar recetas", text: $receta)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .font(.headline)
@@ -21,8 +28,6 @@ struct Home: View {
                 Estructura(tituloSeccion: "Destacados")
                 Estructura(tituloSeccion: "Recientes")
             }.navigationBarTitle("App Cocina")
-            
-            
         }
     }
 }
@@ -70,7 +75,7 @@ struct BotonCrearReceta: View {
                                        isActive: $navegacion),
                         alignment: .center)
             
-        }//.navigationBarTitle("", displayMode: .automatic)
+        }.navigationBarTitle("", displayMode: .automatic)
     }
 }
 
