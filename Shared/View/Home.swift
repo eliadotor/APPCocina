@@ -8,26 +8,19 @@
 import SwiftUI
 
 struct Home: View {
-    @State private var receta = ""
-    @State private var navegacion = false
+    @State private var buscarReceta = ""
     var body: some View {
         NavigationView {
             ScrollView() {
-                HStack {
-                    Text("App Cocina")
-                        .font(.largeTitle)
-                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                        .padding(.horizontal)
-                    Spacer()
-                }
-                TextField("Buscar recetas", text: $receta)
+                TextField("Buscar recetas", text: $buscarReceta)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .font(.headline)
                     .padding()
-                BotonCrearReceta(navegacion: $navegacion)
-                Estructura(tituloSeccion: "Destacados")
-                Estructura(tituloSeccion: "Recientes")
-            }.navigationBarTitle("", displayMode: .automatic)
+                BotonCrearReceta()
+                Seccion(tituloSeccion: "Destacados")
+                Seccion(tituloSeccion: "Recientes")
+            }
+            .navigationBarTitle("APP Cocina")
         }
     }
 }
@@ -47,37 +40,27 @@ struct EstiloBotonCrear: ButtonStyle {
         .frame(height: 120)
         .background(Color.yellow)
         .cornerRadius(12)
-        
     }
 }
 
 struct BotonCrearReceta: View {
-    @Binding var navegacion : Bool
+    @State var mostrarCreador = false
     var body: some View {
-        VStack(spacing: 20) {
-            Button (action: {
-                navegacion = true
-            }) {
-                Text("Crear receta".uppercased())
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                
-            }
-            .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-            .padding()
-            .frame(height: 150)
-            .background(Color.yellow)
-            .cornerRadius(10)
-            .padding()
-            .background(NavigationLink("",
-                                       destination: CreadorReceta(),
-                                       isActive: $navegacion),
-                        alignment: .center)
-            
+        NavigationLink (destination: CreadorReceta(), isActive: $mostrarCreador) {
+            EmptyView()
+        }
+        .hidden()
+        Button("Crear receta") {
+            mostrarCreador = true
+        }
+        .font(.title)
+        .foregroundColor(.white)
+        .frame(height: 150)
+        .background(Color.yellow)
+        .cornerRadius(10)
+        .padding()
         }
     }
-}
 
 struct Imagenes: View {
     
@@ -95,18 +78,19 @@ struct Imagenes: View {
         }
         .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
         .cornerRadius(12)
-        
-        .background(NavigationLink("",
+        .background(
+    NavigationLink("",
                                    destination: DetallesReceta(imagen: "postre", titulo: "Tortilla de Patatas", descripcion: "Pasos", puntuacion: "5 Estrellas"),
-                                   isActive: $navegacion),
-                    alignment: .center)
+                                   isActive: $navegacion)
+        .hidden()
+        )
     }
 }
 
-struct Estructura: View {
+struct Seccion: View {
     @State private var navegacion = false
 
-    var tituloSeccion : String
+    var tituloSeccion  = ""
     var body: some View {
         VStack {
             HStack {
@@ -116,6 +100,7 @@ struct Estructura: View {
                         .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                     
                 }.padding(.horizontal)
+                .accessibility(addTraits: .isHeader)
                 Spacer()
             }
             HStack {
@@ -127,4 +112,5 @@ struct Estructura: View {
         }
     }
 }
+
 
