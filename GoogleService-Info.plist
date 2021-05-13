@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>388496747414-gq6hshaq2gv36s6dfl6alc8dufr7mo19.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.388496747414-gq6hshaq2gv36s6dfl6alc8dufr7mo19</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCRt_EjLCSkv0vhJQkhzePfv5PJfSNbpEg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>388496747414</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.APPCocina</string>
+	<key>PROJECT_ID</key>
+	<string>appcocina-5d597</string>
+	<key>STORAGE_BUCKET</key>
+	<string>appcocina-5d597.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:388496747414:ios:0b3b43e5d60b9516ea0bb7</string>
+</dict>
+</plist>
