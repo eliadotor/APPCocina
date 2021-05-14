@@ -12,7 +12,7 @@ import Combine
 import FirebaseAuth
 
 
-class RecetassViewModel: ObservableObject {
+class RecetaViewModel: ObservableObject {
     
     private var bd = Firestore.firestore()
     
@@ -26,7 +26,6 @@ class RecetassViewModel: ObservableObject {
 
     init(receta: Receta = Receta(id:"", titulo: "", categoria: "", foto: "", duracion: 0, raciones: 0, userId: "")) {
         self.receta = receta
-        
     }
      
     
