@@ -11,12 +11,12 @@ import FirebaseFirestoreSwift
 
 
 class IngredienteViewModel: ObservableObject {
-    
+
     private var bd = Firestore.firestore()
 
     @Published var ingredientes: [Ingrediente] = []
     @Published var ingrediente : Ingrediente
-
+    
     init(ingrediente: Ingrediente = Ingrediente(nombre: "", cantidad: 0, unidad: 0)) {
         self.ingrediente = ingrediente
     }

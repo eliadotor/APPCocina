@@ -38,6 +38,7 @@
 		45A48756264EE53100939FC4 /* IngredienteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A48755264EE53000939FC4 /* IngredienteViewModel.swift */; };
 		45A4875C264EE54300939FC4 /* PasoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A4875B264EE54300939FC4 /* PasoViewModel.swift */; };
 		45A48762264EE79C00939FC4 /* NuevaRecetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A48761264EE79C00939FC4 /* NuevaRecetaView.swift */; };
+		45A4876C264EEDAF00939FC4 /* AnadirIngredientesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A4876B264EEDAF00939FC4 /* AnadirIngredientesView.swift */; };
 		45BAAFB6263494490021A780 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BAAFB5263494490021A780 /* Tests_iOS.swift */; };
 		45BAAFC1263494490021A780 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BAAFC0263494490021A780 /* Tests_macOS.swift */; };
 		45BAAFC3263494490021A780 /* APPCocinaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BAAF9A263494450021A780 /* APPCocinaApp.swift */; };
@@ -82,6 +83,7 @@
 		45A48755264EE53000939FC4 /* IngredienteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredienteViewModel.swift; sourceTree = "<group>"; };
 		45A4875B264EE54300939FC4 /* PasoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasoViewModel.swift; sourceTree = "<group>"; };
 		45A48761264EE79C00939FC4 /* NuevaRecetaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NuevaRecetaView.swift; sourceTree = "<group>"; };
+		45A4876B264EEDAF00939FC4 /* AnadirIngredientesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnadirIngredientesView.swift; sourceTree = "<group>"; };
 		45BAAF9A263494450021A780 /* APPCocinaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPCocinaApp.swift; sourceTree = "<group>"; };
 		45BAAF9B263494450021A780 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		45BAAF9C263494480021A780 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				45022598264063FC00876A16 /* Cuenta.swift */,
 				4502259F2640642900876A16 /* Menus.swift */,
 				45A48761264EE79C00939FC4 /* NuevaRecetaView.swift */,
+				45A4876B264EEDAF00939FC4 /* AnadirIngredientesView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 				45A48762264EE79C00939FC4 /* NuevaRecetaView.swift in Sources */,
 				45A48756264EE53100939FC4 /* IngredienteViewModel.swift in Sources */,
 				45022599264063FC00876A16 /* Cuenta.swift in Sources */,
+				45A4876C264EEDAF00939FC4 /* AnadirIngredientesView.swift in Sources */,
 				45A48748264EB60000939FC4 /* RecetaViewModel.swift in Sources */,
 				45332B2F264D16700030314A /* AppDelegate.swift in Sources */,
 				45A4875C264EE54300939FC4 /* PasoViewModel.swift in Sources */,
