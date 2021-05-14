@@ -35,7 +35,6 @@ struct AnadirIngredientesView: View {
                         Text(medidas[medidasOpcionTag])
                     }
                 }
-                
                 Button(action: {
                     self.anadir = true
                     viewModel.anadirIngrediente(ref: self.receta)
@@ -66,7 +65,7 @@ struct AnadirIngredientesView: View {
                         Spacer()
                     }
                 }).background(
-                    NavigationLink("", destination: EmptyView()/*AnadirPasoView(receta: receta)*/, isActive: $siguientePaso))
+                    NavigationLink("", destination: AnadirPasoView(receta: receta), isActive: $siguientePaso))
             }.navigationBarTitle("Ingrediente \(numIngrediente)", displayMode: .inline)
             
             
@@ -76,6 +75,6 @@ struct AnadirIngredientesView: View {
 
 struct AnadirIngredientesView_Previews: PreviewProvider {
     static var previews: some View {
-        AnadirIngredientesView()
+        AnadirIngredientesView(receta: "")
     }
 }

@@ -46,13 +46,14 @@ struct EstiloBotonCrear: ButtonStyle {
 struct BotonCrearReceta: View {
     @State var mostrarCreador = false
     var body: some View {
-        NavigationLink (destination: CreadorReceta(), isActive: $mostrarCreador) {
+        NavigationLink (destination: NuevaRecetaView(ref: ""), isActive: $mostrarCreador) {
             EmptyView()
         }
         .hidden()
         Button("Crear receta") {
             mostrarCreador = true
         }
+        .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
         .font(.title)
         .foregroundColor(.white)
         .frame(height: 150)

@@ -11,10 +11,10 @@ import Firebase
 
 struct NuevaRecetaView: View {
     @ObservedObject var viewModel = RecetaViewModel()
-    @State var categoriaOpcion: Int = 0
-    @State var anadir: Bool = false
-    @State var anadirMas: Bool = false
-    @State var anadirIngredientes: Bool = false
+    @State private var categoriaOpcion: Int = 0
+    @State private var anadir: Bool = false
+    @State private var anadirMas: Bool = false
+    @State private var anadirIngredientes: Bool = false
     @State var ref: String
 
     var body: some View {
@@ -42,7 +42,7 @@ struct NuevaRecetaView: View {
                     anadirIngredientes = true
                     self.ref = viewModel.anadirRecetas()
                 }.background(
-                    NavigationLink("", destination: EmptyView(), isActive: $anadirIngredientes)
+                    NavigationLink("", destination: AnadirIngredientesView(receta: self.ref), isActive: $anadirIngredientes)
                 )
             }.navigationBarTitle("Nueva Receta", displayMode: .inline)
         }
