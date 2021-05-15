@@ -42,7 +42,7 @@ struct NuevaRecetaView: View {
                     anadirIngredientes = true
                     self.ref = viewModel.anadirRecetas()
                 }.background(
-                    NavigationLink("", destination: AnadirIngredientesView(receta: self.ref), isActive: $anadirIngredientes)
+                    NavigationLink("", destination: AnadirIngredientesView(receta: self.ref), isActive: $anadirIngredientes).hidden()
                 )
             }.navigationBarTitle("Nueva Receta", displayMode: .inline)
         }

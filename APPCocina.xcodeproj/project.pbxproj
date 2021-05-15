@@ -11,8 +11,6 @@
 		4502255D26405F3000876A16 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4502255B26405F3000876A16 /* Home.swift */; };
 		4502257D264060EE00876A16 /* DetallesReceta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4502257C264060EE00876A16 /* DetallesReceta.swift */; };
 		4502257E264060EE00876A16 /* DetallesReceta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4502257C264060EE00876A16 /* DetallesReceta.swift */; };
-		450225842640611C00876A16 /* CreadorReceta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450225832640611C00876A16 /* CreadorReceta.swift */; };
-		450225852640611C00876A16 /* CreadorReceta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450225832640611C00876A16 /* CreadorReceta.swift */; };
 		4502258B264063A400876A16 /* Codigos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4502258A264063A400876A16 /* Codigos.swift */; };
 		4502258C264063A400876A16 /* Codigos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4502258A264063A400876A16 /* Codigos.swift */; };
 		45022592264063CD00876A16 /* Listas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45022591264063CD00876A16 /* Listas.swift */; };
@@ -70,7 +68,6 @@
 /* Begin PBXFileReference section */
 		4502255B26405F3000876A16 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		4502257C264060EE00876A16 /* DetallesReceta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetallesReceta.swift; sourceTree = "<group>"; };
-		450225832640611C00876A16 /* CreadorReceta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreadorReceta.swift; sourceTree = "<group>"; };
 		4502258A264063A400876A16 /* Codigos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Codigos.swift; sourceTree = "<group>"; };
 		45022591264063CD00876A16 /* Listas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listas.swift; sourceTree = "<group>"; };
 		45022598264063FC00876A16 /* Cuenta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cuenta.swift; sourceTree = "<group>"; };
@@ -148,7 +145,6 @@
 				45BAAF9B263494450021A780 /* ContentView.swift */,
 				4502255B26405F3000876A16 /* Home.swift */,
 				4502257C264060EE00876A16 /* DetallesReceta.swift */,
-				450225832640611C00876A16 /* CreadorReceta.swift */,
 				4502258A264063A400876A16 /* Codigos.swift */,
 				45022591264063CD00876A16 /* Listas.swift */,
 				45022598264063FC00876A16 /* Cuenta.swift */,
@@ -177,16 +173,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		45A4873E264EB3BF00939FC4 /* ModelView */ = {
-			isa = PBXGroup;
-			children = (
-				45A48747264EB60000939FC4 /* RecetaViewModel.swift */,
-				45A48755264EE53000939FC4 /* IngredienteViewModel.swift */,
-				45A4875B264EE54300939FC4 /* PasoViewModel.swift */,
-			);
-			path = ModelView;
-			sourceTree = "<group>";
-		};
 		45BAAF94263494450021A780 = {
 			isa = PBXGroup;
 			children = (
@@ -207,7 +193,7 @@
 			children = (
 				45BAAF9A263494450021A780 /* APPCocinaApp.swift */,
 				4502255A26405EDF00876A16 /* View */,
-				45A4873E264EB3BF00939FC4 /* ModelView */,
+				45F8FA9A264FCACD00CF4CD5 /* ViewModel */,
 				45332B77264D97170030314A /* Model */,
 				45BAAF9C263494480021A780 /* Assets.xcassets */,
 			);
@@ -258,6 +244,17 @@
 				45BAAFC2263494490021A780 /* Info.plist */,
 			);
 			path = "Tests macOS";
+			sourceTree = "<group>";
+		};
+		45F8FA9A264FCACD00CF4CD5 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				45A48747264EB60000939FC4 /* RecetaViewModel.swift */,
+				45A48755264EE53000939FC4 /* IngredienteViewModel.swift */,
+				45A4875B264EE54300939FC4 /* PasoViewModel.swift */,
+			);
+			name = ViewModel;
+			path = View/ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -440,7 +437,6 @@
 				4502255C26405F3000876A16 /* Home.swift in Sources */,
 				45BAAFC3263494490021A780 /* APPCocinaApp.swift in Sources */,
 				4502258B264063A400876A16 /* Codigos.swift in Sources */,
-				450225842640611C00876A16 /* CreadorReceta.swift in Sources */,
 				45A48762264EE79C00939FC4 /* NuevaRecetaView.swift in Sources */,
 				45A48756264EE53100939FC4 /* IngredienteViewModel.swift in Sources */,
 				45022599264063FC00876A16 /* Cuenta.swift in Sources */,
@@ -463,7 +459,6 @@
 				4502255D26405F3000876A16 /* Home.swift in Sources */,
 				45BAAFC4263494490021A780 /* APPCocinaApp.swift in Sources */,
 				4502258C264063A400876A16 /* Codigos.swift in Sources */,
-				450225852640611C00876A16 /* CreadorReceta.swift in Sources */,
 				4502259A264063FC00876A16 /* Cuenta.swift in Sources */,
 				450225A12640642900876A16 /* Menus.swift in Sources */,
 			);

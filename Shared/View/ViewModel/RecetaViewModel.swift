@@ -24,7 +24,7 @@ class RecetaViewModel: ObservableObject {
     @Published var categorias: Array = ["desayuno", "comida", "cena", "snacks"]
     
 
-    init(receta: Receta = Receta(id:"", titulo: "", categoria: "", foto: "", duracion: 0, raciones: 0, userId: "")) {
+    init(receta: Receta = Receta(id:"", titulo: "", categoria: "", foto: "", duracion: 0, raciones: 0, puntuacion: 0, userId: "")) {
         self.receta = receta
     }
      
@@ -39,5 +39,17 @@ class RecetaViewModel: ObservableObject {
         return nuevaRecetaRef!.documentID
     }
     
+    func getRecetas() {
+        bd.collection("recetas").addSnapshotListener { (querySnapshot, error) in
+            guard let documentos = querySnapshot?.documents else {
+                print("No documents")
+                return
+            }
+            
+            self.recetas = documentos.compactMap { (queryDocumentSnapshot) -> Receta? in
+                return try? queryDocumentSnapshot.data(as: Receta.self)
+            }
+        }
+    }
     
 }

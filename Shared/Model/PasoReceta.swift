@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Paso: Codable {
+struct Paso: Identifiable, Codable {
     var id: Int
-    var tecnica: String
+    var descripcion: String
     var duracion: Int
 }

@@ -15,6 +15,7 @@ struct Receta: Identifiable, Codable {
     var foto: String
     var duracion: Int
     var raciones: Int
+    var puntuacion: Int
     var userId: String
 }
 

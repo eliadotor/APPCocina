@@ -16,12 +16,11 @@ struct AnadirIngredientesView: View {
     @State private var anadir: Bool = false
     @State private var anadirMas: Bool = false
     @State private var siguientePaso: Bool = false
-    @State private var numIngrediente = 1
     var body: some View {
         NavigationView {
             Form {
                 Section(header: Text("Ingrediente")) {
-                    TextField(self.receta, text: $viewModel.ingrediente.nombre)
+                    TextField("", text: $viewModel.ingrediente.nombre)
                         .disabled(anadir ? true : false)
                     TextField("Cantidad", value: $viewModel.ingrediente.cantidad, formatter: NumberFormatter())
                         .disabled(anadir ? true : false)
@@ -65,8 +64,8 @@ struct AnadirIngredientesView: View {
                         Spacer()
                     }
                 }).background(
-                    NavigationLink("", destination: AnadirPasoView(receta: receta), isActive: $siguientePaso))
-            }.navigationBarTitle("Ingrediente \(numIngrediente)", displayMode: .inline)
+                    NavigationLink("", destination: AnadirPasoView(receta: receta), isActive: $siguientePaso).hidden())
+            }.navigationBarTitle("Ingredientes", displayMode: .inline)
             
             
         }

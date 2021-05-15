@@ -18,11 +18,9 @@ struct AnadirPasoView: View {
             NavigationView {
                 Form {
                     Section(header: Text("Ingrediente")) {
-                        TextField(self.receta, text: $viewModel.paso.tecnica)
+                        TextField("", text: $viewModel.paso.descripcion)
                             .disabled(anadir ? true : false)
                         TextField("", value: $viewModel.paso.duracion, formatter: NumberFormatter())
-                            .disabled(anadir ? true : false)
-                        TextField("", text: $viewModel.paso.tecnica)
                             .disabled(anadir ? true : false)
                     }
                     Button(action: {
@@ -55,7 +53,7 @@ struct AnadirPasoView: View {
                             Spacer()
                         }
                     }).background(
-                        NavigationLink("", destination: EmptyView())
+                        NavigationLink("", destination: EmptyView()).hidden()
                     )
                 }.navigationBarTitle("Pasos", displayMode: .inline)
             }

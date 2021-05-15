@@ -8,14 +8,18 @@
 import SwiftUI
 
 struct DetallesReceta: View {
+    var refReceta = ""
+    @ObservedObject private var viewModel = RecetaViewModel()
+    @ObservedObject private var viewModelPasos = PasoViewModel()
+
     var imagen : String
     var titulo : String
     var descripcion : String
     var puntuacion : String
-    let pasos = ["Pelar y cortar las patatas", "Freir las patatas", "Batir los huevos", "Escurrir las patatas y mezclarlas con el huevo", "Cuajar la mezcla en la sartén"]
+    let pas = ["Pelar y cortar las patatas", "Freir las patatas", "Batir los huevos", "Escurrir las patatas y mezclarlas con el huevo", "Cuajar la mezcla en la sartén"]
     var body: some View {
         VStack {
-            Image(imagen )
+            Image(imagen)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .edgesIgnoringSafeArea(.top)
@@ -26,16 +30,19 @@ struct DetallesReceta: View {
                         Text(titulo)
                             .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                         Text("| \(puntuacion)")
-                            .font(.system(size: 22))
+                            .font(.system(size: 18))
                     }
-                    VStack (alignment: .leading){
-                        Text(descripcion)
-                        .font(.title2)
-                            .padding(5)
-                        List(pasos, id:\.self) {
-                            Text("\($0)")
-                                .font(.body)
-                        }.padding(.leading, -10)
+                    ForEach(viewModel.recetas){ receta in
+                        Text(receta.titulo)
+                        if receta.id == self.refReceta {
+                            Text(receta.titulo)
+                            List{
+                                ForEach(viewModelPasos.pasos){ paso in
+                                    Text(viewModelPasos.paso.descripcion)
+                                }
+                            }
+                        }
+                        
                     }
                 }
                 Spacer()

@@ -15,7 +15,7 @@ class PasoViewModel: ObservableObject {
     @Published var pasos: Array = [Paso]()
     @Published var paso: Paso
     
-    init(paso: Paso = Paso(id: 0, tecnica: "", duracion: 1)) {
+    init(paso: Paso = Paso(id: 0, descripcion: "", duracion: 1)) {
         self.paso = paso
     }
     
@@ -26,6 +26,19 @@ class PasoViewModel: ObservableObject {
         }
         catch {
             print(error)
+        }
+    }
+    
+    func getPasos(ref: String) {
+        bd.collection("recetas").document(ref).collection("pasos").addSnapshotListener { (querySnapshot, error) in
+            guard let documentos = querySnapshot?.documents else {
+                print("No documents")
+                return
+            }
+            
+            self.pasos = documentos.compactMap { (queryDocumentSnapshot) -> Paso? in
+                return try? queryDocumentSnapshot.data(as: Paso.self)
+            }
         }
     }
 }
