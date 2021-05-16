@@ -53,7 +53,7 @@ struct AnadirPasoView: View {
                             Spacer()
                         }
                     }).background(
-                        NavigationLink("", destination: EmptyView()).hidden()
+                        NavigationLink("", destination: DetallesPasosView(refReceta: receta), isActive: $guardar).hidden()
                     )
                 }.navigationBarTitle("Pasos", displayMode: .inline)
             }

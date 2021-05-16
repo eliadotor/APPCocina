@@ -46,6 +46,7 @@
 		45BAAFC6263494490021A780 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BAAF9B263494450021A780 /* ContentView.swift */; };
 		45BAAFC7263494490021A780 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45BAAF9C263494480021A780 /* Assets.xcassets */; };
 		45BAAFC8263494490021A780 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45BAAF9C263494480021A780 /* Assets.xcassets */; };
+		45BB40DD265116BA00EC1537 /* DetallesPasosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BB40DC265116BA00EC1537 /* DetallesPasosView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +98,7 @@
 		45BAAFBC263494490021A780 /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		45BAAFC0263494490021A780 /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		45BAAFC2263494490021A780 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		45BB40DC265116BA00EC1537 /* DetallesPasosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetallesPasosView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,11 +146,12 @@
 			children = (
 				45BAAF9B263494450021A780 /* ContentView.swift */,
 				4502255B26405F3000876A16 /* Home.swift */,
-				4502257C264060EE00876A16 /* DetallesReceta.swift */,
 				4502258A264063A400876A16 /* Codigos.swift */,
 				45022591264063CD00876A16 /* Listas.swift */,
 				45022598264063FC00876A16 /* Cuenta.swift */,
 				4502259F2640642900876A16 /* Menus.swift */,
+				4502257C264060EE00876A16 /* DetallesReceta.swift */,
+				45BB40DC265116BA00EC1537 /* DetallesPasosView.swift */,
 				45A48761264EE79C00939FC4 /* NuevaRecetaView.swift */,
 				45A4876B264EEDAF00939FC4 /* AnadirIngredientesView.swift */,
 				45A48771264EF40E00939FC4 /* AnadirPasoView.swift */,
@@ -428,6 +431,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45BB40DD265116BA00EC1537 /* DetallesPasosView.swift in Sources */,
 				45022592264063CD00876A16 /* Listas.swift in Sources */,
 				45BAAFC5263494490021A780 /* ContentView.swift in Sources */,
 				45A48772264EF40E00939FC4 /* AnadirPasoView.swift in Sources */,
