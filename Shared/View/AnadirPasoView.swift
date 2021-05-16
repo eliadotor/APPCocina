@@ -16,12 +16,21 @@ struct AnadirPasoView: View {
 
     var body: some View {
             NavigationView {
-                Form {
-                    Section(header: Text("Ingrediente")) {
+                VStack(alignment: .leading, spacing: 6) {
+                    Section(header: Text("Descripción")) {
                         TextField("", text: $viewModel.paso.descripcion)
                             .disabled(anadir ? true : false)
+                            .padding()
+                            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.yellow, lineWidth: 1).frame(height: 40))
+                            .padding(.bottom)
+                    }
+            
+                    Section(header: Text("Duración")){
                         TextField("", value: $viewModel.paso.duracion, formatter: NumberFormatter())
                             .disabled(anadir ? true : false)
+                            .padding()
+                            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.yellow, lineWidth: 1).frame(height: 40))
+                            .padding(.bottom)
                     }
                     Button(action: {
                         self.anadir = true
@@ -55,7 +64,9 @@ struct AnadirPasoView: View {
                     }).background(
                         NavigationLink("", destination: DetallesPasosView(refReceta: receta), isActive: $guardar).hidden()
                     )
-                }.navigationBarTitle("Pasos", displayMode: .inline)
+                    .buttonStyle(EstiloBoton())
+                }.padding(.horizontal)
+                .navigationBarTitle("Pasos", displayMode: .inline)
             }
         }
     }

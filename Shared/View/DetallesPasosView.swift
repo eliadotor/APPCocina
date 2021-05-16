@@ -16,9 +16,12 @@ struct DetallesPasosView: View {
         NavigationView {
             List{
                 ForEach(viewModel.pasos) { paso in
-                    VStack(alignment: .leading) {
-                        Text(paso.descripcion).font(.title)
-                        //Text(paso.duracion).font(.subheadline)
+                    HStack() {
+                        Text(paso.descripcion)
+                        Spacer()
+                        if paso.duracion != 0{
+                            Text("\(paso.duracion) min")
+                        }
                     }
                 }
             }.navigationBarTitle("Pasos")

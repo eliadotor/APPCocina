@@ -9,16 +9,40 @@ import SwiftUI
 
 struct DetallesReceta: View {
     var refReceta = ""
-    @ObservedObject private var viewModel = RecetaViewModel()
-    @ObservedObject private var viewModelPasos = PasoViewModel()
-
-    var imagen : String
-    var titulo : String
-    var descripcion : String
-    var puntuacion : String
-    let pas = ["Pelar y cortar las patatas", "Freir las patatas", "Batir los huevos", "Escurrir las patatas y mezclarlas con el huevo", "Cuajar la mezcla en la sartén"]
+    @ObservedObject private var viewModel = PasoViewModel()
+    @State private var nuevoPaso = false
+    
     var body: some View {
-        VStack {
+        NavigationView {
+            List{
+                ForEach(viewModel.pasos) { paso in
+                    HStack() {
+                        Text(paso.descripcion)
+                        Spacer()
+                        if paso.duracion != 0{
+                            Text("\(paso.duracion) min")
+                        }
+                    }
+                }
+            }.navigationBarTitle("Pasos")
+            .onAppear() {
+                self.viewModel.getPasos(ref: refReceta)
+            }
+            .toolbar {
+                ToolbarItem {
+                    Button(action: {
+                        nuevoPaso.toggle()
+                    }, label: {
+                        Image(systemName: "plus")
+                    })
+                }
+            }
+            .sheet(isPresented: $nuevoPaso) {
+                AnadirPasoView(receta: refReceta)
+            }
+            
+        }
+        /*VStack {
             Image(imagen)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
@@ -48,13 +72,13 @@ struct DetallesReceta: View {
                 Spacer()
             }.padding(.horizontal)
             Spacer()
-        }
+        }*/
         
     }
 }
 
 struct DetallesReceta_Previews: PreviewProvider {
     static var previews: some View {
-        DetallesReceta(imagen: "postre", titulo: "Tortilla de Patatas", descripcion: "Pasos", puntuacion: "5 Estrellas")
+        DetallesReceta(refReceta: "")
     }
 }

@@ -81,7 +81,7 @@ struct Imagenes: View {
         .cornerRadius(12)
         .background(
     NavigationLink("",
-                                   destination: DetallesReceta(imagen: "postre", titulo: "Tortilla de Patatas", descripcion: "Pasos", puntuacion: "5 Estrellas"),
+                                   destination: DetallesReceta(refReceta: "c7KNpmDJl39yDDoVMmGE"),
                                    isActive: $navegacion)
         .hidden()
         )

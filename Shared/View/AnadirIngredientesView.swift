@@ -18,22 +18,39 @@ struct AnadirIngredientesView: View {
     @State private var siguientePaso: Bool = false
     var body: some View {
         NavigationView {
-            Form {
-                Section(header: Text("Ingrediente")) {
+            VStack(alignment: .leading, spacing: 6) {
+                Section(header: Text("Nombre")) {
                     TextField("", text: $viewModel.ingrediente.nombre)
                         .disabled(anadir ? true : false)
-                    TextField("Cantidad", value: $viewModel.ingrediente.cantidad, formatter: NumberFormatter())
-                        .disabled(anadir ? true : false)
-                    HStack {
-                        Picker("Unidad", selection: $medidasOpcionTag) {
-                            Text("gramos").tag(0)
-                            Text("litros").tag(1)
-                        }
-                        .pickerStyle(MenuPickerStyle())
-                        Spacer()
-                        Text(medidas[medidasOpcionTag])
-                    }
+                    padding()
+                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.yellow, lineWidth: 1).frame(height: 40))
+                    .padding(.bottom)
                 }
+        
+                Section(header: Text("Cantidad")){
+                    TextField("", value: $viewModel.ingrediente.cantidad, formatter: NumberFormatter())
+                        .disabled(anadir ? true : false)
+                    padding()
+                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.yellow, lineWidth: 1).frame(height: 40))
+                    .padding(.bottom)
+                }
+        
+                Section(){
+                    HStack {
+                        Picker("Unidad", selection: $viewModel.ingrediente.unidad) {
+                            ForEach(viewModel.medidas, id: \.self) {
+                                Text($0)
+                            }
+                        }
+                        .pickerStyle(WheelPickerStyle())
+                        Spacer()
+                        Text(viewModel.ingrediente.unidad)
+                    }
+                    .padding()
+                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.yellow, lineWidth: 1).frame(height: 40))
+                    .padding(.bottom)
+                }
+                
                 Button(action: {
                     self.anadir = true
                     viewModel.anadirIngrediente(ref: self.receta)
@@ -43,7 +60,8 @@ struct AnadirIngredientesView: View {
                         Text(anadir ? "Añadido" : "Añadir ingrediente")
                         Spacer()
                     }
-                }).disabled(anadir)
+                }).buttonStyle(EstiloBoton())
+                .disabled(anadir)
                 
                 Button(action: {
                     self.anadirMas = true
@@ -54,7 +72,7 @@ struct AnadirIngredientesView: View {
                         Text("Añadir más ingredientes")
                         Spacer()
                     }
-                })
+                }).buttonStyle(EstiloBoton())
                 Button(action: {
                     self.siguientePaso = true
                 }, label: {
@@ -65,7 +83,9 @@ struct AnadirIngredientesView: View {
                     }
                 }).background(
                     NavigationLink("", destination: AnadirPasoView(receta: receta), isActive: $siguientePaso).hidden())
-            }.navigationBarTitle("Ingredientes", displayMode: .inline)
+                .buttonStyle(EstiloBoton())
+            }.padding(.horizontal)
+            .navigationBarTitle("Ingredientes", displayMode: .inline)
             
             
         }
