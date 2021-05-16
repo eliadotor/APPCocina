@@ -46,7 +46,7 @@ struct EstiloBotonCrear: ButtonStyle {
 struct BotonCrearReceta: View {
     @State var mostrarCreador = false
     var body: some View {
-        NavigationLink (destination: NuevaRecetaView(ref: ""), isActive: $mostrarCreador) {
+        NavigationLink (destination: NuevaRecetaView(irANuevaReceta: $mostrarCreador, ref: ""), isActive: $mostrarCreador) {
             EmptyView()
         }
         .hidden()

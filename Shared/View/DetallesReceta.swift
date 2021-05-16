@@ -37,9 +37,6 @@ struct DetallesReceta: View {
                     })
                 }
             }
-            .sheet(isPresented: $nuevoPaso) {
-                AnadirPasoView(receta: refReceta)
-            }
             
         }
         /*VStack {

@@ -9,44 +9,42 @@ import SwiftUI
 
 struct DetallesPasosView: View {
     var refReceta = ""
+    var irAAnadirPasos: Binding<Bool>
+    @Binding var irAListaPasos: Bool
+    @State var irAAnadirIngredientes = false
     @ObservedObject private var viewModel = PasoViewModel()
     @State private var nuevoPaso = false
     
     var body: some View {
-        NavigationView {
-            List{
-                ForEach(viewModel.pasos) { paso in
-                    HStack() {
-                        Text(paso.descripcion)
-                        Spacer()
-                        if paso.duracion != 0{
-                            Text("\(paso.duracion) min")
-                        }
+        List{
+            ForEach(viewModel.pasos) { paso in
+                HStack() {
+                    Text(paso.descripcion)
+                    Spacer()
+                    if paso.duracion != 0{
+                        Text("\(paso.duracion) min")
                     }
                 }
-            }.navigationBarTitle("Pasos")
-            .onAppear() {
-                self.viewModel.getPasos(ref: refReceta)
             }
-            .toolbar {
-                ToolbarItem {
-                    Button(action: {
-                        nuevoPaso.toggle()
-                    }, label: {
-                        Image(systemName: "plus")
-                    })
-                }
-            }
-            .sheet(isPresented: $nuevoPaso) {
-                AnadirPasoView(receta: refReceta)
-            }
-            
+        }.navigationBarTitle("Pasos", displayMode: .inline)
+        .onAppear() {
+            self.viewModel.getPasos(ref: refReceta)
         }
+        .toolbar {
+            ToolbarItem {
+                Button(action: {
+                    irAAnadirPasos.wrappedValue = false
+                    nuevoPaso.toggle()
+                }, label: {
+                    Image(systemName: "plus")
+                })
+            }
+        }
+        .sheet(isPresented: $nuevoPaso) {
+            AnadirPasoView(receta: refReceta, irAAnadirIngredientes: $irAAnadirIngredientes, irAAnadirPasos: irAAnadirPasos)
+        }
+            
+        
     }
 }
 
-struct DetallesPasosView_Previews: PreviewProvider {
-    static var previews: some View {
-        DetallesPasosView(refReceta: "")
-    }
-}
