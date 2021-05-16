@@ -10,5 +10,5 @@ import Foundation
 struct Ingrediente: Codable {
     var nombre: String
     var cantidad: Int
-    var unidad: Int
+    var unidad: String
 }

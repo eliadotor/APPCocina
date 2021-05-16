@@ -17,7 +17,10 @@ class IngredienteViewModel: ObservableObject {
     @Published var ingredientes: [Ingrediente] = []
     @Published var ingrediente : Ingrediente
     
-    init(ingrediente: Ingrediente = Ingrediente(nombre: "", cantidad: 0, unidad: 0)) {
+    @Published var medidas: Array = ["gramos", "kilogramos", "litros", "mililitros", "cucharada", "taza", "puñado", "pellizco"]
+
+    
+    init(ingrediente: Ingrediente = Ingrediente(nombre: "", cantidad: 0, unidad: "")) {
         self.ingrediente = ingrediente
     }
     
