@@ -52,4 +52,28 @@ class RecetaViewModel: ObservableObject {
         }
     }
     
+    func getReceta(ref: String) {
+        bd.collection("recetas").document(ref).getDocument { (document, error) in
+            if let document = document, document.exists {
+                let recetaDescripcion = document.data().map(String.init(describing:)) ?? "nil"
+                print("Receta ref: \(recetaDescripcion)")
+            } else {
+                print("La receta no existe")
+            }
+            
+            self.receta = document.map { queryDocumentSnapshot -> Receta in
+                 let data = queryDocumentSnapshot.data()
+                let titulo = data?["titulo"] as? String ?? ""
+                let categoria = data?["categoria"] as? String ?? ""
+                 let foto = data?["foto"] as? String ?? ""
+                 let duracion = data?["duracion"] as? Int ?? 0
+                 let raciones = data?["raciones"] as? Int ?? 0
+                let puntuacion = data?["puntuacion"] as? Int ?? 0
+                let userID = data?["userId"] as? String ?? ""
+
+                return Receta(titulo: titulo, categoria: categoria, foto: foto, duracion: duracion, raciones: raciones, puntuacion: puntuacion, userId: userID)
+            }!
+        }
+    }
+    
 }
