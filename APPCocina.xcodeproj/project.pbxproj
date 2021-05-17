@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		4502255C26405F3000876A16 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4502255B26405F3000876A16 /* Home.swift */; };
 		4502255D26405F3000876A16 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4502255B26405F3000876A16 /* Home.swift */; };
-		4502257D264060EE00876A16 /* DetallesReceta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4502257C264060EE00876A16 /* DetallesReceta.swift */; };
-		4502257E264060EE00876A16 /* DetallesReceta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4502257C264060EE00876A16 /* DetallesReceta.swift */; };
+		4502257D264060EE00876A16 /* DetallesRecetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4502257C264060EE00876A16 /* DetallesRecetaView.swift */; };
+		4502257E264060EE00876A16 /* DetallesRecetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4502257C264060EE00876A16 /* DetallesRecetaView.swift */; };
 		4502258B264063A400876A16 /* Codigos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4502258A264063A400876A16 /* Codigos.swift */; };
 		4502258C264063A400876A16 /* Codigos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4502258A264063A400876A16 /* Codigos.swift */; };
 		45022592264063CD00876A16 /* Listas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45022591264063CD00876A16 /* Listas.swift */; };
@@ -68,7 +68,7 @@
 
 /* Begin PBXFileReference section */
 		4502255B26405F3000876A16 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
-		4502257C264060EE00876A16 /* DetallesReceta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetallesReceta.swift; sourceTree = "<group>"; };
+		4502257C264060EE00876A16 /* DetallesRecetaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetallesRecetaView.swift; sourceTree = "<group>"; };
 		4502258A264063A400876A16 /* Codigos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Codigos.swift; sourceTree = "<group>"; };
 		45022591264063CD00876A16 /* Listas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listas.swift; sourceTree = "<group>"; };
 		45022598264063FC00876A16 /* Cuenta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cuenta.swift; sourceTree = "<group>"; };
@@ -150,7 +150,7 @@
 				45022591264063CD00876A16 /* Listas.swift */,
 				45022598264063FC00876A16 /* Cuenta.swift */,
 				4502259F2640642900876A16 /* Menus.swift */,
-				4502257C264060EE00876A16 /* DetallesReceta.swift */,
+				4502257C264060EE00876A16 /* DetallesRecetaView.swift */,
 				45BB40DC265116BA00EC1537 /* DetallesPasosView.swift */,
 				45A48761264EE79C00939FC4 /* NuevaRecetaView.swift */,
 				45A4876B264EEDAF00939FC4 /* AnadirIngredientesView.swift */,
@@ -436,7 +436,7 @@
 				45BAAFC5263494490021A780 /* ContentView.swift in Sources */,
 				45A48772264EF40E00939FC4 /* AnadirPasoView.swift in Sources */,
 				45332B79264D972A0030314A /* Receta.swift in Sources */,
-				4502257D264060EE00876A16 /* DetallesReceta.swift in Sources */,
+				4502257D264060EE00876A16 /* DetallesRecetaView.swift in Sources */,
 				45332B85264D97980030314A /* PasoReceta.swift in Sources */,
 				4502255C26405F3000876A16 /* Home.swift in Sources */,
 				45BAAFC3263494490021A780 /* APPCocinaApp.swift in Sources */,
@@ -459,7 +459,7 @@
 			files = (
 				45022593264063CD00876A16 /* Listas.swift in Sources */,
 				45BAAFC6263494490021A780 /* ContentView.swift in Sources */,
-				4502257E264060EE00876A16 /* DetallesReceta.swift in Sources */,
+				4502257E264060EE00876A16 /* DetallesRecetaView.swift in Sources */,
 				4502255D26405F3000876A16 /* Home.swift in Sources */,
 				45BAAFC4263494490021A780 /* APPCocinaApp.swift in Sources */,
 				4502258C264063A400876A16 /* Codigos.swift in Sources */,

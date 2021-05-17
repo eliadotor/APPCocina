@@ -44,14 +44,14 @@ struct EstiloBotonCrear: ButtonStyle {
 }
 
 struct BotonCrearReceta: View {
-    @State var mostrarCreador = false
+    @State var irANuevaReceta = false
     var body: some View {
-        NavigationLink (destination: NuevaRecetaView(irANuevaReceta: $mostrarCreador, ref: ""), isActive: $mostrarCreador) {
+        NavigationLink (destination: NuevaRecetaView(irANuevaReceta: $irANuevaReceta, ref: ""), isActive: $irANuevaReceta) {
             EmptyView()
         }
         .hidden()
         Button("Crear receta") {
-            mostrarCreador = true
+            irANuevaReceta = true
         }
         .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
         .font(.title)
@@ -81,7 +81,7 @@ struct Imagenes: View {
         .cornerRadius(12)
         .background(
     NavigationLink("",
-                                   destination: DetallesReceta(refReceta: "c7KNpmDJl39yDDoVMmGE"),
+                                   destination: DetallesRecetaView(refReceta: "c7KNpmDJl39yDDoVMmGE"),
                                    isActive: $navegacion)
         .hidden()
         )
