@@ -25,19 +25,10 @@ struct LoginView: View {
                 .font(.largeTitle)
                 .foregroundColor(.orange)
             VStack {
-                TextField("Email", text: $viewModel.email)
-                    .disableAutocorrection(true)
-                    .autocapitalization(.none)
-                    .keyboardType(.emailAddress)
-                    .padding(.horizontal)
-                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.orange, lineWidth: 1).frame(height: 40))
-                    .padding(.vertical)
-                SecureField("Contraseña", text: $viewModel.password)
-                    .disableAutocorrection(true)
-                    .autocapitalization(.none)
-                    .padding(.horizontal)
-                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.orange, lineWidth: 1).frame(height: 40))
-                    .padding(.vertical)
+                // TextField
+                SingleFormView(nombreCampo: "Email", valorCampo: $viewModel.email)
+                // SecureField
+                SingleFormView(nombreCampo: "Contraseña", valorCampo: $viewModel.password, protegido: true)
             }.padding()
                 Button(action: {
                     guard !viewModel.email.isEmpty, !viewModel.password.isEmpty else {
@@ -47,15 +38,9 @@ struct LoginView: View {
                 }, label: {
                     Text("Entrar")
                 })
-                .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                .font(.title2)
-                .foregroundColor(.white)
-                .frame(height: 45)
-                .background(Color.orange)
+                .buttonStyle(EstiloBoton())
                 .background(NavigationLink("",
                                            destination: RegistroView()))
-                .cornerRadius(10)
-                .padding()
                 NavigationLink("Crear una cuenta",
                                        destination: RegistroView())
                     .padding()
@@ -75,10 +60,4 @@ struct LoginView: View {
         }.navigationBarHidden(true)
     }
     
-}
-
-struct LoginView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginView().environmentObject(RegistroViewModel())
-    }
 }

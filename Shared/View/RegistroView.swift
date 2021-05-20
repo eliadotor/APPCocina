@@ -9,7 +9,7 @@ import SwiftUI
 struct RegistroView: View {
     @EnvironmentObject var viewModel: RegistroViewModel
     @Environment(\.presentationMode) var modoPresentacion
-    @State var isOn: Bool = false
+    @State var registrar: Bool = false
     
     var body: some View {
         VStack {
@@ -24,37 +24,49 @@ struct RegistroView: View {
                 .font(.largeTitle)
                 .foregroundColor(.orange)
             VStack {
-                TextField("Email", text: $viewModel.email)
-                    .disableAutocorrection(true)
-                    .autocapitalization(.none)
-                    .textContentType(.emailAddress)
-                    .padding(.horizontal)
-                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.orange, lineWidth: 1).frame(height: 40))
-                    .padding(.vertical)
-                SecureField("Contraseña", text: $viewModel.password)
-                    .disableAutocorrection(true)
-                    .autocapitalization(.none)
-                    .padding(.horizontal)
-                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.orange, lineWidth: 1).frame(height: 40))
-                    .padding(.vertical)
-                SecureField("Confirmar contraseña", text: $viewModel.confirmarPass)
-                    .disableAutocorrection(true)
-                    .autocapitalization(.none)
-                    .padding(.horizontal)
-                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.orange, lineWidth: 1).frame(height: 40))
-                    .padding(.vertical)
+                // TextField
+                SingleFormView(nombreCampo: "Email", valorCampo: $viewModel.email)
+                if !viewModel.email.isEmpty {
+                    ValidacionFormularioView(nombreIcono: viewModel.emailValido ? "checkmark.circle.fill" : "xmark.circle", colorIcono: viewModel.emailValido ? Color.green : Color.red, texto: "Tiene que ser un correo válido")
+                        .padding(.horizontal)
+                }
+                // SecureField
+                SingleFormView(nombreCampo: "Contraseña", valorCampo: $viewModel.password, protegido: true)
+                
+                if !viewModel.password.isEmpty {
+                    
+                        ValidacionFormularioView(nombreIcono: viewModel.passwordLongitudValida ? "checkmark.circle.fill" : "xmark.circle", colorIcono: viewModel.passwordLongitudValida ? Color.green : Color.red,
+                                                    texto: "Mínimo 6 caracteres")
+                            .padding(.horizontal)
+                    
+                        ValidacionFormularioView(nombreIcono: viewModel.passwordValida ? "checkmark.circle.fill" : "xmark.circle", colorIcono: viewModel.passwordValida ? Color.green : Color.red, texto: "Mínimo una mayúscula y un número")
+                            .padding(.horizontal)
+                    
+                }
+                // SecureField
+                SingleFormView(nombreCampo: "Confirmar contraseña", valorCampo: $viewModel.confirmarPass, protegido: true)
+                if !viewModel.confirmarPass.isEmpty {
+                    ValidacionFormularioView(nombreIcono: viewModel.passwordCoincide ? "checkmark.circle.fill" : "xmark.circle", colorIcono: viewModel.passwordCoincide ? Color.green : Color.red, texto: "Las dos contraseñas deben coincidir")
+                        .padding(.horizontal)
+                }
                 HStack{
-                    Toggle("", isOn: $isOn)
+                    Toggle("", isOn: $viewModel.acepto)
                     .toggleStyle(SwitchToggleStyle(tint: .orange))
                     .labelsHidden()
                     Text(" Acepto la")
                     NavigationLink("política de privacidad",
                                            destination: EmptyView())
                         .foregroundColor(.orange)
+                    
                     Spacer()
                 }.padding(.top)
+                if registrar {
+                    ValidacionFormularioView(nombreIcono: viewModel.acepto ? "checkmark.circle.fill" : "xmark.circle", colorIcono: viewModel.acepto ? Color.green : Color.red, texto: "Debe aceptar la política de privacidad")
+                        .padding(.horizontal)
+                }
             }.padding()
                 Button(action: {
+                    registrar = true
                     guard !viewModel.email.isEmpty, !viewModel.password.isEmpty, viewModel.password == viewModel.confirmarPass else {
                         return
                     }
@@ -65,22 +77,11 @@ struct RegistroView: View {
                 .background(NavigationLink("",
                                            destination: LoginView()),
                             alignment: .center)
-                .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                .font(.title2)
-                .foregroundColor(.white)
-                .frame(height: 45)
-                .background(Color.orange)
-                .cornerRadius(10)
-                .padding()
+                .buttonStyle(EstiloBoton())
                 NavigationLink("Iniciar sesión",
                                        destination: LoginView())
                     .foregroundColor(.orange)
             Spacer()
         }.navigationBarHidden(true)
-    }
-}
-struct RegistroView_Previews: PreviewProvider {
-    static var previews: some View {
-        RegistroView().environmentObject(RegistroViewModel())
     }
 }
