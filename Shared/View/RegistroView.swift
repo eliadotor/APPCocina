@@ -9,6 +9,7 @@ import SwiftUI
 struct RegistroView: View {
     @EnvironmentObject var viewModel: RegistroViewModel
     @Environment(\.presentationMode) var modoPresentacion
+    @State var isOn: Bool = false
     
     var body: some View {
         VStack {
@@ -42,6 +43,16 @@ struct RegistroView: View {
                     .padding(.horizontal)
                     .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.orange, lineWidth: 1).frame(height: 40))
                     .padding(.vertical)
+                HStack{
+                    Toggle("", isOn: $isOn)
+                    .toggleStyle(SwitchToggleStyle(tint: .orange))
+                    .labelsHidden()
+                    Text(" Acepto la")
+                    NavigationLink("política de privacidad",
+                                           destination: EmptyView())
+                        .foregroundColor(.orange)
+                    Spacer()
+                }.padding(.top)
             }.padding()
                 Button(action: {
                     guard !viewModel.email.isEmpty, !viewModel.password.isEmpty, viewModel.password == viewModel.confirmarPass else {
@@ -61,8 +72,11 @@ struct RegistroView: View {
                 .background(Color.orange)
                 .cornerRadius(10)
                 .padding()
+                NavigationLink("Iniciar sesión",
+                                       destination: LoginView())
+                    .foregroundColor(.orange)
             Spacer()
-        }
+        }.navigationBarHidden(true)
     }
 }
 struct RegistroView_Previews: PreviewProvider {

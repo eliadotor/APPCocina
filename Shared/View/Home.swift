@@ -8,28 +8,36 @@
 import SwiftUI
 
 struct Home: View {
+    var irHome: Binding<Bool>
     @State private var buscarReceta = ""
     var body: some View {
-        NavigationView {
-            ScrollView() {
-                TextField("Buscar recetas", text: $buscarReceta)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .font(.headline)
-                    .padding()
-                BotonCrearReceta()
-                Seccion(tituloSeccion: "Destacados")
-                Seccion(tituloSeccion: "Recientes")
+        ScrollView() {
+            HStack {
+                VStack (alignment: .leading){
+                    Text("APP Cocina")
+                        .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                        .padding(.top)
+                    
+                }.padding()
+                .accessibility(addTraits: .isHeader)
+                Spacer()
             }
-            .navigationBarTitle("APP Cocina")
-        }
+            TextField("Buscar recetas", text: $buscarReceta)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .font(.headline)
+                .padding()
+            
+            BotonCrearReceta()
+            Seccion(tituloSeccion: "Destacados")
+            Seccion(tituloSeccion: "Recientes")
+        
+        }.navigationBarHidden(true)
+
+        
     }
 }
 
-struct Home_Previews: PreviewProvider {
-    static var previews: some View {
-        Home()
-    }
-}
 
 
 struct EstiloBotonCrear: ButtonStyle {
@@ -57,7 +65,7 @@ struct BotonCrearReceta: View {
         .font(.title)
         .foregroundColor(.white)
         .frame(height: 150)
-        .background(Color.yellow)
+        .background(Color.orange)
         .cornerRadius(10)
         .padding()
         }

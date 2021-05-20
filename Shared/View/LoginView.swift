@@ -10,6 +10,7 @@ struct LoginView: View {
     
     @EnvironmentObject var viewModel: RegistroViewModel
     @Environment(\.presentationMode) var modoPresentacion
+    @State var irAHome = false
     
     var body: some View {
         VStack {
@@ -51,6 +52,8 @@ struct LoginView: View {
                 .foregroundColor(.white)
                 .frame(height: 45)
                 .background(Color.orange)
+                .background(NavigationLink("",
+                                           destination: RegistroView()))
                 .cornerRadius(10)
                 .padding()
                 NavigationLink("Crear una cuenta",
@@ -68,11 +71,8 @@ struct LoginView: View {
                 Text("¿Olvidaste la contraseña?")
             })
             .foregroundColor(.orange)
-            .background(NavigationLink("",
-                                       destination: RegistroView()),
-                        alignment: .center)
             Spacer()
-        }
+        }.navigationBarHidden(true)
     }
     
 }

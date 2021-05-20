@@ -8,13 +8,30 @@
 import SwiftUI
 
 struct Cuenta: View {
+    @EnvironmentObject var viewModel: RegistroViewModel
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            if viewModel.logueado {
+                VStack {
+                    Text("Logueado")
+                    Button(action: {
+                        viewModel.logout()
+                    }, label: {
+                        Text("Cerrar sesión")
+                            .foregroundColor(Color.orange)
+                    }).background(NavigationLink("",
+                                                destination: LoginView()))
+                }
+            } 
+        }.onAppear {
+            viewModel.logueado = viewModel.signedIn
+        }
     }
 }
 
 struct Cuenta_Previews: PreviewProvider {
     static var previews: some View {
-        Cuenta()
+        Cuenta().environmentObject(RegistroViewModel())
     }
 }
