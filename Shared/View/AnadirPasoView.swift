@@ -10,30 +10,26 @@ import SwiftUI
 struct AnadirPasoView: View {
     var receta: String
     var irAAnadirIngredientes: Binding<Bool>
-    @Binding var irAAnadirPasos: Bool
-    @State var irAListaPasos = false
+    @State var irADetallesReceta = false
     @StateObject var viewModel = PasoViewModel()
     @State var anadir: Bool = false
     @State var anadirMas: Bool = false
-
+    @State private var duracion = ""
+    // Alertas
+    @State var alert = false
+    @State var alertMensaje = ""
+    
     var body: some View {
             VStack(alignment: .leading, spacing: 6) {
                 Section(header: Text("Descripción")) {
-                    TextField("", text: $viewModel.paso.descripcion)
-                        .disabled(anadir ? true : false)
-                        .padding()
-                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.yellow, lineWidth: 1).frame(height: 40))
-                        .padding(.bottom)
+                    SingleFormView(nombreCampo: "", valorCampo: $viewModel.paso.descripcion)
                 }
-        
                 Section(header: Text("Duración")){
-                    TextField("", value: $viewModel.paso.duracion, formatter: NumberFormatter())
-                        .disabled(anadir ? true : false)
-                        .padding()
-                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.yellow, lineWidth: 1).frame(height: 40))
-                        .padding(.bottom)
+                    SingleFormView(nombreCampo: "", valorCampo: $duracion)
+                        .keyboardType(.numberPad)
                 }
                 Button(action: {
+                    viewModel.paso.duracion = Int(duracion) ?? 0
                     self.anadir = true
                     viewModel.anadirPaso(ref: self.receta)
 
@@ -48,6 +44,8 @@ struct AnadirPasoView: View {
                 Button(action: {
                     self.anadirMas = true
                     self.anadir = false
+                    viewModel.paso.descripcion = ""
+                    duracion = ""
                 }, label: {
                     HStack {
                         Spacer()
@@ -57,7 +55,12 @@ struct AnadirPasoView: View {
                 })
                 .buttonStyle(EstiloBoton())
                 Button(action: {
-                    irAListaPasos = true
+                    if viewModel.paso.descripcion.isEmpty {
+                        self.alertMensaje = "Debe rellenar la descripción del paso"
+                        self.alert.toggle()
+                        return
+                    }
+                    irADetallesReceta = true
                 }, label: {
                     HStack {
                         Spacer()
@@ -65,14 +68,14 @@ struct AnadirPasoView: View {
                         Spacer()
                     }
                 }).background(
-                    NavigationLink("", destination: DetallesPasosView(refReceta: receta, irAAnadirPasos: $irAAnadirPasos, irAListaPasos: $irAListaPasos), isActive: $irAListaPasos)
+                    NavigationLink("", destination: DetallesRecetaView(refReceta: receta), isActive: $irADetallesReceta)
+                    //NavigationLink("", destination: DetallesPasosView(refReceta: receta, irAAnadirPasos: $irAAnadirPasos, irAListaPasos: $irAListaPasos), isActive: $irAListaPasos)
                     .hidden()
-                )
-                .buttonStyle(EstiloBoton())
+                ).buttonStyle(EstiloBoton())
                 Spacer()
             }.padding()
-            .navigationBarTitle("Pasos", displayMode: .inline)
-
+            .alert(isPresented: $alert, content: {
+                Alert(title: Text("¡Importante!"), message: Text(alertMensaje), dismissButton: .cancel(Text("Aceptar")))
+            })
         }
     }
-

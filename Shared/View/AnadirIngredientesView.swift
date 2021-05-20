@@ -16,28 +16,23 @@ struct AnadirIngredientesView: View {
     @StateObject var viewModel = IngredienteViewModel()
     @State private var anadir: Bool = false
     @State private var anadirMas: Bool = false
+    @State private var cantidad = ""
+    // Alertas
+    @State var alert = false
+    @State var alertMensaje = ""
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            
             Section(header: Text("Nombre")) {
-                TextField("", text: $viewModel.ingrediente.nombre)
-                .disabled(anadir ? true : false)
-                .padding()
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.yellow, lineWidth: 1).frame(height: 40))
-                .padding(.bottom)
+                SingleFormView(nombreCampo: "", valorCampo: $viewModel.ingrediente.nombre)
             }
-    
             Section(header: Text("Cantidad")){
-                TextField("", value: $viewModel.ingrediente.cantidad, formatter: NumberFormatter())
-                    //.disabled(anadir ? true : false)
-                .padding()
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.yellow, lineWidth: 1).frame(height: 40))
-                .padding(.bottom)
+                SingleFormView(nombreCampo: "", valorCampo: $cantidad)
             }
-    
+
             Section(){
                 HStack {
-                    Picker("Unidad  >", selection: $viewModel.ingrediente.unidad) {
+                    Picker("Unidad 􀆈", selection: $viewModel.ingrediente.unidad) {
                         ForEach(viewModel.medidas, id: \.self) {
                             Text($0)
                         }
@@ -45,7 +40,7 @@ struct AnadirIngredientesView: View {
                     .pickerStyle(MenuPickerStyle())
                     .foregroundColor(.black)
                     Spacer()
-                    Text(viewModel.ingrediente.unidad)
+                    Text(viewModel.ingrediente.unidad ?? "")
                 }
                 .padding()
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.yellow, lineWidth: 1).frame(height: 40))
@@ -53,6 +48,7 @@ struct AnadirIngredientesView: View {
             }
             
             Button(action: {
+                viewModel.ingrediente.cantidad = Int(cantidad)!
                 self.anadir = true
                 viewModel.anadirIngrediente(ref: self.receta)
             }, label: {
@@ -69,6 +65,8 @@ struct AnadirIngredientesView: View {
             Button(action: {
                 self.anadirMas = true
                 anadir = false
+                viewModel.ingrediente.nombre = ""
+                cantidad = ""
             }, label: {
                 HStack {
                     Spacer()
@@ -80,6 +78,16 @@ struct AnadirIngredientesView: View {
             .buttonStyle(EstiloBoton())
             .padding(.bottom)
             Button(action: {
+                if viewModel.ingrediente.nombre.isEmpty || cantidad.isEmpty {
+                    self.alertMensaje = "Debe rellenar todos los campos"
+                    self.alert.toggle()
+                    return
+                }
+                if Int(cantidad) == nil {
+                    self.alertMensaje = "La cantidad debe ser un número"
+                    self.alert.toggle()
+                    return
+                }
                 irAAnadirPasos = true
             }, label: {
                 HStack {
@@ -90,13 +98,18 @@ struct AnadirIngredientesView: View {
             }).buttonStyle(EstiloBoton())
             .buttonStyle(EstiloBoton())
             .background(
-                NavigationLink("", destination: AnadirPasoView(receta: receta, irAAnadirIngredientes: $irAAnadirIngredientes, irAAnadirPasos: $irAAnadirPasos), isActive: $irAAnadirPasos)
+                NavigationLink("", destination: AnadirPasoView(receta: receta, irAAnadirIngredientes: $irAAnadirIngredientes), isActive: $irAAnadirPasos)
+                    .hidden()
+                //NavigationLink("", destination: AnadirPasoView(receta: receta, irAAnadirIngredientes: $irAAnadirIngredientes, irAAnadirPasos: $irAAnadirPasos), isActive: $irAAnadirPasos)
                     .hidden()
             )
             Spacer()
         }.padding()
         .navigationBarTitle("Ingredientes", displayMode: .inline)
         .navigationBarItems(leading: NuevaRecetaView(irANuevaReceta: irANuevaReceta, ref: receta))
+        .alert(isPresented: $alert, content: {
+            Alert(title: Text("¡Importante!"), message: Text(alertMensaje), dismissButton: .cancel(Text("Aceptar")))
+        })
     }
 }
 

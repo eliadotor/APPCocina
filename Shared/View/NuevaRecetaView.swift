@@ -16,42 +16,32 @@ struct NuevaRecetaView: View {
     @State private var anadir: Bool = false
     @State private var anadirMas: Bool = false
     @State var ref: String
+    @State private var duracion = ""
+    @State private var raciones = ""
+    // Alertas
+    @State var alert = false
+    @State var alertMensaje = ""
+
     
     var body: some View {
 
         VStack(alignment: .leading, spacing: 6){
 
             Section(header: Text("Nombre")){
-                TextField("", text: $viewModel.receta.titulo)
-                    .padding()
-                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.yellow, lineWidth: 1).frame(height: 40))
-                    .padding(.bottom)
-                
+                SingleFormView(nombreCampo: "", valorCampo: $viewModel.receta.titulo)
             }
     
             Section(header: Text("Duración")){
-                TextField("Duración", value: $viewModel.receta.duracion, formatter: NumberFormatter()).keyboardType(.numberPad)
-                    .padding()
-                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.yellow, lineWidth: 1).frame(height: 40))
-                    .padding(.bottom)
+                SingleFormView(nombreCampo: "", valorCampo: $duracion)
+                    .keyboardType(.numberPad)
             }
             Section(header: Text("Raciones")){
-                TextField("Raciones", value: $viewModel.receta.raciones, formatter: NumberFormatter()).ignoresSafeArea(.keyboard)
-                    .padding()
-                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.yellow, lineWidth: 1).frame(height: 40))
-                    .padding(.bottom)
-
-            }
-            Section(header: Text("Imagen")){
-                TextField("", text: $viewModel.receta.foto)
-                    .padding()
-                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.yellow, lineWidth: 1).frame(height: 40))
-                    .padding(.bottom)
-
+                SingleFormView(nombreCampo: "", valorCampo: $raciones)
+                    .keyboardType(.numberPad)
             }
             Section(){
                 HStack {
-                    Picker("Categoria  >", selection: $viewModel.receta.categoria) {
+                    Picker("Categoria 􀆈", selection: $viewModel.receta.categoria) {
                         ForEach(viewModel.categorias, id: \.self) {
                             Text($0)
                         }
@@ -62,12 +52,29 @@ struct NuevaRecetaView: View {
                     Text(viewModel.receta.categoria)
                 }
                 .padding()
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.yellow, lineWidth: 1).frame(height: 40))
-                .padding(.bottom)
-
+                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.orange, lineWidth: 1).frame(height: 40))
+                .padding(.vertical)
             }
-            
             Button("Añadir ingredientes" ) {
+                if viewModel.receta.titulo.isEmpty || duracion.isEmpty || raciones.isEmpty {
+                    self.alertMensaje = "Debe rellenar todos los campos"
+                    self.alert.toggle()
+                    return
+                }
+                
+                if Int(duracion) == nil || Int(raciones) == nil {
+                    self.alertMensaje = "La duración y las raciones deben ser números"
+                    self.alert.toggle()
+                    return
+                }
+                
+                if viewModel.receta.categoria == "" {
+                    self.alertMensaje = "Debe seleccionar una categoría"
+                    self.alert.toggle()
+                    return
+                }
+                viewModel.receta.duracion = Int(duracion)!
+                viewModel.receta.raciones = Int(raciones)!
                 irAAnadirIngredientes = true
                 self.ref = viewModel.anadirRecetas()
             }
@@ -75,37 +82,11 @@ struct NuevaRecetaView: View {
                 NavigationLink("", destination: AnadirIngredientesView(receta: ref, irANuevaReceta: irANuevaReceta, irAAnadirIngredientes: $irAAnadirIngredientes), isActive: $irAAnadirIngredientes)
             )
             .buttonStyle(EstiloBoton())
-            
+            Spacer()
         }.padding(.horizontal)
         .navigationBarTitle("Receta", displayMode: .inline)
-    
+        .alert(isPresented: $alert, content: {
+            Alert(title: Text("¡Importante!"), message: Text(alertMensaje), dismissButton: .cancel(Text("Aceptar")))
+        })
     }
 }
-
-struct EstiloBoton: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-        .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-        .font(.title2)
-        .padding(.vertical)
-        .foregroundColor(.white)
-        .frame(height: 45)
-        .background(Color.yellow)
-        .cornerRadius(10)
-    }
-}
-
-struct EstiloBotonDesactivado: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-        .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-        .font(.title2)
-        .padding(.vertical)
-        .foregroundColor(.yellow)
-        .frame(height: 45)
-        .background(Color.yellow.opacity(0.3))
-        .cornerRadius(10)
-        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.yellow, lineWidth: 1).frame(height: 45))
-    }
-}
-
