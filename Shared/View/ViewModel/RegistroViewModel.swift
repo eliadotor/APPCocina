@@ -30,7 +30,6 @@ class RegistroViewModel : ObservableObject {
     private var cancellableObects: Set<AnyCancellable> = []
     
     // Comprobar estado
-
     @Published var logueado = false
     @Published var emailVerificado = false
     
@@ -168,7 +167,7 @@ class RegistroViewModel : ObservableObject {
                 self.alert.toggle()
             }
             if error == nil && self.email.isEmpty == false{
-                self.alertMensaje = "Se ha enviado un link para restaurar la contraseña a su correo electrónico"
+                self.alertMensaje = "Se ha enviado un link para validar la cuenta a su correo electrónico"
                 self.alert.toggle()
             }
                     
