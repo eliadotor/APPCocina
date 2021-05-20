@@ -31,9 +31,6 @@ struct LoginView: View {
                 SingleFormView(nombreCampo: "Contraseña", valorCampo: $viewModel.password, protegido: true)
             }.padding()
                 Button(action: {
-                    guard !viewModel.email.isEmpty, !viewModel.password.isEmpty else {
-                        return
-                    }
                     viewModel.login()
                 }, label: {
                     Text("Entrar")
@@ -43,14 +40,11 @@ struct LoginView: View {
                                            destination: RegistroView()))
                 NavigationLink("Crear una cuenta",
                                        destination: RegistroView())
-                    .padding()
+                    .padding(.bottom)
                     .foregroundColor(.orange)
             
 
             Button(action: {
-                guard !viewModel.email.isEmpty else {
-                    return
-                }
                 viewModel.recuperarPassword()
             }, label: {
                 Text("¿Olvidaste la contraseña?")
@@ -58,6 +52,9 @@ struct LoginView: View {
             .foregroundColor(.orange)
             Spacer()
         }.navigationBarHidden(true)
+        .alert(isPresented: $viewModel.alert, content: {
+            Alert(title: Text("¡Importante!"), message: Text(viewModel.alertMensaje), dismissButton: .cancel(Text("Aceptar")))
+        })
     }
     
 }

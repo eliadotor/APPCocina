@@ -42,7 +42,9 @@ class RegistroViewModel : ObservableObject {
         return ((Auth.auth().currentUser?.isEmailVerified) != nil)
     }
     
-    
+    // Alertas
+    @Published var alert = false
+    @Published var alertMensaje = ""
     
     init() {
         // Validación email
@@ -96,12 +98,39 @@ class RegistroViewModel : ObservableObject {
     /* Función que registra usuarios después de comproabar que no están
        ya registrados */
     func registrar() {
-        Auth.auth().createUser(withEmail: email, password: password) { [weak self] (resultado, error) in
-            guard resultado != nil, error == nil else {
+        if self.email.isEmpty || self.password.isEmpty || self.confirmarPass.isEmpty {
+            self.alertMensaje = "Es necesario rellenar todos los campos"
+            self.alert.toggle()
+            return
+        }
+        
+        if !emailValido {
+            self.alertMensaje = "Error en el correo electrónico"
+            self.alert.toggle()
+            return
+        }
+        
+        if !passwordValida || !passwordLongitudValida || !passwordCoincide {
+            self.alertMensaje = "Error en la contraseña"
+            self.alert.toggle()
+            return
+        }
+        
+        if !acepto {
+            self.alertMensaje = "Debe aceptar la política de privacidad"
+            self.alert.toggle()
+            return
+        }
+        
+        Auth.auth().createUser(withEmail: email, password: password) { resultado, error in
+            if error != nil {
+                self.alertMensaje = "Ya existe una cuenta con este correo electrónico"
+                self.alert.toggle()
                 return
             }
-            DispatchQueue.main.async {
-                self?.logueado = true
+            
+            if (resultado != nil) {
+                self.logueado = true
             }
         }
     }
@@ -109,13 +138,19 @@ class RegistroViewModel : ObservableObject {
     /* Función para iniciar sesión después de comproabar
        el email y la contraseña */
     func login() {
-        Auth.auth().signIn(withEmail: email.lowercased(), password: password) { [weak self] (resultado, error) in
-            guard resultado != nil, error == nil else {
+        if self.email.isEmpty || self.password.isEmpty {
+            self.alertMensaje = "Es necesario rellenar todos los campos"
+            self.alert.toggle()
+            return
+        }
+        
+        Auth.auth().signIn(withEmail: email.lowercased(), password: password) { resultado, error in
+            if error != nil {
+                self.alertMensaje = "El correo o la contraseña no es correcta"
+                self.alert.toggle()
                 return
             }
-            DispatchQueue.main.async {
-                self?.logueado = true
-            }
+            self.logueado = true
         }
     }
     
@@ -128,8 +163,13 @@ class RegistroViewModel : ObservableObject {
     /* Función que envia un email con un link de verificación de la cuenta */
     func enviarEmailConfirmacion() {
         Auth.auth().currentUser?.sendEmailVerification { (error) in
-            guard error == nil else {
-                return
+            if self.email.isEmpty == true || error != nil {
+                self.alertMensaje = "Es necesario introducir un correo electrónico"
+                self.alert.toggle()
+            }
+            if error == nil && self.email.isEmpty == false{
+                self.alertMensaje = "Se ha enviado un link para restaurar la contraseña a su correo electrónico"
+                self.alert.toggle()
             }
                     
         }
@@ -141,10 +181,12 @@ class RegistroViewModel : ObservableObject {
         Auth.auth().sendPasswordReset(withEmail: email) { error in
             DispatchQueue.main.async {
                 if self.email.isEmpty == true || error != nil {
-                    // Alerta
+                    self.alertMensaje = "Es necesario introducir un correo válido"
+                    self.alert.toggle()
                 }
                 if error == nil && self.email.isEmpty == false{
-                    // Alerta
+                    self.alertMensaje = "Se ha enviado un link para restaurar la contraseña a su correo electrónico"
+                    self.alert.toggle()
                 }
             }
         }

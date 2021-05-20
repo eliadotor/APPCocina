@@ -60,16 +60,13 @@ struct RegistroView: View {
                     
                     Spacer()
                 }.padding(.top)
-                if registrar {
+                if registrar && !viewModel.acepto {
                     ValidacionFormularioView(nombreIcono: viewModel.acepto ? "checkmark.circle.fill" : "xmark.circle", colorIcono: viewModel.acepto ? Color.green : Color.red, texto: "Debe aceptar la política de privacidad")
                         .padding(.horizontal)
                 }
             }.padding()
                 Button(action: {
                     registrar = true
-                    guard !viewModel.email.isEmpty, !viewModel.password.isEmpty, viewModel.password == viewModel.confirmarPass else {
-                        return
-                    }
                     viewModel.registrar()
                 }, label: {
                     Text("Registrarse")
@@ -83,5 +80,8 @@ struct RegistroView: View {
                     .foregroundColor(.orange)
             Spacer()
         }.navigationBarHidden(true)
+        .alert(isPresented: $viewModel.alert, content: {
+            Alert(title: Text("¡Importante!"), message: Text(viewModel.alertMensaje), dismissButton: .cancel(Text("Aceptar")))
+        })
     }
 }
