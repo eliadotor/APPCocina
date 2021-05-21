@@ -7,8 +7,9 @@
 
 import Foundation
 
-struct Ingrediente: Codable {
+struct Ingrediente: Identifiable, Codable {
+    var id: Int
     var nombre: String
     var cantidad: Int
-    var unidad: String?
+    var unidad: String
 }
