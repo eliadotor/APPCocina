@@ -43,7 +43,6 @@ struct SingleFormView: View {
                 TextField(nombreCampo, text: $valorCampo)
                     .disableAutocorrection(true)
                     .autocapitalization(.none)
-                    .keyboardType(.emailAddress)
                     .padding(.horizontal)
                     .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.orange, lineWidth: 1).frame(height: 40))
                     .padding(.vertical)

@@ -27,6 +27,7 @@ struct LoginView: View {
             VStack {
                 // TextField
                 SingleFormView(nombreCampo: "Email", valorCampo: $viewModel.email)
+                    .keyboardType(.emailAddress)
                 // SecureField
                 SingleFormView(nombreCampo: "Contraseña", valorCampo: $viewModel.password, protegido: true)
             }.padding()
@@ -42,7 +43,6 @@ struct LoginView: View {
                                        destination: RegistroView())
                     .padding(.bottom)
                     .foregroundColor(.orange)
-            
 
             Button(action: {
                 viewModel.recuperarPassword()

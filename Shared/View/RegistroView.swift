@@ -26,6 +26,7 @@ struct RegistroView: View {
             VStack {
                 // TextField
                 SingleFormView(nombreCampo: "Email", valorCampo: $viewModel.email)
+                    .keyboardType(.emailAddress)
                 if !viewModel.email.isEmpty {
                     ValidacionFormularioView(nombreIcono: viewModel.emailValido ? "checkmark.circle.fill" : "xmark.circle", colorIcono: viewModel.emailValido ? Color.green : Color.red, texto: "Tiene que ser un correo válido")
                         .padding(.horizontal)
@@ -34,7 +35,6 @@ struct RegistroView: View {
                 SingleFormView(nombreCampo: "Contraseña", valorCampo: $viewModel.password, protegido: true)
                 
                 if !viewModel.password.isEmpty {
-                    
                         ValidacionFormularioView(nombreIcono: viewModel.passwordLongitudValida ? "checkmark.circle.fill" : "xmark.circle", colorIcono: viewModel.passwordLongitudValida ? Color.green : Color.red,
                                                     texto: "Mínimo 6 caracteres")
                             .padding(.horizontal)

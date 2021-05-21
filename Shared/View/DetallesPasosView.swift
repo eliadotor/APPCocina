@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DetallesPasosView: View {
+    @Environment(\.presentationMode) var modoPresentacion
     var refReceta = ""
     var irAAnadirPasos: Binding<Bool>
     @Binding var irAListaPasos: Bool
@@ -41,7 +42,7 @@ struct DetallesPasosView: View {
             }
         }
         .sheet(isPresented: $nuevoPaso) {
-            AnadirPasoView(receta: refReceta, irAAnadirIngredientes: $irAAnadirIngredientes, irAAnadirPasos: irAAnadirPasos)
+            AnadirPasoView(receta: refReceta, irAAnadirIngredientes: $irAAnadirIngredientes)
         }
             
         
