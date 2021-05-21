@@ -23,6 +23,17 @@ struct AnadirIngredientesView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
+            HStack {
+                VStack (alignment: .leading){
+                    Text("Añadir Ingredientes")
+                        .font(.title2)
+                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                        .padding(.bottom)
+                    
+                }
+                .accessibility(addTraits: .isHeader)
+                Spacer()
+            }
             Section(header: Text("Nombre")) {
                 SingleFormView(nombreCampo: "", valorCampo: $viewModel.ingrediente.nombre)
             }
@@ -40,14 +51,24 @@ struct AnadirIngredientesView: View {
                     .pickerStyle(MenuPickerStyle())
                     .foregroundColor(.black)
                     Spacer()
-                    Text(viewModel.ingrediente.unidad ?? "")
+                    Text(viewModel.ingrediente.unidad)
                 }
                 .padding()
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.yellow, lineWidth: 1).frame(height: 40))
+                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.orange, lineWidth: 1).frame(height: 40))
                 .padding(.bottom)
             }
             
             Button(action: {
+                if viewModel.ingrediente.nombre.isEmpty || cantidad.isEmpty {
+                    self.alertMensaje = "Debe rellenar todos los campos"
+                    self.alert.toggle()
+                    return
+                }
+                if Int(cantidad) == nil {
+                    self.alertMensaje = "La cantidad debe ser un número"
+                    self.alert.toggle()
+                    return
+                }
                 viewModel.ingrediente.cantidad = Int(cantidad)!
                 self.anadir = true
                 viewModel.anadirIngrediente(ref: self.receta)
@@ -57,10 +78,9 @@ struct AnadirIngredientesView: View {
                     Text(anadir ? "Añadido" : "Añadir ingrediente")
                     Spacer()
                 }
-            }).foregroundColor(.yellow)
-            .font(.title2)
-            .buttonStyle(EstiloBoton())
-            .padding(.bottom)
+            })
+            .foregroundColor(anadir ? .secondary : .orange)
+            .buttonStyle(EstiloBotonSecundario())
             .disabled(anadir)
             Button(action: {
                 self.anadirMas = true
@@ -73,18 +93,13 @@ struct AnadirIngredientesView: View {
                     Text("Añadir más ingredientes")
                     Spacer()
                 }
-            }).foregroundColor(.yellow)
+            }).foregroundColor(.orange)
             .font(.title2)
-            .buttonStyle(EstiloBoton())
-            .padding(.bottom)
+            .buttonStyle(EstiloBotonSecundario())
+            .foregroundColor(.white)
             Button(action: {
-                if viewModel.ingrediente.nombre.isEmpty || cantidad.isEmpty {
-                    self.alertMensaje = "Debe rellenar todos los campos"
-                    self.alert.toggle()
-                    return
-                }
-                if Int(cantidad) == nil {
-                    self.alertMensaje = "La cantidad debe ser un número"
+                if !anadir && !anadirMas {
+                    self.alertMensaje = "Debe añadir al menos un ingrediente"
                     self.alert.toggle()
                     return
                 }
@@ -96,15 +111,13 @@ struct AnadirIngredientesView: View {
                     Spacer()
                 }
             }).buttonStyle(EstiloBoton())
-            .buttonStyle(EstiloBoton())
             .background(
                 NavigationLink("", destination: AnadirPasoView(receta: receta, irAAnadirIngredientes: $irAAnadirIngredientes), isActive: $irAAnadirPasos)
                     .hidden()
-                //NavigationLink("", destination: AnadirPasoView(receta: receta, irAAnadirIngredientes: $irAAnadirIngredientes, irAAnadirPasos: $irAAnadirPasos), isActive: $irAAnadirPasos)
-                    .hidden()
             )
             Spacer()
-        }.padding()
+        }.padding(.horizontal)
+        .padding()
         .navigationBarTitle("Ingredientes", displayMode: .inline)
         .navigationBarItems(leading: NuevaRecetaView(irANuevaReceta: irANuevaReceta, ref: receta))
         .alert(isPresented: $alert, content: {

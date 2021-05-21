@@ -21,6 +21,17 @@ struct AnadirPasoView: View {
     
     var body: some View {
             VStack(alignment: .leading, spacing: 6) {
+                HStack {
+                    VStack (alignment: .leading){
+                        Text("Añadir Pasos")
+                            .font(.title2)
+                            .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                            .padding(.bottom)
+                        
+                    }
+                    .accessibility(addTraits: .isHeader)
+                    Spacer()
+                }
                 Section(header: Text("Descripción")) {
                     SingleFormView(nombreCampo: "", valorCampo: $viewModel.paso.descripcion)
                 }
@@ -29,6 +40,11 @@ struct AnadirPasoView: View {
                         .keyboardType(.numberPad)
                 }
                 Button(action: {
+                    if viewModel.paso.descripcion.isEmpty {
+                        self.alertMensaje = "Debe rellenar la descripción del paso"
+                        self.alert.toggle()
+                        return
+                    }
                     viewModel.paso.duracion = Int(duracion) ?? 0
                     self.anadir = true
                     viewModel.anadirPaso(ref: self.receta)
@@ -39,8 +55,10 @@ struct AnadirPasoView: View {
                         Text(anadir ? "Añadido" : "Añadir paso")
                         Spacer()
                     }
-                }).disabled(anadir)
-                .buttonStyle(EstiloBoton())
+                })
+                .foregroundColor(anadir ? .secondary : .orange)
+                .buttonStyle(EstiloBotonSecundario())
+                .disabled(anadir)
                 Button(action: {
                     self.anadirMas = true
                     self.anadir = false
@@ -52,11 +70,11 @@ struct AnadirPasoView: View {
                         Text("Añadir más pasos")
                         Spacer()
                     }
-                })
-                .buttonStyle(EstiloBoton())
+                }).foregroundColor(.orange)
+                .buttonStyle(EstiloBotonSecundario())
                 Button(action: {
-                    if viewModel.paso.descripcion.isEmpty {
-                        self.alertMensaje = "Debe rellenar la descripción del paso"
+                    if !anadir && !anadirMas {
+                        self.alertMensaje = "Debe añadir al menos un paso"
                         self.alert.toggle()
                         return
                     }
@@ -73,7 +91,8 @@ struct AnadirPasoView: View {
                     .hidden()
                 ).buttonStyle(EstiloBoton())
                 Spacer()
-            }.padding()
+            }.padding(.horizontal)
+            .padding()
             .alert(isPresented: $alert, content: {
                 Alert(title: Text("¡Importante!"), message: Text(alertMensaje), dismissButton: .cancel(Text("Aceptar")))
             })

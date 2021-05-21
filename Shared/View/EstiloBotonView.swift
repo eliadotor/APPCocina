@@ -37,17 +37,15 @@ struct EstiloBoton: ButtonStyle {
     }
 }
 
-
-struct EstiloBotonDesactivado: ButtonStyle {
+struct EstiloBotonSecundario: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
         .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
         .font(.title2)
-        .padding(.vertical)
-        .foregroundColor(.yellow)
         .frame(height: 45)
-        .background(Color.yellow.opacity(0.3))
         .cornerRadius(10)
-        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.yellow, lineWidth: 1).frame(height: 45))
+        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.orange, lineWidth: 2).frame(height: 45))
+        .padding(.horizontal)
+        .padding(.top)
     }
 }

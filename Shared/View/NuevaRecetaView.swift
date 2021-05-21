@@ -26,6 +26,17 @@ struct NuevaRecetaView: View {
     var body: some View {
 
         VStack(alignment: .leading, spacing: 6){
+            HStack {
+                VStack (alignment: .leading){
+                    Text("Nueva Receta")
+                        .font(.title2)
+                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                        .padding(.bottom)
+                    
+                }
+                .accessibility(addTraits: .isHeader)
+                Spacer()
+            }
 
             Section(header: Text("Nombre")){
                 SingleFormView(nombreCampo: "", valorCampo: $viewModel.receta.titulo)
@@ -84,6 +95,7 @@ struct NuevaRecetaView: View {
             .buttonStyle(EstiloBoton())
             Spacer()
         }.padding(.horizontal)
+        .padding()
         .navigationBarTitle("Receta", displayMode: .inline)
         .alert(isPresented: $alert, content: {
             Alert(title: Text("¡Importante!"), message: Text(alertMensaje), dismissButton: .cancel(Text("Aceptar")))

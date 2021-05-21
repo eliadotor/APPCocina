@@ -89,7 +89,7 @@ struct Imagenes: View {
         .cornerRadius(12)
         .background(
     NavigationLink("",
-                                   destination: DetallesRecetaView(refReceta: "c7KNpmDJl39yDDoVMmGE"),
+                                   destination: DetallesRecetaView(refReceta: "zbwTGYYQH4Anp3KFn4tk"),
                                    isActive: $navegacion)
         .hidden()
         )
