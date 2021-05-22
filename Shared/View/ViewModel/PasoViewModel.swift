@@ -41,4 +41,24 @@ class PasoViewModel: ObservableObject {
             }
         }
     }
+    
+    func getPaso(ref: String, id: Int) {
+        bd.collection("recetas").document(ref).collection("pasos").document("Paso \(id)").getDocument { (document, error) in
+            if let document = document, document.exists {
+                let pasoDescripcion = document.data().map(String.init(describing:)) ?? "nil"
+                print(pasoDescripcion)
+            } else {
+                print("El paso no existe")
+            }
+            
+            self.paso = document.map { queryDocumentSnapshot -> Paso in
+                let data = queryDocumentSnapshot.data()
+                let id = data?["id"] as? Int ?? 0
+                let descripcion = data?["descripcion"] as? String ?? ""
+                let duracion = data?["duracion"] as? Int ?? 0
+
+                return Paso(id: id, descripcion: descripcion, duracion: duracion)
+            }!
+        }
+    }
 }

@@ -47,6 +47,8 @@
 		45A48762264EE79C00939FC4 /* NuevaRecetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A48761264EE79C00939FC4 /* NuevaRecetaView.swift */; };
 		45A4876C264EEDAF00939FC4 /* AnadirIngredientesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A4876B264EEDAF00939FC4 /* AnadirIngredientesView.swift */; };
 		45A48772264EF40E00939FC4 /* AnadirPasoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A48771264EF40E00939FC4 /* AnadirPasoView.swift */; };
+		45B8A7FB2658F1D4002AB744 /* PasoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B8A7FA2658F1D4002AB744 /* PasoView.swift */; };
+		45B8A7FC2658F1D4002AB744 /* PasoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B8A7FA2658F1D4002AB744 /* PasoView.swift */; };
 		45BAAFB6263494490021A780 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BAAFB5263494490021A780 /* Tests_iOS.swift */; };
 		45BAAFC1263494490021A780 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BAAFC0263494490021A780 /* Tests_macOS.swift */; };
 		45BAAFC3263494490021A780 /* APPCocinaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BAAF9A263494450021A780 /* APPCocinaApp.swift */; };
@@ -99,6 +101,7 @@
 		45A48761264EE79C00939FC4 /* NuevaRecetaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NuevaRecetaView.swift; sourceTree = "<group>"; };
 		45A4876B264EEDAF00939FC4 /* AnadirIngredientesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnadirIngredientesView.swift; sourceTree = "<group>"; };
 		45A48771264EF40E00939FC4 /* AnadirPasoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnadirPasoView.swift; sourceTree = "<group>"; };
+		45B8A7FA2658F1D4002AB744 /* PasoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasoView.swift; sourceTree = "<group>"; };
 		45BAAF9A263494450021A780 /* APPCocinaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPCocinaApp.swift; sourceTree = "<group>"; };
 		45BAAF9B263494450021A780 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		45BAAF9C263494480021A780 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -166,11 +169,12 @@
 				45022598264063FC00876A16 /* Cuenta.swift */,
 				4502259F2640642900876A16 /* Menus.swift */,
 				458EED2F2657A4150057A482 /* RecetasView.swift */,
-				4502257C264060EE00876A16 /* DetallesRecetaView.swift */,
 				45BB40DC265116BA00EC1537 /* DetallesPasosView.swift */,
+				4502257C264060EE00876A16 /* DetallesRecetaView.swift */,
 				45A48761264EE79C00939FC4 /* NuevaRecetaView.swift */,
 				45A4876B264EEDAF00939FC4 /* AnadirIngredientesView.swift */,
 				45A48771264EF40E00939FC4 /* AnadirPasoView.swift */,
+				45B8A7FA2658F1D4002AB744 /* PasoView.swift */,
 				458E92C126543A29008CC0A9 /* LoginView.swift */,
 				458E92C726543A31008CC0A9 /* RegistroView.swift */,
 				45760A032656799400AEABE1 /* ValidacionFormularioView.swift */,
@@ -469,6 +473,7 @@
 				45760A0F265679A600AEABE1 /* EstiloBotonView.swift in Sources */,
 				458E92C826543A31008CC0A9 /* RegistroView.swift in Sources */,
 				45022599264063FC00876A16 /* Cuenta.swift in Sources */,
+				45B8A7FB2658F1D4002AB744 /* PasoView.swift in Sources */,
 				45A4876C264EEDAF00939FC4 /* AnadirIngredientesView.swift in Sources */,
 				458E92C226543A29008CC0A9 /* LoginView.swift in Sources */,
 				45760A042656799400AEABE1 /* ValidacionFormularioView.swift in Sources */,
@@ -491,6 +496,7 @@
 				4502255D26405F3000876A16 /* Home.swift in Sources */,
 				45BAAFC4263494490021A780 /* APPCocinaApp.swift in Sources */,
 				4502258C264063A400876A16 /* Codigos.swift in Sources */,
+				45B8A7FC2658F1D4002AB744 /* PasoView.swift in Sources */,
 				45760A052656799400AEABE1 /* ValidacionFormularioView.swift in Sources */,
 				4502259A264063FC00876A16 /* Cuenta.swift in Sources */,
 				450225A12640642900876A16 /* Menus.swift in Sources */,

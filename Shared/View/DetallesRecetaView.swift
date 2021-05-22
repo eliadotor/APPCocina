@@ -10,10 +10,11 @@ import SwiftUI
 struct DetallesRecetaView: View {
     var refReceta = ""
     @State var irARecetas = false
+    @State var comenzarReceta = false
     @ObservedObject private var viewModelR = RecetaViewModel()
     @ObservedObject private var viewModelI = IngredienteViewModel()
     @ObservedObject private var viewModel = PasoViewModel()
-    @State private var comenzarReceta = false
+    @State private var mostrarAlerta = false
     
     var body: some View {
         ScrollView {
@@ -80,7 +81,7 @@ struct DetallesRecetaView: View {
                     self.viewModel.getPasos(ref: refReceta)
                 }
                 Button(action: {
-                    comenzarReceta = true
+                    mostrarAlerta = true
                 }, label: {
                     HStack {
                         Spacer()
@@ -88,10 +89,19 @@ struct DetallesRecetaView: View {
                         Spacer()
                     }
                 }).buttonStyle(EstiloBoton())
+                .background(
+                    NavigationLink("", destination: PasoView(refReceta: refReceta, paso: 1), isActive: $comenzarReceta)
+                )
                 .padding([.horizontal, .bottom])
                 Spacer()
             }.edgesIgnoringSafeArea(.top)
             .navigationBarHidden(true)
+            .alert(isPresented: $mostrarAlerta) {
+                Alert(title: Text("Importante"), message: Text("¿Está seguro de que desea realizar la receta?"), primaryButton: .cancel(Text("No")), secondaryButton:
+                        .default(Text("Sí")) {
+                            comenzarReceta = true
+                        })
+            }
             .overlay(
                 HStack {
                     Spacer()
