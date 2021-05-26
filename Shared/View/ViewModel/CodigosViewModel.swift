@@ -21,20 +21,20 @@ class CodigosViewModel: ObservableObject {
 
     @Published var codigos: Array = [CodigoQR]()
     @Published var codigo: CodigoQR
-    
+
     @Published var nuevoCodigoRef: DocumentReference? = nil
-    
+
 
     let contexto = CIContext()
     let filtro = CIFilter.qrCodeGenerator()
-    
-    
-    
+
+
+
     init(codigo: CodigoQR = CodigoQR(imagenURL: "", descripcion: "", fecha: Date(), caducidad: Date(), userId: Auth.auth().currentUser!.uid)){
         self.codigo = codigo
     }
-    
-    
+
+
     /* Función que genera códigosQR */
     func generarCodigoQR(from string: String) -> UIImage {
         let data = Data(string.utf8)
@@ -48,8 +48,8 @@ class CodigosViewModel: ObservableObject {
 
         return UIImage(systemName: "xmark.circle") ?? UIImage()
     }
-    
-    
+
+
     func guardarImgCodigo(ref: String, imagen: UIImage) {
         if let imagenData = imagen.jpegData(compressionQuality: 0.4) {
             let storageRef = self.storage.reference()
@@ -62,22 +62,22 @@ class CodigosViewModel: ObservableObject {
                     return
                 }
             }
-             
+
              codigoRef.downloadURL { url, error in
               if let error = error {
                 print(error.localizedDescription)
               } else {
-                //
+                self.codigo.imagenURL = "http:/firebasestorage.googleapis.com\(url!.path).jpg"
                 
               }
             }
         }
     }
-    
+
     /* */
     func getImgCodigo(ref: String) -> UIImage {
         var imagen: UIImage?
-    
+
         let storageRef = self.storage.reference(forURL: ref)
         let codigoRef = storageRef.child("codigos").child(ref)
         codigoRef.getData(maxSize: 1 * 1024 * 1024) { imagenData, error in
@@ -91,8 +91,8 @@ class CodigosViewModel: ObservableObject {
           }
         return imagen!
     }
-    
-    
+
+
     /* Función que añade un códigoQR a la base de datos */
     func anadirCodigo() -> String {
         do {
@@ -103,8 +103,8 @@ class CodigosViewModel: ObservableObject {
         }
         return nuevoCodigoRef!.documentID
     }
-    
-    
+
+
     func modificarCodigo(ref: String){
         do {
             try bd.collection("codigos").document(ref).setData(from: codigo)
@@ -113,7 +113,7 @@ class CodigosViewModel: ObservableObject {
             print(error)
         }
     }
-    
+
     /* Función que obtiene todos los códigosQR de un usuario
        de la base de datos */
     func getCodigos() {
@@ -123,13 +123,13 @@ class CodigosViewModel: ObservableObject {
                 print("No documents")
                 return
             }
-            
+
             self.codigos = documentos.compactMap { (queryDocumentSnapshot) -> CodigoQR? in
                 return try? queryDocumentSnapshot.data(as: CodigoQR.self)
             }
         }
     }
-    
+
     /* Función que obtiene un códigoQR de la base de datos */
     func getCodigo(ref: String) {
         bd.collection("codigos").document(ref).getDocument { (document, error) in
@@ -139,17 +139,17 @@ class CodigosViewModel: ObservableObject {
             } else {
                 print("El código no existe")
             }
-            
+
             self.codigo = document.map { queryDocumentSnapshot -> CodigoQR in
                 let data = queryDocumentSnapshot.data()
                 let imagen = data?["imagenURL"] as? String ?? ""
                 let descripcion = data?["descripcion"] as? String ?? ""
-                let fecha = data?["fecha"] as? Date
-                let fechaCaducidad = data?["caducidad"] as? Date
+                let fecha = data?["fecha"] as? Date ?? Date()
+                let fechaCaducidad = data?["caducidad"] as? Date ?? Date()
                 let userID = data?["userId"] as? String ?? ""
                 return CodigoQR(imagenURL: imagen, descripcion: descripcion, fecha: fecha, caducidad: fechaCaducidad, userId: userID)
             }!
         }
     }
-    
+
 }
