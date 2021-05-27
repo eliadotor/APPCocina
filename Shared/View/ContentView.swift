@@ -26,7 +26,7 @@ struct ContentView: View {
                         .tabItem {
                             Label("Menús", systemImage: "calendar")
                     }
-                    Codigos()
+                    LectorCodigosView()
                         .tabItem {
                             Label("Códigos", systemImage: "qrcode.viewfinder")
                     }
