@@ -19,16 +19,18 @@
 	<key>STORAGE_BUCKET</key>
 	<string>appcocina-5d597.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:388496747414:ios:0b3b43e5d60b9516ea0bb7</string>
+	<key>DATABAS_URL</key>
+	<string>http://appcocina-5d597.firebaseio.com</string>
 </dict>
 </plist>

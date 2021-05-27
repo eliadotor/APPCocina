@@ -37,6 +37,8 @@
 		45491D4826597579001AF231 /* LectorCodigosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45491D4726597579001AF231 /* LectorCodigosView.swift */; };
 		45491D4E265975D0001AF231 /* DetallesCodigoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45491D4D265975D0001AF231 /* DetallesCodigoView.swift */; };
 		45491D55265976A5001AF231 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 45491D54265976A5001AF231 /* CodeScanner */; };
+		4571B853265F9CD400B2FE98 /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4571B852265F9CD400B2FE98 /* Loader.swift */; };
+		4571B859265FA6F000B2FE98 /* ImagenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4571B858265FA6F000B2FE98 /* ImagenStorage.swift */; };
 		45760A042656799400AEABE1 /* ValidacionFormularioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45760A032656799400AEABE1 /* ValidacionFormularioView.swift */; };
 		45760A052656799400AEABE1 /* ValidacionFormularioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45760A032656799400AEABE1 /* ValidacionFormularioView.swift */; };
 		45760A0F265679A600AEABE1 /* EstiloBotonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45760A0E265679A600AEABE1 /* EstiloBotonView.swift */; };
@@ -44,6 +46,8 @@
 		457BBC4726594E7700C45268 /* CodigosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457BBC4626594E7700C45268 /* CodigosView.swift */; };
 		457BBC4826594E7700C45268 /* CodigosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 457BBC4626594E7700C45268 /* CodigosView.swift */; };
 		457BBC4E2659553500C45268 /* FirebaseMLModelDownloader in Frameworks */ = {isa = PBXBuildFile; productRef = 457BBC4D2659553500C45268 /* FirebaseMLModelDownloader */; };
+		458606E2265E335F00537377 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 458606E1265E335F00537377 /* FirebaseAnalytics */; };
+		458606E9265E4EB300537377 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 458606E8265E4EB300537377 /* SDWebImageSwiftUI */; };
 		458E92BC26543927008CC0A9 /* RegistroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458E92BB26543927008CC0A9 /* RegistroViewModel.swift */; };
 		458E92C226543A29008CC0A9 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458E92C126543A29008CC0A9 /* LoginView.swift */; };
 		458E92C826543A31008CC0A9 /* RegistroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458E92C726543A31008CC0A9 /* RegistroView.swift */; };
@@ -102,6 +106,8 @@
 		45491D4126597486001AF231 /* CodigosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodigosViewModel.swift; sourceTree = "<group>"; };
 		45491D4726597579001AF231 /* LectorCodigosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LectorCodigosView.swift; sourceTree = "<group>"; };
 		45491D4D265975D0001AF231 /* DetallesCodigoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetallesCodigoView.swift; sourceTree = "<group>"; };
+		4571B852265F9CD400B2FE98 /* Loader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
+		4571B858265FA6F000B2FE98 /* ImagenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagenStorage.swift; sourceTree = "<group>"; };
 		45760A032656799400AEABE1 /* ValidacionFormularioView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidacionFormularioView.swift; sourceTree = "<group>"; };
 		45760A0E265679A600AEABE1 /* EstiloBotonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstiloBotonView.swift; sourceTree = "<group>"; };
 		457BBC4626594E7700C45268 /* CodigosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodigosView.swift; sourceTree = "<group>"; };
@@ -139,12 +145,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				458606E9265E4EB300537377 /* SDWebImageSwiftUI in Frameworks */,
 				45332B17264D14160030314A /* FirebaseFirestore in Frameworks */,
 				45332B21264D14160030314A /* FirebaseAuth in Frameworks */,
 				45332B19264D14160030314A /* FirebaseInstallations in Frameworks */,
 				45332B1F264D14160030314A /* FirebaseMessaging in Frameworks */,
 				45491D55265976A5001AF231 /* CodeScanner in Frameworks */,
 				45332B1B264D14160030314A /* FirebaseStorage in Frameworks */,
+				458606E2265E335F00537377 /* FirebaseAnalytics in Frameworks */,
 				45332B76264D970A0030314A /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				457BBC4E2659553500C45268 /* FirebaseMLModelDownloader in Frameworks */,
 				45332B23264D14160030314A /* FirebaseDynamicLinks in Frameworks */,
@@ -222,6 +230,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		4571B867265FF90200B2FE98 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				4571B858265FA6F000B2FE98 /* ImagenStorage.swift */,
+				4571B852265F9CD400B2FE98 /* Loader.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
 		45BAAF94263494450021A780 = {
 			isa = PBXGroup;
 			children = (
@@ -241,6 +258,7 @@
 			isa = PBXGroup;
 			children = (
 				45BAAF9A263494450021A780 /* APPCocinaApp.swift */,
+				4571B867265FF90200B2FE98 /* Storage */,
 				4502255A26405EDF00876A16 /* View */,
 				45F8FA9A264FCACD00CF4CD5 /* ViewModel */,
 				45332B77264D97170030314A /* Model */,
@@ -335,6 +353,8 @@
 				45332B75264D970A0030314A /* FirebaseFirestoreSwift-Beta */,
 				457BBC4D2659553500C45268 /* FirebaseMLModelDownloader */,
 				45491D54265976A5001AF231 /* CodeScanner */,
+				458606E1265E335F00537377 /* FirebaseAnalytics */,
+				458606E8265E4EB300537377 /* SDWebImageSwiftUI */,
 			);
 			productName = "APPCocina (iOS)";
 			productReference = 45BAAFA1263494480021A780 /* APPCocina.app */;
@@ -430,6 +450,7 @@
 			packageReferences = (
 				45332B15264D14150030314A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				45491D53265976A5001AF231 /* XCRemoteSwiftPackageReference "CodeScanner" */,
+				458606E7265E4EB300537377 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			productRefGroup = 45BAAFA2263494480021A780 /* Products */;
 			projectDirPath = "";
@@ -490,6 +511,7 @@
 				45A48772264EF40E00939FC4 /* AnadirPasoView.swift in Sources */,
 				45332B79264D972A0030314A /* Receta.swift in Sources */,
 				4502257D264060EE00876A16 /* DetallesRecetaView.swift in Sources */,
+				4571B853265F9CD400B2FE98 /* Loader.swift in Sources */,
 				45332B85264D97980030314A /* PasoReceta.swift in Sources */,
 				4502255C26405F3000876A16 /* Home.swift in Sources */,
 				45BAAFC3263494490021A780 /* APPCocinaApp.swift in Sources */,
@@ -499,6 +521,7 @@
 				45491D4826597579001AF231 /* LectorCodigosView.swift in Sources */,
 				45AFC743265AFF2A00C57F29 /* GeneradorCodigosView.swift in Sources */,
 				45760A0F265679A600AEABE1 /* EstiloBotonView.swift in Sources */,
+				4571B859265FA6F000B2FE98 /* ImagenStorage.swift in Sources */,
 				458E92C826543A31008CC0A9 /* RegistroView.swift in Sources */,
 				45022599264063FC00876A16 /* Cuenta.swift in Sources */,
 				45491D3C265973FE001AF231 /* CodigoQR.swift in Sources */,
@@ -929,6 +952,14 @@
 				minimumVersion = 1.0.7;
 			};
 		};
+		458606E7265E4EB300537377 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -981,6 +1012,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 45332B15264D14150030314A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMLModelDownloader;
+		};
+		458606E1265E335F00537377 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 45332B15264D14150030314A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		458606E8265E4EB300537377 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 458606E7265E4EB300537377 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
