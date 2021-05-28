@@ -13,56 +13,44 @@ struct CodigosView: View {
     @State var refCodigo = ""
     @State var imagen = UIImage()
     @State private var nuevoCodigo = false
-    @State private var irACodigo = false
     
     // Definición de las columnas que tendrá cada fila
-        var columnas: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
+    var columnas: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     var body: some View {
-        NavigationView {
+        VStack {
             ScrollView([ .vertical ], showsIndicators: false){
-                if (viewModel.codigos.count >= 1){
-                        ForEach(viewModel.codigos) { codigo in
-                            Button (action: {
-                                irACodigo = true
-                                
-                            }) {
-                                Image(uiImage: imagen)
-                                    .interpolation(.none)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .cornerRadius(12)
-                                
-                                
-                            }.background(NavigationLink("", destination: DetallesCodigoView(refCodigo: refCodigo), isActive: $irACodigo))
+                LazyVGrid(columns: columnas, alignment: .center, spacing: 18) {
+                    ForEach(self.viewModel.codigos) { codigo in
+                        NavigationLink(destination: DetallesCodigoView(idCodigo: codigo.id)){
+                            VStack(alignment: .leading) {
+                                ImagenStorage(imagenUrl: codigo.imagenURL)
+                                Text(codigo.titulo)
+                                    .bold()
+                                    .foregroundColor(.black)
+                                    .padding(.leading, 1)
+                            }
                         }
-                } else {
-                   Button("Crear código") {
-                        nuevoCodigo = true
-                        self.refCodigo = viewModel.anadirCodigo()
-                        self.imagen = viewModel.generarCodigoQR(from: refCodigo)
-                        viewModel.guardarImgCodigo(ref: refCodigo, imagen: imagen)
-                    }
-                }
-            }.navigationBarTitle("Mis Códigos")
+                   }
+                }.padding(.horizontal)
+            }.navigationBarTitle("Mis Códigos", displayMode: .inline)
             .onAppear() {
                 self.viewModel.getCodigos()
             }
             .toolbar {
-                ToolbarItem {
+                ToolbarItem (placement: .navigationBarTrailing){
                     Button(action: {
                         nuevoCodigo = true
                         self.refCodigo = viewModel.anadirCodigo()
                         self.imagen = viewModel.generarCodigoQR(from: refCodigo)
-                        viewModel.guardarImgCodigo(ref: refCodigo, imagen: imagen)
+                        viewModel.guardarImgCodigo(imagen: imagen)
                     }, label: {
                         Label("Nuevo código", systemImage: "plus")
                     })
                 }
             }
             .sheet(isPresented: $nuevoCodigo) {
-                GeneradorCodigosView(refCodigo: refCodigo, imagen: imagen)
+                EditorCodigosView(refCodigo: refCodigo, imagen: imagen)
             }
-            
         }
     }
 }

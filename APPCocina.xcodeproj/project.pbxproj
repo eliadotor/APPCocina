@@ -57,7 +57,7 @@
 		45A48762264EE79C00939FC4 /* NuevaRecetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A48761264EE79C00939FC4 /* NuevaRecetaView.swift */; };
 		45A4876C264EEDAF00939FC4 /* AnadirIngredientesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A4876B264EEDAF00939FC4 /* AnadirIngredientesView.swift */; };
 		45A48772264EF40E00939FC4 /* AnadirPasoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A48771264EF40E00939FC4 /* AnadirPasoView.swift */; };
-		45AFC743265AFF2A00C57F29 /* GeneradorCodigosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AFC742265AFF2A00C57F29 /* GeneradorCodigosView.swift */; };
+		45AFC743265AFF2A00C57F29 /* EditorCodigosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AFC742265AFF2A00C57F29 /* EditorCodigosView.swift */; };
 		45B8A7FB2658F1D4002AB744 /* PasoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B8A7FA2658F1D4002AB744 /* PasoView.swift */; };
 		45B8A7FC2658F1D4002AB744 /* PasoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B8A7FA2658F1D4002AB744 /* PasoView.swift */; };
 		45BAAFB6263494490021A780 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BAAFB5263494490021A780 /* Tests_iOS.swift */; };
@@ -118,7 +118,7 @@
 		45A48761264EE79C00939FC4 /* NuevaRecetaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NuevaRecetaView.swift; sourceTree = "<group>"; };
 		45A4876B264EEDAF00939FC4 /* AnadirIngredientesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnadirIngredientesView.swift; sourceTree = "<group>"; };
 		45A48771264EF40E00939FC4 /* AnadirPasoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnadirPasoView.swift; sourceTree = "<group>"; };
-		45AFC742265AFF2A00C57F29 /* GeneradorCodigosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneradorCodigosView.swift; sourceTree = "<group>"; };
+		45AFC742265AFF2A00C57F29 /* EditorCodigosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorCodigosView.swift; sourceTree = "<group>"; };
 		45B8A7FA2658F1D4002AB744 /* PasoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasoView.swift; sourceTree = "<group>"; };
 		45BAAF9A263494450021A780 /* APPCocinaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPCocinaApp.swift; sourceTree = "<group>"; };
 		45BAAF9B263494450021A780 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -203,7 +203,7 @@
 				457BBC4626594E7700C45268 /* CodigosView.swift */,
 				45491D4726597579001AF231 /* LectorCodigosView.swift */,
 				45491D4D265975D0001AF231 /* DetallesCodigoView.swift */,
-				45AFC742265AFF2A00C57F29 /* GeneradorCodigosView.swift */,
+				45AFC742265AFF2A00C57F29 /* EditorCodigosView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -514,7 +514,7 @@
 				45A48762264EE79C00939FC4 /* NuevaRecetaView.swift in Sources */,
 				45A48756264EE53100939FC4 /* IngredienteViewModel.swift in Sources */,
 				45491D4826597579001AF231 /* LectorCodigosView.swift in Sources */,
-				45AFC743265AFF2A00C57F29 /* GeneradorCodigosView.swift in Sources */,
+				45AFC743265AFF2A00C57F29 /* EditorCodigosView.swift in Sources */,
 				45760A0F265679A600AEABE1 /* EstiloBotonView.swift in Sources */,
 				4571B859265FA6F000B2FE98 /* ImagenStorage.swift in Sources */,
 				458E92C826543A31008CC0A9 /* RegistroView.swift in Sources */,

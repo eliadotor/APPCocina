@@ -16,7 +16,6 @@ struct APPCocinaApp: App {
             let viewModel = RegistroViewModel()
             ContentView()
                 .environmentObject(viewModel)
-            //LectorCodigosView()
         }
     }
 }

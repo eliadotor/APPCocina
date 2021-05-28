@@ -12,8 +12,9 @@ import FirebaseAuth
 import FirebaseStorage
 import CoreImage.CIFilterBuiltins
 import CodeScanner
+import Combine
 
-
+let imgUrl = "gs://appcocina-5d597.appspot.com/codigos/codigo.jpg"
 class CodigosViewModel: ObservableObject {
     private var bd = Firestore.firestore()
     let storage = Storage.storage()
@@ -23,78 +24,75 @@ class CodigosViewModel: ObservableObject {
     @Published var codigo: CodigoQR
 
     @Published var nuevoCodigoRef: DocumentReference? = nil
+    
+    // Validación códigos
+    @Published var titulo: String = ""
+    @Published var tituloValido: Bool = false
+
+    private var cancellableObects: Set<AnyCancellable> = []
+    
+    // Alertas
+    @Published var alert = false
+    @Published var alertMensaje = ""
 
 
+    // Atributos para generar códigosQR
     let contexto = CIContext()
     let filtro = CIFilter.qrCodeGenerator()
+    
 
-
-
-    init(codigo: CodigoQR = CodigoQR(imagenURL: "", descripcion: "", fecha: Date(), caducidad: Date(), userId: Auth.auth().currentUser!.uid)){
+    init(codigo: CodigoQR = CodigoQR(imagenURL: imgUrl, titulo: "Código vacío", descripcion: "", fecha: Date(), caducidad: Date(), userId: Auth.auth().currentUser!.uid)){
         self.codigo = codigo
+        
+        // Validación longitud de título
+        $titulo
+            .receive(on: RunLoop.main)
+            .map{ titulo in
+                return titulo.count <= 15
+            }
+            .assign(to: \.tituloValido, on: self)
+            .store(in: &cancellableObects)
     }
 
 
-    /* Función que genera códigosQR */
-    func generarCodigoQR(from string: String) -> UIImage {
-        let data = Data(string.utf8)
+    /* Función que genera códigosQR y devuelve la imagen del código creado */
+    func generarCodigoQR(from texto: String) -> UIImage {
+        let data = Data(texto.utf8)
         filtro.setValue(data, forKey: "inputMessage")
 
         if let outputImage = filtro.outputImage {
-            if let cgimg = contexto.createCGImage(outputImage, from: outputImage.extent) {
-                return UIImage(cgImage: cgimg)
+            if let img = contexto.createCGImage(outputImage, from: outputImage.extent) {
+                return UIImage(cgImage: img)
             }
         }
-
         return UIImage(systemName: "xmark.circle") ?? UIImage()
     }
 
-
-    func guardarImgCodigo(ref: String, imagen: UIImage) {
-        if let imagenData = imagen.jpegData(compressionQuality: 0.4) {
-            let storageRef = self.storage.reference()
-            let codigoRef = storageRef.child("codigos").child(ref)
-            let metadata = StorageMetadata()
-            metadata.contentType = "image/jpg"
-            codigoRef.putData(imagenData, metadata: metadata) { (_, error) in
-                if error != nil {
-                    print(error?.localizedDescription as Any)
-                    return
+    /* Función que guarda la imagen en la base de datos */
+    func guardarImgCodigo(imagen: UIImage) {
+        let storageRef = self.storage.reference()
+        let nombreImagen = UUID()
+        let directorio = storageRef.child("codigos/\(nombreImagen)")
+        let imagenData = imagen.jpegData(compressionQuality: 0.4)!
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpg"
+        directorio.putData(imagenData, metadata: metadata) { (data, error) in
+            if error == nil {
+                print("Guardo imagen")
+                self.codigo.imagenURL = String(describing: directorio)
+            } else {
+                if let error = error?.localizedDescription {
+                    print("Error en firebase al cargar imagen", error)
+                } else {
+                    print("Error en imagenes")
                 }
-            }
-
-             codigoRef.downloadURL { url, error in
-              if let error = error {
-                print(error.localizedDescription)
-              } else {
-                self.codigo.imagenURL = "http:/firebasestorage.googleapis.com\(url!.path).jpg"
-                
-              }
             }
         }
     }
 
-    /* */
-    func getImgCodigo(ref: String) -> UIImage {
-        var imagen: UIImage?
-
-        let storageRef = self.storage.reference(forURL: ref)
-        let codigoRef = storageRef.child("codigos").child(ref)
-        codigoRef.getData(maxSize: 1 * 1024 * 1024) { imagenData, error in
-            if let error = error {
-                print(error)
-            } else {
-                if let imagenData = imagenData {
-                    imagen = UIImage(data: imagenData)
-                }
-            }
-          }
-        return imagen!
-    }
-
-
     /* Función que añade un códigoQR a la base de datos */
     func anadirCodigo() -> String {
+        
         do {
             nuevoCodigoRef = try bd.collection("codigos").addDocument(from: codigo)
         }
@@ -104,7 +102,7 @@ class CodigosViewModel: ObservableObject {
         return nuevoCodigoRef!.documentID
     }
 
-
+    /* Función que modifica un códigoQR en la base de datos */
     func modificarCodigo(ref: String){
         do {
             try bd.collection("codigos").document(ref).setData(from: codigo)
@@ -143,12 +141,29 @@ class CodigosViewModel: ObservableObject {
             self.codigo = document.map { queryDocumentSnapshot -> CodigoQR in
                 let data = queryDocumentSnapshot.data()
                 let imagen = data?["imagenURL"] as? String ?? ""
+                let titulo = data?["titulo"] as? String ?? ""
                 let descripcion = data?["descripcion"] as? String ?? ""
                 let fecha = data?["fecha"] as? Date ?? Date()
                 let fechaCaducidad = data?["caducidad"] as? Date ?? Date()
                 let userID = data?["userId"] as? String ?? ""
-                return CodigoQR(imagenURL: imagen, descripcion: descripcion, fecha: fecha, caducidad: fechaCaducidad, userId: userID)
+                return CodigoQR(imagenURL: imagen, titulo: titulo, descripcion: descripcion, fecha: fecha, caducidad: fechaCaducidad, userId: userID)
             }!
+        }
+    }
+    
+    /* Función que obtiene a través del id de un códigosQR
+       su referencia de la base de datos */
+    func getRefCodigo(id: String) {
+        bd.collection("codigos").whereField("id", isEqualTo: id)
+            .addSnapshotListener { (querySnapshot, error) in
+            guard let documentos = querySnapshot?.documents else {
+                print("No existe el código")
+                return
+            }
+
+            self.codigos = documentos.compactMap { (queryDocumentSnapshot) -> CodigoQR? in
+                return try? queryDocumentSnapshot.data(as: CodigoQR.self)
+            }
         }
     }
 
