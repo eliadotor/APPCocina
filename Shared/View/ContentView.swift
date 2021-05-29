@@ -13,6 +13,7 @@ import FirebaseAuth
 struct ContentView: View {
     @EnvironmentObject var viewModel: RegistroViewModel
     @State var irAHome = false
+    @State var irACuenta = false
 
     var body: some View {
         NavigationView {
@@ -34,15 +35,15 @@ struct ContentView: View {
                         .tabItem {
                             Label("Listas", systemImage: "list.bullet")
                     }
-                    Cuenta()
+                    Cuenta(irCuenta: $irACuenta)
                         .tabItem {
                             Label("Cuenta", systemImage: "person.crop.circle")
                     }
-                }.navigationBarTitle("APP Cocina", displayMode: .inline)
+                }
             } else {
                 LoginView()
             }
-        }
+        }.accentColor(.orange)
         .onAppear {
             viewModel.logueado = viewModel.signedIn
         }

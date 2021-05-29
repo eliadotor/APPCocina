@@ -9,12 +9,40 @@ import SwiftUI
 
 struct Cuenta: View {
     @EnvironmentObject var viewModel: RegistroViewModel
+    var irCuenta: Binding<Bool>
+    @State var irARecetas = false
+    @State var irACodigos = false
 
     var body: some View {
-        NavigationView {
+        ScrollView {
             if viewModel.logueado {
                 VStack {
-                    Text("Logueado")
+                    HStack {
+                        VStack (alignment: .leading){
+                            Text("Cuenta")
+                                .font(.title2)
+                                .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                                .padding(.bottom)
+                            
+                        }
+                        .accessibility(addTraits: .isHeader)
+                        Spacer()
+                    }
+                    Button(action: {
+                        irARecetas = true
+                        
+                    }, label: {
+                        Text("Mis recetas")
+                            .foregroundColor(Color.orange)
+                    }).background(NavigationLink("",
+                                                 destination: RecetasView(irARecetas: $irARecetas), isActive: $irARecetas))
+                    Button(action: {
+                        irACodigos = true
+                    }, label: {
+                        Text("Mis códigos")
+                            .foregroundColor(Color.orange)
+                    }).background(NavigationLink("",
+                                                 destination: CodigosView().environmentObject(CodigosViewModel()), isActive: $irACodigos))
                     Button(action: {
                         viewModel.logout()
                     }, label: {
@@ -22,16 +50,11 @@ struct Cuenta: View {
                             .foregroundColor(Color.orange)
                     }).background(NavigationLink("",
                                                 destination: LoginView()))
+                }.padding()
+                .onAppear {
+                    viewModel.logueado = viewModel.signedIn
                 }
-            } 
-        }.onAppear {
-            viewModel.logueado = viewModel.signedIn
+            }
         }
-    }
-}
-
-struct Cuenta_Previews: PreviewProvider {
-    static var previews: some View {
-        Cuenta().environmentObject(RegistroViewModel())
     }
 }
