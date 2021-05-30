@@ -27,8 +27,8 @@ struct ImagenStorage: View {
         Image(uiImage: imagen ?? imagenAlternativa!)
             .interpolation(.none)
             .resizable()
+            .scaledToFit()
             .cornerRadius(12)
-            .aspectRatio(contentMode: .fill)
     }
 }
 

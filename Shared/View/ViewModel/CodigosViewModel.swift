@@ -27,7 +27,7 @@ class CodigosViewModel: ObservableObject {
     
     // Validación códigos
     @Published var titulo: String = ""
-    @Published var tituloValido: Bool = false
+    @Published var tituloValido: Bool = true
 
     private var cancellableObects: Set<AnyCancellable> = []
     
@@ -36,10 +36,6 @@ class CodigosViewModel: ObservableObject {
     @Published var alerta = false
     @Published var alertMensaje = ""
     
-    @Published var confirmar: Bool = false
-
-
-
     // Atributos para generar códigosQR
     let contexto = CIContext()
     let filtro = CIFilter.qrCodeGenerator()
@@ -106,13 +102,15 @@ class CodigosViewModel: ObservableObject {
     }
 
     /* Función que modifica un códigoQR en la base de datos */
-    func modificarCodigo(ref: String){
-        do {
-            try bd.collection("codigos").document(ref).setData(from: codigo)
+    func modificarCodigo(id: String, campos: [String:Any]){
+        bd.collection("codigos").document(id).updateData(campos) { (error) in
+            if let error = error {
+                print("Error al editar", error.localizedDescription)
+            } else {
+                print("edito")
+            }
         }
-        catch {
-            print(error)
-        }
+       
     }
 
     /* Función que obtiene todos los códigosQR de un usuario

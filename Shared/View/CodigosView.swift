@@ -21,17 +21,16 @@ struct CodigosView: View {
             ScrollView([ .vertical ], showsIndicators: false){
                 LazyVGrid(columns: columnas, alignment: .center, spacing: 18) {
                     ForEach(self.viewModel.codigos) { codigo in
-                        NavigationLink(destination: DetallesCodigoView(idCodigo: codigo.id)){
+                        NavigationLink(destination: DetallesCodigoView(idCodigo: codigo.id!)){
                             VStack(alignment: .leading) {
                                 ImagenStorage(imagenUrl: codigo.imagenURL)
-                                Text(codigo.titulo)
+                                Text(" \(codigo.titulo)")
                                     .bold()
                                     .foregroundColor(.black)
-                                    .padding(.leading, 1)
                             }
                         }
-                   }
-                }.padding(.horizontal)
+                    }
+                }.padding()
             }.navigationBarTitle("Mis Códigos", displayMode: .inline)
             .onAppear() {
                 self.viewModel.getCodigos()
@@ -49,7 +48,7 @@ struct CodigosView: View {
                 }
             }
             .sheet(isPresented: $nuevoCodigo) {
-                EditorCodigosView(refCodigo: refCodigo, imagen: imagen)
+                EditorCodigosView(refCodigo: refCodigo, editado: false)
             }
         }
     }

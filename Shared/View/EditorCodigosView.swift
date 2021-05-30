@@ -12,18 +12,20 @@ struct EditorCodigosView: View {
     @Environment(\.presentationMode) var modoPresentacion
     var refCodigo: String
     var editado: Bool
+    @State private var eliminado = false
+    @State private var campos: [String:Any] = [:]
 
     // Alertas
     @State var alerta = false
     @State var alert = false
     @State var alertMensaje = ""
         
-        var dateFormatter: DateFormatter {
-            let formatter = DateFormatter()
-            formatter.dateStyle = .short
-            formatter.timeStyle = .none
-            return formatter
-        }
+    var dateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .none
+        return formatter
+    }
     var body: some View {
         VStack {
             if !viewModel.codigo.titulo.isEmpty {
@@ -32,7 +34,7 @@ struct EditorCodigosView: View {
                     .bold()
             }
             ImagenStorage(imagenUrl: viewModel.codigo.imagenURL)
-                .frame(width: 200, height: 200)
+                .frame(width: 180, height: 180)
             SingleFormView(nombreCampo: "Título", valorCampo: $viewModel.titulo)
             if !viewModel.titulo.isEmpty {
                 ValidacionFormularioView(nombreIcono: viewModel.tituloValido ? "checkmark.circle.fill" : "xmark.circle", colorIcono: viewModel.tituloValido ? Color.green : Color.red, texto: "Máximo 15 caractéres")
@@ -50,22 +52,33 @@ struct EditorCodigosView: View {
                 Divider()
             }
             Button("Guardar") {
-                if !viewModel.titulo.isEmpty && !viewModel.tituloValido {
+                if !viewModel.tituloValido {
                     self.alertMensaje = "El título no puede tener más de 15 caracteres"
                     self.alert.toggle()
                 }
                 if !viewModel.titulo.isEmpty {
                     viewModel.codigo.titulo = viewModel.titulo
                 }
-                viewModel.modificarCodigo(ref: refCodigo)
-                viewModel.codigo.titulo = ""
-                viewModel.codigo.descripcion = ""
-                modoPresentacion.wrappedValue.dismiss()
+                self.campos = [
+                    "titulo" : viewModel.codigo.titulo,
+                    "descripcion" : viewModel.codigo.descripcion,
+                    "fecha" : viewModel.codigo.fecha,
+                    "caducidad" : viewModel.codigo.caducidad
+                ]
+                
+                if !editado {
+                    self.alertMensaje = "Código guardado"
+                    self.alert.toggle()
+                } else {
+                    self.alertMensaje = "Código modificado"
+                    self.alert.toggle()
+                }
             }.buttonStyle(EstiloBoton())
             if editado {
                 Button("Eliminar") {
+                    self.eliminado = true
                     self.alertMensaje = "¿Está seguro de que desea eliminar el códigoQR?"
-                    self.alerta.toggle()
+                    self.alert.toggle()
                 }.font(.title3)
                 .foregroundColor(.red)
                 .padding(.bottom, 20)
@@ -74,16 +87,20 @@ struct EditorCodigosView: View {
         .navigationBarHidden(true)
         .onAppear(){
             viewModel.getCodigo(ref: refCodigo)
-        }.alert(isPresented: $alert, content: {
-            Alert(title: Text("¡Importante!"), message: Text(alertMensaje), dismissButton: .cancel(Text("Aceptar")))
-        })
-        .alert(isPresented: $alerta, content: {
-                Alert(title: Text("Importante"), message: Text(alertMensaje), primaryButton: .cancel(Text("No")), secondaryButton:
-                        .default(Text("Sí")) {
-                            modoPresentacion.wrappedValue.dismiss()
-                            viewModel.eliminar(id: refCodigo)
-                        })
-            
+        }
+        .alert(isPresented: $alert, content: eliminado ? {
+            Alert(title: Text("Importante"), message: Text(alertMensaje), primaryButton: .cancel(Text("No")), secondaryButton:
+                    .default(Text("Sí")) {
+                        modoPresentacion.wrappedValue.dismiss()
+                        viewModel.eliminar(id: refCodigo)
+                    })
+        }
+               :
+        {
+            Alert(title: Text(alertMensaje), dismissButton: .cancel(Text("Aceptar")){
+                    modoPresentacion.wrappedValue.dismiss()
+                    viewModel.modificarCodigo(id: refCodigo, campos: campos)
+            })
         })
     }
 }
