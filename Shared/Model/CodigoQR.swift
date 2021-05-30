@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
 struct CodigoQR: Identifiable, Codable {
-    var id: String = UUID().uuidString
+    @DocumentID var id: String? = UUID().uuidString
     var imagenURL: String
+    var titulo: String
     var descripcion: String
     var fecha: Date
     var caducidad: Date

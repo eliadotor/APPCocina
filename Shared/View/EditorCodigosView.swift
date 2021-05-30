@@ -11,13 +11,10 @@ struct EditorCodigosView: View {
     @ObservedObject var viewModel = CodigosViewModel()
     @Environment(\.presentationMode) var modoPresentacion
     var refCodigo: String
-    @State var ruta = ""
+    var editado: Bool
 
-    var imagen: UIImage
-    @State private var editado = false
-    @State private var selectedDate: Date = Date()
-    
     // Alertas
+    @State var alerta = false
     @State var alert = false
     @State var alertMensaje = ""
         
@@ -31,12 +28,10 @@ struct EditorCodigosView: View {
         VStack {
             if !viewModel.codigo.titulo.isEmpty {
                 Text(viewModel.codigo.titulo)
+                    .font(.title)
                     .bold()
             }
-            Image(uiImage: self.imagen)
-                .interpolation(.none)
-                .resizable()
-                .scaledToFit()
+            ImagenStorage(imagenUrl: viewModel.codigo.imagenURL)
                 .frame(width: 200, height: 200)
             SingleFormView(nombreCampo: "Título", valorCampo: $viewModel.titulo)
             if !viewModel.titulo.isEmpty {
@@ -54,7 +49,6 @@ struct EditorCodigosView: View {
                     .accentColor(.orange)
                 Divider()
             }
-            
             Button("Guardar") {
                 if !viewModel.titulo.isEmpty && !viewModel.tituloValido {
                     self.alertMensaje = "El título no puede tener más de 15 caracteres"
@@ -64,17 +58,32 @@ struct EditorCodigosView: View {
                     viewModel.codigo.titulo = viewModel.titulo
                 }
                 viewModel.modificarCodigo(ref: refCodigo)
-                self.editado = true
                 viewModel.codigo.titulo = ""
                 viewModel.codigo.descripcion = ""
                 modoPresentacion.wrappedValue.dismiss()
             }.buttonStyle(EstiloBoton())
+            if editado {
+                Button("Eliminar") {
+                    self.alertMensaje = "¿Está seguro de que desea eliminar el códigoQR?"
+                    self.alerta.toggle()
+                }.font(.title3)
+                .foregroundColor(.red)
+                .padding(.bottom, 20)
+            }
         }.padding(40)
         .navigationBarHidden(true)
         .onAppear(){
             viewModel.getCodigo(ref: refCodigo)
         }.alert(isPresented: $alert, content: {
             Alert(title: Text("¡Importante!"), message: Text(alertMensaje), dismissButton: .cancel(Text("Aceptar")))
+        })
+        .alert(isPresented: $alerta, content: {
+                Alert(title: Text("Importante"), message: Text(alertMensaje), primaryButton: .cancel(Text("No")), secondaryButton:
+                        .default(Text("Sí")) {
+                            modoPresentacion.wrappedValue.dismiss()
+                            viewModel.eliminar(id: refCodigo)
+                        })
+            
         })
     }
 }

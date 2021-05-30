@@ -33,7 +33,11 @@ class CodigosViewModel: ObservableObject {
     
     // Alertas
     @Published var alert = false
+    @Published var alerta = false
     @Published var alertMensaje = ""
+    
+    @Published var confirmar: Bool = false
+
 
 
     // Atributos para generar códigosQR
@@ -92,7 +96,6 @@ class CodigosViewModel: ObservableObject {
 
     /* Función que añade un códigoQR a la base de datos */
     func anadirCodigo() -> String {
-        
         do {
             nuevoCodigoRef = try bd.collection("codigos").addDocument(from: codigo)
         }
@@ -140,31 +143,21 @@ class CodigosViewModel: ObservableObject {
 
             self.codigo = document.map { queryDocumentSnapshot -> CodigoQR in
                 let data = queryDocumentSnapshot.data()
+                let  id = document?.documentID
                 let imagen = data?["imagenURL"] as? String ?? ""
                 let titulo = data?["titulo"] as? String ?? ""
                 let descripcion = data?["descripcion"] as? String ?? ""
                 let fecha = data?["fecha"] as? Date ?? Date()
                 let fechaCaducidad = data?["caducidad"] as? Date ?? Date()
                 let userID = data?["userId"] as? String ?? ""
-                return CodigoQR(imagenURL: imagen, titulo: titulo, descripcion: descripcion, fecha: fecha, caducidad: fechaCaducidad, userId: userID)
+                return CodigoQR(id: id!, imagenURL: imagen, titulo: titulo, descripcion: descripcion, fecha: fecha, caducidad: fechaCaducidad, userId: userID)
             }!
         }
     }
     
-    /* Función que obtiene a través del id de un códigosQR
-       su referencia de la base de datos */
-    func getRefCodigo(id: String) {
-        bd.collection("codigos").whereField("id", isEqualTo: id)
-            .addSnapshotListener { (querySnapshot, error) in
-            guard let documentos = querySnapshot?.documents else {
-                print("No existe el código")
-                return
-            }
-
-            self.codigos = documentos.compactMap { (queryDocumentSnapshot) -> CodigoQR? in
-                return try? queryDocumentSnapshot.data(as: CodigoQR.self)
-            }
-        }
+    /* Función que elimina un códigoQR de la base de datos, a través de su id */
+    func eliminar(id: String) {
+        bd.collection("codigos").document(id).delete()
     }
 
 }
