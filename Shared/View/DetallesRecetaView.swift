@@ -11,6 +11,7 @@ struct DetallesRecetaView: View {
     var refReceta = ""
     @State var irARecetas = false
     @State var comenzarReceta = false
+    var crear = false
     @ObservedObject private var viewModelR = RecetaViewModel()
     @ObservedObject private var viewModelI = IngredienteViewModel()
     @ObservedObject private var viewModel = PasoViewModel()
@@ -19,9 +20,7 @@ struct DetallesRecetaView: View {
     var body: some View {
         ScrollView {
             VStack (alignment: .leading){
-                Image("\(viewModelR.receta.foto )")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
+                ImagenRecetaStorage(imagenUrl: viewModelR.receta.foto)
                 Text(viewModelR
                         .receta.titulo)
                     .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
@@ -95,7 +94,7 @@ struct DetallesRecetaView: View {
                 .padding([.horizontal, .bottom])
                 Spacer()
             }.edgesIgnoringSafeArea(.top)
-            .navigationBarHidden(true)
+            .navigationBarHidden(crear ? true : false)
             .alert(isPresented: $mostrarAlerta) {
                 Alert(title: Text("Importante"), message: Text("¿Está seguro de que desea realizar la receta?"), primaryButton: .cancel(Text("No")), secondaryButton:
                         .default(Text("Sí")) {
@@ -106,19 +105,21 @@ struct DetallesRecetaView: View {
                 HStack {
                     Spacer()
                     VStack {
-                        Button(action: {
-                            irARecetas = true
-                        }, label: {
-                            Text("Recetas")
-                                .font(.headline)
-                                .fontWeight(.bold)
-                                .foregroundColor(.orange)
-                        })
-                        .padding(.trailing, 20)
-                        .padding(.top, 5)
-                        .background(NavigationLink("",
-                                                 destination: RecetasView(irARecetas: $irARecetas), isActive: $irARecetas))
-                        Spacer()
+                        if crear {
+                            Button(action: {
+                                irARecetas = true
+                            }, label: {
+                                Text("Recetas")
+                                    .font(.headline)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.orange)
+                            })
+                            .padding(.trailing, 20)
+                            .padding(.top, 5)
+                            .background(NavigationLink("",
+                                                       destination: RecetasView(irARecetas: $irARecetas).environmentObject(RecetaViewModel()), isActive: $irARecetas))
+                            Spacer()
+                        }
                     }
                 }
             )

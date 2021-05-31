@@ -86,8 +86,7 @@ struct AnadirPasoView: View {
                         Spacer()
                     }
                 }).background(
-                    NavigationLink("", destination: DetallesRecetaView(refReceta: receta), isActive: $irADetallesReceta)
-                    //NavigationLink("", destination: DetallesPasosView(refReceta: receta, irAAnadirPasos: $irAAnadirPasos, irAListaPasos: $irAListaPasos), isActive: $irAListaPasos)
+                    NavigationLink("", destination: DetallesRecetaView(refReceta: receta, crear: true), isActive: $irADetallesReceta)
                     .hidden()
                 ).buttonStyle(EstiloBoton())
                 Spacer()

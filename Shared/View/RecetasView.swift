@@ -8,14 +8,92 @@
 import SwiftUI
 
 struct RecetasView: View {
+    @EnvironmentObject var viewModel: RecetaViewModel
+    @State var refReceta = ""
+    @State var imagen = UIImage()
+    @State private var nuevaReceta = false
     var irARecetas: Binding<Bool>
+    @State private var buscarReceta = ""
+    
+    var columnas: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            ScrollView([ .vertical ], showsIndicators: false){
+                HStack {
+                    VStack (alignment: .leading){
+                        Text("Recetas")
+                            .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                            .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                            .padding(.top)
+                        
+                    }.padding(.vertical)
+                    .padding(.leading, 25)
+                    .accessibility(addTraits: .isHeader)
+                    Spacer()
+                }
+                SingleFormView(nombreCampo: "Buscar recetas", valorCampo: $buscarReceta, protegido: false)
+                    .padding(.horizontal, 25)
+                LazyVGrid(columns: columnas, alignment: .center, spacing: 18) {
+                    ForEach(viewModel.recetas) { receta in
+                        NavigationLink(destination: DetallesRecetaView(refReceta: receta.id!, crear: false)){
+                            VStack(alignment: .leading) {
+                                ImagenRecetasStorage(imagenUrl: receta.foto)
+                            }.padding(.horizontal,2)
+                        }
+                    }
+                }.padding()
+            }.navigationBarHidden(true)
+            .onAppear() {
+                self.viewModel.getRecetas()
+            }
+            .toolbar {
+                ToolbarItem (placement: .navigationBarTrailing){
+                    Button(action: {
+                        nuevaReceta = true
+                    }, label: {
+                        Label("Nuevo código", systemImage: "plus")
+                    })
+                }
+            }
+            .sheet(isPresented: $nuevaReceta) {
+                NuevaRecetaView(irANuevaReceta: irARecetas, ref: refReceta)
+            }
+        }
     }
 }
 
-/*struct RecetasView_Previews: PreviewProvider {
-    static var previews: some View {
-        RecetasView(irARecetas: irRecetas)
+struct MisRecetasView: View {
+    @EnvironmentObject var viewModel: RecetaViewModel
+    @State private var nuevaReceta = false
+    var body: some View {
+        List() {
+            ForEach(viewModel.recetas) { receta in
+                NavigationLink(destination: DetallesRecetaView(refReceta: receta.id!, crear: false)){
+                    VStack(alignment: .leading) {
+                        HStack{
+                            ImagenListaStorage(imagenUrl: receta.foto)
+                            Text(receta.titulo).font(.title)
+                        }
+                    }
+                }
+            }.onDelete { (index) in
+                let id = self.viewModel.recetas[index.first!].id
+                self.viewModel.eliminar(id: id!)
+                self.viewModel.recetas.remove(atOffsets: index)
+                
+            }
+        }.navigationBarTitle("Mis Recetas", displayMode: .inline)
+        .onAppear() {
+            self.viewModel.getMisRecetas()
+        }
+        .toolbar {
+            ToolbarItem (placement: .navigationBarTrailing){
+                Button(action: {
+                    nuevaReceta = true
+                }, label: {
+                    Label("Nueva receta", systemImage: "plus")
+                })
+            }
+        }
     }
-}*/
+}
