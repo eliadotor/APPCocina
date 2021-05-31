@@ -14,7 +14,7 @@ struct APPCocinaApp: App {
     var body: some Scene {
         WindowGroup {
             let viewModel = RegistroViewModel()
-            ContentView()
+            ContentView(seleccionado: 0)
                 .environmentObject(viewModel)
         }
     }

@@ -87,7 +87,28 @@ struct ImagenRecetasStorage: View {
         Image(uiImage: imagen ?? imagenAlter!)
             .resizable()
             .aspectRatio(contentMode: .fill)
-            .frame(width: 150, height: 150, alignment: .center)
+            .frame(width: 160, height: 160, alignment: .center)
+            .clipped()
+            .cornerRadius(12)
+    }
+}
+
+struct ImagenHomeStorage: View {
+    @ObservedObject var imagenLoader: Loader
+    
+    init(imagenUrl: String) {
+        self.imagenLoader = Loader(imagenUrl: imagenUrl)
+    }
+    
+    var imagen: UIImage? {
+        self.imagenLoader.data.flatMap(UIImage.init)
+    }
+    
+    var body: some View {
+        Image(uiImage: imagen ?? imagenAlter!)
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
             .clipped()
             .cornerRadius(12)
     }

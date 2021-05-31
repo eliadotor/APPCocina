@@ -21,7 +21,8 @@ class Loader: ObservableObject {
     
     init(imagenUrl: String) {
         let storageImagen = Storage.storage().reference(forURL: imagenUrl)
-        storageImagen.getData(maxSize: 1 * 1024 * 1024) { (data, error) in
+        // Imagenes de hasta 5MB
+        storageImagen.getData(maxSize: 5 * 1024 * 1024) { (data, error) in
             if let error = error {
                 print("Error al traer imagenes", error.localizedDescription)
             } else {

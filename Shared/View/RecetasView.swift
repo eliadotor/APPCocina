@@ -27,12 +27,12 @@ struct RecetasView: View {
                             .padding(.top)
                         
                     }.padding(.vertical)
-                    .padding(.leading, 25)
+                    .padding(.leading, 21)
                     .accessibility(addTraits: .isHeader)
                     Spacer()
                 }
                 SingleFormView(nombreCampo: "Buscar recetas", valorCampo: $buscarReceta, protegido: false)
-                    .padding(.horizontal, 25)
+                    .padding(.horizontal, 21)
                 LazyVGrid(columns: columnas, alignment: .center, spacing: 18) {
                     ForEach(viewModel.recetas) { receta in
                         NavigationLink(destination: DetallesRecetaView(refReceta: receta.id!, crear: false)){

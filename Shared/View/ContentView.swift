@@ -13,32 +13,34 @@ import FirebaseAuth
 struct ContentView: View {
     @EnvironmentObject var viewModel: RegistroViewModel
     @State var irAHome = false
+    @State var irARecetas = false
     @State var irACuenta = false
+    @State var seleccionado: Int
 
     var body: some View {
         NavigationView {
             if viewModel.logueado{
-                TabView {
+                TabView(selection: $seleccionado) {
                     Home(irHome: $irAHome)
                         .tabItem {
-                            Label("Home", systemImage: "note.text")
-                        }
-                    Menus()
+                            Label("Home", systemImage: "house.fill")
+                        }.tag(0)
+                    RecetasView(irARecetas: $irARecetas).environmentObject(RecetaViewModel())
                         .tabItem {
-                            Label("Menús", systemImage: "calendar")
-                    }
+                            Label("Recetas", systemImage: "note.text")
+                    }.tag(1)
                     LectorCodigosView()
                         .tabItem {
                             Label("Códigos", systemImage: "qrcode.viewfinder")
-                    }
+                    }.tag(2)
                     Listas()
                         .tabItem {
                             Label("Listas", systemImage: "list.bullet")
-                    }
+                    }.tag(3)
                     Cuenta(irCuenta: $irACuenta)
                         .tabItem {
                             Label("Cuenta", systemImage: "person.crop.circle")
-                    }
+                    }.tag(4)
                 }
             } else {
                 LoginView()
@@ -47,11 +49,6 @@ struct ContentView: View {
         .onAppear {
             viewModel.logueado = viewModel.signedIn
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView().environmentObject(RegistroViewModel())
+        .navigationBarHidden(true)
     }
 }

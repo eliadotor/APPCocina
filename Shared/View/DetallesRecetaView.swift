@@ -117,7 +117,7 @@ struct DetallesRecetaView: View {
                             .padding(.trailing, 20)
                             .padding(.top, 5)
                             .background(NavigationLink("",
-                                                       destination: RecetasView(irARecetas: $irARecetas).environmentObject(RecetaViewModel()), isActive: $irARecetas))
+                                destination: ContentView(seleccionado: 1), isActive: $irARecetas))
                             Spacer()
                         }
                     }

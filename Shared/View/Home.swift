@@ -10,6 +10,9 @@ import SwiftUI
 struct Home: View {
     var irHome: Binding<Bool>
     @State private var buscarReceta = ""
+    @ObservedObject var viewModel = RecetaViewModel()
+    @State private var refImagen = "gs://appcocina-5d597.appspot.com/recetas/receta.jpg"
+
     var body: some View {
         ScrollView() {
             HStack {
@@ -27,27 +30,13 @@ struct Home: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .font(.headline)
                 .padding()
-            
             BotonCrearReceta()
-            Seccion(tituloSeccion: "Destacados")
-            Seccion(tituloSeccion: "Recientes")
-        
+            Seccion(tituloSeccion: "Destacados", ref1: self.refImagen, ref2: self.refImagen)
+            Seccion(tituloSeccion: "Recientes", ref1: self.refImagen, ref2: self.refImagen)
         }.navigationBarHidden(true)
-
-        
-    }
-}
-
-
-
-struct EstiloBotonCrear: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-        .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-        .padding()
-        .frame(height: 120)
-        .background(Color.yellow)
-        .cornerRadius(12)
+        .onAppear() {
+            viewModel.getRecetas()
+        }
     }
 }
 
@@ -55,51 +44,26 @@ struct BotonCrearReceta: View {
     @State var irANuevaReceta = false
     var body: some View {
         NavigationLink (destination: NuevaRecetaView(irANuevaReceta: $irANuevaReceta, ref: ""), isActive: $irANuevaReceta) {
-            EmptyView()
+            Button("Crear receta") {
+                irANuevaReceta = true
+            }
+            .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+            .font(.title)
+            .foregroundColor(.white)
+            .frame(height: 150)
+            .background(Color.orange)
+            .cornerRadius(10)
+            .padding()
         }
-        .hidden()
-        Button("Crear receta") {
-            irANuevaReceta = true
-        }
-        .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-        .font(.title)
-        .foregroundColor(.white)
-        .frame(height: 150)
-        .background(Color.orange)
-        .cornerRadius(10)
-        .padding()
-        }
-    }
-
-struct Imagenes: View {
-    
-    @Binding var navegacion : Bool
-
-    var body: some View {
-        Button (action: {
-            navegacion = true
-        }) {
-            Image("cocina")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .cornerRadius(12)
-            
-        }
-        .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
-        .cornerRadius(12)
-        .background(
-    NavigationLink("",
-                                   destination: DetallesRecetaView(refReceta: "zbwTGYYQH4Anp3KFn4tk"),
-                                   isActive: $navegacion)
-        .hidden()
-        )
     }
 }
 
 struct Seccion: View {
     @State private var navegacion = false
-
+    @State private var ref = "zbwTGYYQH4Anp3KFn4tk"
     var tituloSeccion  = ""
+    var ref1 = ""
+    var ref2 = ""
     var body: some View {
         VStack {
             HStack {
@@ -113,10 +77,16 @@ struct Seccion: View {
                 Spacer()
             }
             HStack {
-                Imagenes(navegacion: $navegacion)
-                    .padding(.trailing, .init(4))
-                Imagenes(navegacion: $navegacion)
-                    .padding(.leading, .init(4))
+                NavigationLink(destination: DetallesRecetaView(refReceta: ref, crear: false)){
+                    VStack(alignment: .leading) {
+                        ImagenHomeStorage(imagenUrl: ref1)
+                    }.padding(.horizontal,2)
+                }
+                NavigationLink(destination: DetallesRecetaView(refReceta: ref, crear: false)){
+                    VStack(alignment: .leading) {
+                        ImagenHomeStorage(imagenUrl: ref1)
+                    }.padding(.horizontal,2)
+                }
             }.padding()
         }
     }

@@ -35,7 +35,7 @@ struct Cuenta: View {
                         Text("Mis recetas")
                             .foregroundColor(Color.orange)
                     }).background(NavigationLink("",
-                                                 destination: RecetasView(irARecetas: $irARecetas), isActive: $irARecetas))
+                                                 destination: MisRecetasView().environmentObject(RecetaViewModel()), isActive: $irARecetas))
                     Button(action: {
                         irACodigos = true
                     }, label: {
