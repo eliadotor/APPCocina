@@ -10,7 +10,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import FirebaseAuth
 
-
+let imagenUrl = "gs://appcocina-5d597.appspot.com/recetas/cocina.jpg"
 class RecetaViewModel: ObservableObject {
     
     private var bd = Firestore.firestore()
@@ -21,10 +21,11 @@ class RecetaViewModel: ObservableObject {
     
     @Published var categorias: Array = ["desayuno", "comida", "cena", "snacks"]
     
-    init(receta: Receta = Receta(id:"", titulo: "", categoria: "", foto: "postre", duracion: 0, raciones: 0, puntuacion: 0, userId: Auth.auth().currentUser!.uid)) {
+    init(receta: Receta = Receta(id:"", titulo: "", categoria: "", foto: imagenUrl, duracion: 0, raciones: 0, puntuacion: 0, userId: Auth.auth().currentUser!.uid)) {
         self.receta = receta
     }
     
+    /* Función que añade una receta a la base de datos */
     func anadirRecetas() -> String{
         do {
             nuevaRecetaRef = try bd.collection("recetas").addDocument(from: receta)
@@ -35,6 +36,7 @@ class RecetaViewModel: ObservableObject {
         return nuevaRecetaRef!.documentID
     }
     
+    /* Función que obtiene todas las recetas de la base de datos */
     func getRecetas() {
         bd.collection("recetas").addSnapshotListener { (querySnapshot, error) in
             guard let documentos = querySnapshot?.documents else {
@@ -48,6 +50,23 @@ class RecetaViewModel: ObservableObject {
         }
     }
     
+    /* Función que obtiene todas las recetas de un usuario
+       de la base de datos */
+    func getMisRecetas() {
+        bd.collection("recetas").whereField("userId", isEqualTo: Auth.auth().currentUser!.uid)
+            .addSnapshotListener { (querySnapshot, error) in
+            guard let documentos = querySnapshot?.documents else {
+                print("No documents")
+                return
+            }
+
+            self.recetas = documentos.compactMap { (queryDocumentSnapshot) -> Receta? in
+                return try? queryDocumentSnapshot.data(as: Receta.self)
+            }
+        }
+    }
+    
+    /* Función que obtiene una receta de un usuario de la base de datos */
     func getReceta(ref: String) {
         bd.collection("recetas").document(ref).getDocument { (document, error) in
             if let document = document, document.exists {
@@ -59,6 +78,7 @@ class RecetaViewModel: ObservableObject {
             
             self.receta = document.map { queryDocumentSnapshot -> Receta in
                 let data = queryDocumentSnapshot.data()
+                let  id = document?.documentID
                 let titulo = data?["titulo"] as? String ?? ""
                 let categoria = data?["categoria"] as? String ?? ""
                 let foto = data?["foto"] as? String ?? ""
@@ -67,9 +87,14 @@ class RecetaViewModel: ObservableObject {
                 let puntuacion = data?["puntuacion"] as? Int ?? 0
                 let userID = data?["userId"] as? String ?? ""
 
-                return Receta(titulo: titulo, categoria: categoria, foto: foto, duracion: duracion, raciones: raciones, puntuacion: puntuacion, userId: userID)
+                return Receta(id: id!, titulo: titulo, categoria: categoria, foto: foto, duracion: duracion, raciones: raciones, puntuacion: puntuacion, userId: userID)
             }!
         }
+    }
+    
+    /* Función que elimina una receta de la base de datos, a través de su id */
+    func eliminar(id: String) {
+        bd.collection("recetas").document(id).delete()
     }
     
 }
