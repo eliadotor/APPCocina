@@ -711,7 +711,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ea.APPCocina;
+				PRODUCT_BUNDLE_IDENTIFIER = com.APPCocina;
 				PRODUCT_NAME = APPCocina;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
@@ -733,7 +733,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ea.APPCocina;
+				PRODUCT_BUNDLE_IDENTIFIER = com.APPCocina;
 				PRODUCT_NAME = APPCocina;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;

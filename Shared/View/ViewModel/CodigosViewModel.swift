@@ -22,7 +22,10 @@ class CodigosViewModel: ObservableObject {
 
     @Published var codigos: Array = [CodigoQR]()
     @Published var codigo: CodigoQR
+    
+    @Published var campos: [String:Any] = [:]
 
+    @Published var id = ""
     @Published var nuevoCodigoRef: DocumentReference? = nil
     
     // Validación códigos
@@ -33,7 +36,7 @@ class CodigosViewModel: ObservableObject {
     
     // Alertas
     @Published var alert = false
-    @Published var alerta = false
+    //@Published var alerta = false
     @Published var alertMensaje = ""
     
     // Atributos para generar códigosQR
@@ -41,7 +44,7 @@ class CodigosViewModel: ObservableObject {
     let filtro = CIFilter.qrCodeGenerator()
     
 
-    init(codigo: CodigoQR = CodigoQR(imagenURL: imgUrl, titulo: "Código vacío", descripcion: "", fecha: Date(), caducidad: Date(), userId: Auth.auth().currentUser!.uid)){
+    init(codigo: CodigoQR = CodigoQR(id: "", imagenURL: imgUrl, titulo: "Código vacío", descripcion: "", fecha: Date(), caducidad: Date(), userId: Auth.auth().currentUser!.uid)){
         self.codigo = codigo
         
         // Validación longitud de título
@@ -85,12 +88,15 @@ class CodigosViewModel: ObservableObject {
                     print("Error en firebase al cargar imagen", error)
                 } else {
                     print("Error en imagenes")
+                    self.alertMensaje = "Se ha producido un error, intentelo más tarde"
+                    self.alert.toggle()
                 }
             }
         }
     }
 
-    /* Función que añade un códigoQR a la base de datos */
+    /* Función que añade un códigoQR a la base de datos e inmediatamente lo
+       modifica para añadirle el id del documento generado en la base de datos */
     func anadirCodigo() -> String {
         do {
             nuevoCodigoRef = try bd.collection("codigos").addDocument(from: codigo)
@@ -98,16 +104,33 @@ class CodigosViewModel: ObservableObject {
         catch {
             print(error)
         }
+        bd.collection("codigos").document(nuevoCodigoRef!.documentID).updateData(["id" : nuevoCodigoRef!.documentID]) { (error) in
+            if let error = error {
+                print("Error al editar", error.localizedDescription)
+                self.alertMensaje = "Error al guardar el códigoQR"
+                self.alert.toggle()
+            } else {
+                print("Id añadido")
+            }
+        }
         return nuevoCodigoRef!.documentID
     }
 
     /* Función que modifica un códigoQR en la base de datos */
-    func modificarCodigo(id: String, campos: [String:Any]){
+    func modificarCodigo(id: String){
+        self.campos = [
+            "titulo" : codigo.titulo,
+            "descripcion" : codigo.descripcion,
+            "fecha" : codigo.fecha,
+            "caducidad" : codigo.caducidad
+        ]
         bd.collection("codigos").document(id).updateData(campos) { (error) in
             if let error = error {
                 print("Error al editar", error.localizedDescription)
+                self.alertMensaje = "Error al modificar el códigoQR"
+                self.alert.toggle()
             } else {
-                print("edito")
+                print("Edito")
             }
         }
        
@@ -119,6 +142,8 @@ class CodigosViewModel: ObservableObject {
         bd.collection("codigos").whereField("userId", isEqualTo: Auth.auth().currentUser!.uid)
             .addSnapshotListener { (querySnapshot, error) in
             guard let documentos = querySnapshot?.documents else {
+                self.alertMensaje = "Se ha producido un error al cargar los códigos"
+                self.alert.toggle()
                 print("No documents")
                 return
             }
@@ -136,6 +161,8 @@ class CodigosViewModel: ObservableObject {
                 let codigoDatos = document.data().map(String.init(describing:)) ?? "nil"
                 print(codigoDatos)
             } else {
+                self.alertMensaje = "Se ha producido un error con este código"
+                self.alert.toggle()
                 print("El código no existe")
             }
 
@@ -153,9 +180,33 @@ class CodigosViewModel: ObservableObject {
         }
     }
     
+    /* Función que obtiene un códigoQR de la base de datos mediante un id */
+    func getRefCodigo(id: String) {
+        bd.collection("codigos").whereField("id", isEqualTo: id)
+                .addSnapshotListener { (querySnapshot, error) in
+                guard let documentos = querySnapshot?.documents else {
+                    self.alertMensaje = "Se ha producido un error con este código"
+                    self.alert.toggle()
+                    print("No existe el código")
+                    return
+                }
+
+                self.codigos = documentos.compactMap { (queryDocumentSnapshot) -> CodigoQR? in
+                    return try? queryDocumentSnapshot.data(as: CodigoQR.self)
+                }
+            }
+    }
+    
     /* Función que elimina un códigoQR de la base de datos, a través de su id */
     func eliminar(id: String) {
-        bd.collection("codigos").document(id).delete()
+        bd.collection("codigos").document(id).delete() { (error) in
+            if let error = error {
+                print("Error al eliminar", error.localizedDescription)
+                self.alertMensaje = "Error al eliminar el códigoQR"
+                self.alert.toggle()
+            } else {
+                print("Elimino")
+            }
+        }
     }
-
 }

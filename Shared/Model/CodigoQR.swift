@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestoreSwift
 
 struct CodigoQR: Identifiable, Codable {
-    @DocumentID var id: String? = UUID().uuidString
+    var id: String
     var imagenURL: String
     var titulo: String
     var descripcion: String

@@ -45,7 +45,8 @@ struct ContentView: View {
             } else {
                 LoginView()
             }
-        }.accentColor(.orange)
+        }.navigationViewStyle(StackNavigationViewStyle())
+        .accentColor(.orange)
         .onAppear {
             viewModel.logueado = viewModel.signedIn
         }

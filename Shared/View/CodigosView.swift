@@ -21,7 +21,7 @@ struct CodigosView: View {
             ScrollView([ .vertical ], showsIndicators: false){
                 LazyVGrid(columns: columnas, alignment: .center, spacing: 18) {
                     ForEach(self.viewModel.codigos) { codigo in
-                        NavigationLink(destination: DetallesCodigoView(idCodigo: codigo.id!)){
+                        NavigationLink(destination: DetallesCodigoView(idCodigo: codigo.id)){
                             VStack(alignment: .leading) {
                                 ImagenStorage(imagenUrl: codigo.imagenURL)
                                 Text(" \(codigo.titulo)")

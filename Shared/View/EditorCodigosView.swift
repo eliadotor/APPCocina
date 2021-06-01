@@ -10,31 +10,24 @@ import SwiftUI
 struct EditorCodigosView: View {
     @ObservedObject var viewModel = CodigosViewModel()
     @Environment(\.presentationMode) var modoPresentacion
-    var refCodigo: String
+    var refCodigo = ""
     var editado: Bool
     @State private var eliminado = false
-    @State private var campos: [String:Any] = [:]
 
     // Alertas
     @State var alerta = false
     @State var alert = false
     @State var alertMensaje = ""
-        
-    var dateFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        formatter.timeStyle = .none
-        return formatter
-    }
+    
     var body: some View {
         VStack {
-            if !viewModel.codigo.titulo.isEmpty {
+            if !editado {
                 Text(viewModel.codigo.titulo)
                     .font(.title)
                     .bold()
             }
             ImagenStorage(imagenUrl: viewModel.codigo.imagenURL)
-                .frame(width: 180, height: 180)
+                    .frame(width: 180, height: 180)
             SingleFormView(nombreCampo: "Título", valorCampo: $viewModel.titulo)
             if !viewModel.titulo.isEmpty {
                 ValidacionFormularioView(nombreIcono: viewModel.tituloValido ? "checkmark.circle.fill" : "xmark.circle", colorIcono: viewModel.tituloValido ? Color.green : Color.red, texto: "Máximo 15 caractéres")
@@ -59,13 +52,6 @@ struct EditorCodigosView: View {
                 if !viewModel.titulo.isEmpty {
                     viewModel.codigo.titulo = viewModel.titulo
                 }
-                self.campos = [
-                    "titulo" : viewModel.codigo.titulo,
-                    "descripcion" : viewModel.codigo.descripcion,
-                    "fecha" : viewModel.codigo.fecha,
-                    "caducidad" : viewModel.codigo.caducidad
-                ]
-                
                 if !editado {
                     self.alertMensaje = "Código guardado"
                     self.alert.toggle()
@@ -99,7 +85,8 @@ struct EditorCodigosView: View {
         {
             Alert(title: Text(alertMensaje), dismissButton: .cancel(Text("Aceptar")){
                     modoPresentacion.wrappedValue.dismiss()
-                    viewModel.modificarCodigo(id: refCodigo, campos: campos)
+                    viewModel.modificarCodigo(id: refCodigo)
+
             })
         })
     }
