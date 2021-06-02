@@ -71,6 +71,11 @@
 		45BB40DD265116BA00EC1537 /* DetallesPasosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BB40DC265116BA00EC1537 /* DetallesPasosView.swift */; };
 		991F5B882667BF68004728BB /* Temporizadores.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991F5B872667BF68004728BB /* Temporizadores.swift */; };
 		991F5B8A2667BFC4004728BB /* TemporizadorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991F5B892667BFC4004728BB /* TemporizadorViewModel.swift */; };
+		991F5B922667C1FD004728BB /* tts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991F5B912667C1FD004728BB /* tts.swift */; };
+		991F5B972667C21A004728BB /* finReceta.wav in Resources */ = {isa = PBXBuildFile; fileRef = 991F5B932667C21A004728BB /* finReceta.wav */; };
+		991F5B982667C21A004728BB /* defecto.wav in Resources */ = {isa = PBXBuildFile; fileRef = 991F5B942667C21A004728BB /* defecto.wav */; };
+		991F5B992667C21A004728BB /* paso.wav in Resources */ = {isa = PBXBuildFile; fileRef = 991F5B952667C21A004728BB /* paso.wav */; };
+		991F5B9A2667C21A004728BB /* temporizador.wav in Resources */ = {isa = PBXBuildFile; fileRef = 991F5B962667C21A004728BB /* temporizador.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,6 +144,11 @@
 		45BB40DC265116BA00EC1537 /* DetallesPasosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetallesPasosView.swift; sourceTree = "<group>"; };
 		991F5B872667BF68004728BB /* Temporizadores.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Temporizadores.swift; sourceTree = "<group>"; };
 		991F5B892667BFC4004728BB /* TemporizadorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemporizadorViewModel.swift; sourceTree = "<group>"; };
+		991F5B912667C1FD004728BB /* tts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tts.swift; sourceTree = "<group>"; };
+		991F5B932667C21A004728BB /* finReceta.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = finReceta.wav; sourceTree = "<group>"; };
+		991F5B942667C21A004728BB /* defecto.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = defecto.wav; sourceTree = "<group>"; };
+		991F5B952667C21A004728BB /* paso.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = paso.wav; sourceTree = "<group>"; };
+		991F5B962667C21A004728BB /* temporizador.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = temporizador.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -259,6 +269,8 @@
 			isa = PBXGroup;
 			children = (
 				45BAAF9A263494450021A780 /* APPCocinaApp.swift */,
+				991F5B902667C1C4004728BB /* Sonidos */,
+				991F5B8B2667C0F7004728BB /* Accesibilidad */,
 				4571B867265FF90200B2FE98 /* Storage */,
 				4502255A26405EDF00876A16 /* View */,
 				45F8FA9A264FCACD00CF4CD5 /* ViewModel */,
@@ -326,6 +338,25 @@
 			);
 			name = ViewModel;
 			path = View/ViewModel;
+			sourceTree = "<group>";
+		};
+		991F5B8B2667C0F7004728BB /* Accesibilidad */ = {
+			isa = PBXGroup;
+			children = (
+				991F5B912667C1FD004728BB /* tts.swift */,
+			);
+			path = Accesibilidad;
+			sourceTree = "<group>";
+		};
+		991F5B902667C1C4004728BB /* Sonidos */ = {
+			isa = PBXGroup;
+			children = (
+				991F5B942667C21A004728BB /* defecto.wav */,
+				991F5B932667C21A004728BB /* finReceta.wav */,
+				991F5B952667C21A004728BB /* paso.wav */,
+				991F5B962667C21A004728BB /* temporizador.wav */,
+			);
+			path = Sonidos;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -471,8 +502,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				991F5B992667C21A004728BB /* paso.wav in Resources */,
 				45BAAFC7263494490021A780 /* Assets.xcassets in Resources */,
+				991F5B982667C21A004728BB /* defecto.wav in Resources */,
 				45332B29264D16370030314A /* GoogleService-Info.plist in Resources */,
+				991F5B9A2667C21A004728BB /* temporizador.wav in Resources */,
+				991F5B972667C21A004728BB /* finReceta.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -540,6 +575,7 @@
 				45A4875C264EE54300939FC4 /* PasoViewModel.swift in Sources */,
 				45332B7F264D976F0030314A /* Ingrediente.swift in Sources */,
 				450225A02640642900876A16 /* Menus.swift in Sources */,
+				991F5B922667C1FD004728BB /* tts.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
