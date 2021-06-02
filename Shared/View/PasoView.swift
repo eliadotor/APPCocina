@@ -1,3 +1,4 @@
+
 //
 //  PasoView.swift
 //  APPCocina
@@ -10,13 +11,12 @@ import SwiftUI
 struct PasoView: View {
     var refReceta = ""
     @State var comenzarReceta = false
-    @State var irAInicio = false
+    //@State var irAInicio = false
     @ObservedObject private var viewModel = PasoViewModel()
     @State var paso: Int
-    @State var temporizador = false
+    @ObservedObject private var temporizador = TemporizadorViewModel()
     @State private var siguientePaso = false
     @State private var terminarReceta = false
-    @State private var pasosReceta = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
@@ -36,44 +36,52 @@ struct PasoView: View {
                     .foregroundColor(.orange)
                     .fontWeight(.bold)
             }.padding(.bottom)
+            if temporizador.encurso {
+                Text(temporizador.tiempoToString)
+            }
             if viewModel.paso.duracion != 0 {
-                Button(action: {
-                    if paso < viewModel.pasos.count {
-                        self.paso += 1
-                        siguientePaso = true
+                Button("Iniciar paso") {
+                    temporizador.setTiempo(viewModel.paso.duracion)
+                    if paso < viewModel.pasos.count-1 {
+                        temporizador.setSonido("paso")
                     }
-                }, label: {
-                    Text("temporizador")
-                })
-                .background(
-                    NavigationLink("", destination: PasoView(refReceta: refReceta, paso: paso), isActive: $siguientePaso)
-                )
+                    else {
+                    temporizador.setSonido("finReceta")
+                    }
+                    temporizador.iniciar()
+                }
+                .disabled(temporizador.encurso)
             }
-            if paso <=   viewModel.pasos.count {
-                NavigationLink("", destination: PasoView(refReceta: refReceta, paso: paso), isActive: $siguientePaso).hidden()
-            
-            } else {
-                NavigationLink("", destination: EmptyView(), isActive: $terminarReceta).hidden()
-            }
-        
-            Button(action: {
-                if paso < viewModel.pasos.count {
-                    self.paso += 1
+                NavigationLink(destination: PasoView(refReceta: refReceta, paso: paso+1), isActive: $temporizador.finalizado)
+                {
+                    EmptyView()
+                }
+                .hidden()
+                NavigationLink(destination: PasoView(refReceta: refReceta, paso: paso+1), isActive: $siguientePaso)
+                {
+                    EmptyView()
+                }
+                .hidden()
+                NavigationLink(destination: Text("Receta terminada"), isActive: $terminarReceta)
+                {
+                    Text("probando")
+                }
+                .hidden()
+            Button(paso < viewModel.pasos.count-1 ? "Siguiente paso" : "Terminar receta") {
+                if paso < viewModel.pasos.count-1 {
                     siguientePaso = true
-                } else {
+                     return
+                }
                     terminarReceta = true
                 }
-            }, label: {
-                Text(paso < viewModel.pasos.count ? "Siguiente paso" : "Terminar receta")
-            })
-            .navigationBarTitle("Paso \(viewModel.paso.id)", displayMode: .inline)
+            .disabled(temporizador.encurso)
+            .navigationBarTitle("Paso \(paso)", displayMode: .inline)
             Spacer()
-            
         }.padding()
         .onAppear() {
             viewModel.getPaso(ref: refReceta, id: paso)
             viewModel.getPasos(ref: refReceta)
-
         }
     }
 }
+
