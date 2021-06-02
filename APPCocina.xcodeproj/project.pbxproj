@@ -69,6 +69,7 @@
 		45BAAFC7263494490021A780 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45BAAF9C263494480021A780 /* Assets.xcassets */; };
 		45BAAFC8263494490021A780 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45BAAF9C263494480021A780 /* Assets.xcassets */; };
 		45BB40DD265116BA00EC1537 /* DetallesPasosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BB40DC265116BA00EC1537 /* DetallesPasosView.swift */; };
+		991F5B882667BF68004728BB /* Temporizadores.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991F5B872667BF68004728BB /* Temporizadores.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,6 +136,7 @@
 		45BAAFC0263494490021A780 /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		45BAAFC2263494490021A780 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45BB40DC265116BA00EC1537 /* DetallesPasosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetallesPasosView.swift; sourceTree = "<group>"; };
+		991F5B872667BF68004728BB /* Temporizadores.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Temporizadores.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +186,7 @@
 		4502255A26405EDF00876A16 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				991F5B872667BF68004728BB /* Temporizadores.swift */,
 				45BAAF9B263494450021A780 /* ContentView.swift */,
 				4502255B26405F3000876A16 /* Home.swift */,
 				45022591264063CD00876A16 /* Listas.swift */,
@@ -522,6 +525,7 @@
 				45491D3C265973FE001AF231 /* CodigoQR.swift in Sources */,
 				45B8A7FB2658F1D4002AB744 /* PasoView.swift in Sources */,
 				45491D4226597486001AF231 /* CodigosViewModel.swift in Sources */,
+				991F5B882667BF68004728BB /* Temporizadores.swift in Sources */,
 				45491D4E265975D0001AF231 /* DetallesCodigoView.swift in Sources */,
 				45A4876C264EEDAF00939FC4 /* AnadirIngredientesView.swift in Sources */,
 				458E92C226543A29008CC0A9 /* LoginView.swift in Sources */,
@@ -703,7 +707,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = YW82H8FU3C;
+				DEVELOPMENT_TEAM = GGHDD989WL;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -725,7 +729,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = YW82H8FU3C;
+				DEVELOPMENT_TEAM = GGHDD989WL;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
