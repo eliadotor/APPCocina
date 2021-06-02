@@ -33,9 +33,9 @@ struct ContentView: View {
                         .tabItem {
                             Label("Códigos", systemImage: "qrcode.viewfinder")
                     }.tag(2)
-                    Listas()
+                    Temporizadores()
                         .tabItem {
-                            Label("Listas", systemImage: "list.bullet")
+                            Label("Temporizadores", systemImage: "list.bullet")
                     }.tag(3)
                     Cuenta(irCuenta: $irACuenta)
                         .tabItem {

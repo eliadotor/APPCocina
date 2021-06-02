@@ -70,6 +70,7 @@
 		45BAAFC8263494490021A780 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45BAAF9C263494480021A780 /* Assets.xcassets */; };
 		45BB40DD265116BA00EC1537 /* DetallesPasosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BB40DC265116BA00EC1537 /* DetallesPasosView.swift */; };
 		991F5B882667BF68004728BB /* Temporizadores.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991F5B872667BF68004728BB /* Temporizadores.swift */; };
+		991F5B8A2667BFC4004728BB /* TemporizadorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 991F5B892667BFC4004728BB /* TemporizadorViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,6 +138,7 @@
 		45BAAFC2263494490021A780 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45BB40DC265116BA00EC1537 /* DetallesPasosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetallesPasosView.swift; sourceTree = "<group>"; };
 		991F5B872667BF68004728BB /* Temporizadores.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Temporizadores.swift; sourceTree = "<group>"; };
+		991F5B892667BFC4004728BB /* TemporizadorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemporizadorViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -315,6 +317,7 @@
 		45F8FA9A264FCACD00CF4CD5 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				991F5B892667BFC4004728BB /* TemporizadorViewModel.swift */,
 				458E92BB26543927008CC0A9 /* RegistroViewModel.swift */,
 				45A48747264EB60000939FC4 /* RecetaViewModel.swift */,
 				45A48755264EE53000939FC4 /* IngredienteViewModel.swift */,
@@ -529,6 +532,7 @@
 				45491D4E265975D0001AF231 /* DetallesCodigoView.swift in Sources */,
 				45A4876C264EEDAF00939FC4 /* AnadirIngredientesView.swift in Sources */,
 				458E92C226543A29008CC0A9 /* LoginView.swift in Sources */,
+				991F5B8A2667BFC4004728BB /* TemporizadorViewModel.swift in Sources */,
 				457BBC4726594E7700C45268 /* CodigosView.swift in Sources */,
 				45760A042656799400AEABE1 /* ValidacionFormularioView.swift in Sources */,
 				45A48748264EB60000939FC4 /* RecetaViewModel.swift in Sources */,
