@@ -76,6 +76,7 @@
 		991F5B982667C21A004728BB /* defecto.wav in Resources */ = {isa = PBXBuildFile; fileRef = 991F5B942667C21A004728BB /* defecto.wav */; };
 		991F5B992667C21A004728BB /* paso.wav in Resources */ = {isa = PBXBuildFile; fileRef = 991F5B952667C21A004728BB /* paso.wav */; };
 		991F5B9A2667C21A004728BB /* temporizador.wav in Resources */ = {isa = PBXBuildFile; fileRef = 991F5B962667C21A004728BB /* temporizador.wav */; };
+		991F5B9D2667C2B4004728BB /* SwiftySound in Frameworks */ = {isa = PBXBuildFile; productRef = 991F5B9C2667C2B4004728BB /* SwiftySound */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -164,6 +165,7 @@
 				45491D55265976A5001AF231 /* CodeScanner in Frameworks */,
 				45332B1B264D14160030314A /* FirebaseStorage in Frameworks */,
 				458606E2265E335F00537377 /* FirebaseAnalytics in Frameworks */,
+				991F5B9D2667C2B4004728BB /* SwiftySound in Frameworks */,
 				45332B76264D970A0030314A /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				457BBC4E2659553500C45268 /* FirebaseMLModelDownloader in Frameworks */,
 				45332B23264D14160030314A /* FirebaseDynamicLinks in Frameworks */,
@@ -388,6 +390,7 @@
 				45491D54265976A5001AF231 /* CodeScanner */,
 				458606E1265E335F00537377 /* FirebaseAnalytics */,
 				458606E8265E4EB300537377 /* SDWebImageSwiftUI */,
+				991F5B9C2667C2B4004728BB /* SwiftySound */,
 			);
 			productName = "APPCocina (iOS)";
 			productReference = 45BAAFA1263494480021A780 /* APPCocina.app */;
@@ -484,6 +487,7 @@
 				45332B15264D14150030314A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				45491D53265976A5001AF231 /* XCRemoteSwiftPackageReference "CodeScanner" */,
 				458606E7265E4EB300537377 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				991F5B9B2667C2B3004728BB /* XCRemoteSwiftPackageReference "SwiftySound" */,
 			);
 			productRefGroup = 45BAAFA2263494480021A780 /* Products */;
 			projectDirPath = "";
@@ -1000,6 +1004,14 @@
 				minimumVersion = 2.0.2;
 			};
 		};
+		991F5B9B2667C2B3004728BB /* XCRemoteSwiftPackageReference "SwiftySound" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adamcichy/SwiftySound";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1062,6 +1074,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 458606E7265E4EB300537377 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		991F5B9C2667C2B4004728BB /* SwiftySound */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 991F5B9B2667C2B3004728BB /* XCRemoteSwiftPackageReference "SwiftySound" */;
+			productName = SwiftySound;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
