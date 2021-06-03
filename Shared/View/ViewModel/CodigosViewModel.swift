@@ -2,6 +2,8 @@
 //  CodigosViewModel.swift
 //  APPCocina (iOS)
 //
+//  Esta clase gestiona todas las funciones de las recetas
+//
 //  Created by Elia Dotor Puente on 22/05/2021.
 //
 
@@ -36,14 +38,15 @@ class CodigosViewModel: ObservableObject {
     
     // Alertas
     @Published var alert = false
-    //@Published var alerta = false
     @Published var alertMensaje = ""
     
     // Atributos para generar códigosQR
     let contexto = CIContext()
     let filtro = CIFilter.qrCodeGenerator()
     
-
+    /* Constructor
+     * Parámetro: codigo -> modelo de CodigoQR que inicializa todos sus atributos
+     */
     init(codigo: CodigoQR = CodigoQR(id: "", imagenURL: imgUrl, titulo: "Código vacío", descripcion: "", fecha: Date(), caducidad: Date(), userId: Auth.auth().currentUser!.uid)){
         self.codigo = codigo
         
@@ -58,7 +61,9 @@ class CodigosViewModel: ObservableObject {
     }
 
 
-    /* Función que genera códigosQR y devuelve la imagen del código creado */
+    /* Función que genera códigosQR y devuelve la imagen del código creado
+     * Parámetro: texto -> texto a partir del cual se va a generar el códigoQR
+     */
     func generarCodigoQR(from texto: String) -> UIImage {
         let data = Data(texto.utf8)
         filtro.setValue(data, forKey: "inputMessage")
@@ -71,7 +76,9 @@ class CodigosViewModel: ObservableObject {
         return UIImage(systemName: "xmark.circle") ?? UIImage()
     }
 
-    /* Función que guarda la imagen en la base de datos */
+    /* Función que guarda la imagen en la base de datos
+     * Parámetro: imagen -> imagen del códigoQR que se va a guardar
+     */
     func guardarImgCodigo(imagen: UIImage) {
         let storageRef = self.storage.reference()
         let nombreImagen = UUID()
@@ -116,7 +123,9 @@ class CodigosViewModel: ObservableObject {
         return nuevoCodigoRef!.documentID
     }
 
-    /* Función que modifica un códigoQR en la base de datos */
+    /* Función que modifica un códigoQR en la base de datos
+     * Parámetro: id -> id del códigoQR que se va a modificar
+     */
     func modificarCodigo(id: String){
         self.campos = [
             "titulo" : codigo.titulo,
@@ -147,14 +156,17 @@ class CodigosViewModel: ObservableObject {
                 print("No documents")
                 return
             }
-
-            self.codigos = documentos.compactMap { (queryDocumentSnapshot) -> CodigoQR? in
-                return try? queryDocumentSnapshot.data(as: CodigoQR.self)
+            DispatchQueue.main.async {
+                self.codigos = documentos.compactMap { (queryDocumentSnapshot) -> CodigoQR? in
+                    return try? queryDocumentSnapshot.data(as: CodigoQR.self)
+                }
             }
         }
     }
 
-    /* Función que obtiene un códigoQR de la base de datos */
+    /* Función que obtiene un códigoQR de la base de datos
+     * Parámetro: ref -> referencia del códigoQR que se va a obtener
+     */
     func getCodigo(ref: String) {
         bd.collection("codigos").document(ref).getDocument { (document, error) in
             if let document = document, document.exists {
@@ -165,22 +177,25 @@ class CodigosViewModel: ObservableObject {
                 self.alert.toggle()
                 print("El código no existe")
             }
-
-            self.codigo = document.map { queryDocumentSnapshot -> CodigoQR in
-                let data = queryDocumentSnapshot.data()
-                let  id = document?.documentID
-                let imagen = data?["imagenURL"] as? String ?? ""
-                let titulo = data?["titulo"] as? String ?? ""
-                let descripcion = data?["descripcion"] as? String ?? ""
-                let fecha = data?["fecha"] as? Date ?? Date()
-                let fechaCaducidad = data?["caducidad"] as? Date ?? Date()
-                let userID = data?["userId"] as? String ?? ""
-                return CodigoQR(id: id!, imagenURL: imagen, titulo: titulo, descripcion: descripcion, fecha: fecha, caducidad: fechaCaducidad, userId: userID)
-            }!
+            DispatchQueue.main.async {
+                self.codigo = document.map { queryDocumentSnapshot -> CodigoQR in
+                    let data = queryDocumentSnapshot.data()
+                    let  id = document?.documentID
+                    let imagen = data?["imagenURL"] as? String ?? ""
+                    let titulo = data?["titulo"] as? String ?? ""
+                    let descripcion = data?["descripcion"] as? String ?? ""
+                    let fecha = data?["fecha"] as? Date ?? Date()
+                    let fechaCaducidad = data?["caducidad"] as? Date ?? Date()
+                    let userID = data?["userId"] as? String ?? ""
+                    return CodigoQR(id: id!, imagenURL: imagen, titulo: titulo, descripcion: descripcion, fecha: fecha, caducidad: fechaCaducidad, userId: userID)
+                }!
+            }
         }
     }
     
-    /* Función que obtiene un códigoQR de la base de datos mediante un id */
+    /* Función que obtiene un códigoQR de la base de datos mediante un id
+     * Parámetro: id -> id del códigoQR que se va a obtener
+     */
     func getRefCodigo(id: String) {
         bd.collection("codigos").whereField("id", isEqualTo: id)
                 .addSnapshotListener { (querySnapshot, error) in
@@ -190,14 +205,17 @@ class CodigosViewModel: ObservableObject {
                     print("No existe el código")
                     return
                 }
-
-                self.codigos = documentos.compactMap { (queryDocumentSnapshot) -> CodigoQR? in
-                    return try? queryDocumentSnapshot.data(as: CodigoQR.self)
+                DispatchQueue.main.async {
+                    self.codigos = documentos.compactMap { (queryDocumentSnapshot) -> CodigoQR? in
+                            return try? queryDocumentSnapshot.data(as: CodigoQR.self)
+                    }
                 }
             }
     }
     
-    /* Función que elimina un códigoQR de la base de datos, a través de su id */
+    /* Función que elimina un códigoQR de la base de datos, a través de su id
+     * Parámetro: id -> id del códigoQR que se va a eliminar
+     */
     func eliminar(id: String) {
         bd.collection("codigos").document(id).delete() { (error) in
             if let error = error {

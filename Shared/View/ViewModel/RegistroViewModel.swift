@@ -45,6 +45,7 @@ class RegistroViewModel : ObservableObject {
     @Published var alert = false
     @Published var alertMensaje = ""
     
+    // Constructor
     init() {
         // Validación email
         $email
@@ -95,7 +96,7 @@ class RegistroViewModel : ObservableObject {
     
     
     /* Función que registra usuarios después de comproabar que no están
-       ya registrados */
+       ya registrados y validar que todos los datos sean correctos */
     func registrar() {
         if self.email.isEmpty || self.password.isEmpty || self.confirmarPass.isEmpty {
             self.alertMensaje = "Es necesario rellenar todos los campos"
@@ -122,14 +123,16 @@ class RegistroViewModel : ObservableObject {
         }
         
         Auth.auth().createUser(withEmail: email, password: password) { resultado, error in
-            if error != nil {
-                self.alertMensaje = "Ya existe una cuenta con este correo electrónico"
-                self.alert.toggle()
-                return
-            }
-            
-            if (resultado != nil) {
-                self.logueado = true
+            DispatchQueue.main.async {
+                if error != nil {
+                    self.alertMensaje = "Ya existe una cuenta con este correo electrónico"
+                    self.alert.toggle()
+                    return
+                }
+                
+                if (resultado != nil) {
+                    self.logueado = true
+                }
             }
         }
     }
@@ -144,12 +147,14 @@ class RegistroViewModel : ObservableObject {
         }
         
         Auth.auth().signIn(withEmail: email.lowercased(), password: password) { resultado, error in
-            if error != nil {
-                self.alertMensaje = "El correo o la contraseña no es correcta"
-                self.alert.toggle()
-                return
+            DispatchQueue.main.async {
+                if error != nil {
+                    self.alertMensaje = "El correo o la contraseña no es correcta"
+                    self.alert.toggle()
+                    return
+                }
+                self.logueado = true
             }
-            self.logueado = true
         }
     }
     
@@ -162,17 +167,17 @@ class RegistroViewModel : ObservableObject {
     /* Función que envia un email con un link de verificación de la cuenta */
     func enviarEmailConfirmacion() {
         Auth.auth().currentUser?.sendEmailVerification { (error) in
-            if self.email.isEmpty == true || error != nil {
-                self.alertMensaje = "Es necesario introducir un correo electrónico"
-                self.alert.toggle()
+            DispatchQueue.main.async {
+                if self.email.isEmpty == true || error != nil {
+                    self.alertMensaje = "Es necesario introducir un correo electrónico"
+                    self.alert.toggle()
+                }
+                if error == nil && self.email.isEmpty == false{
+                    self.alertMensaje = "Se ha enviado un link para validar la cuenta a su correo electrónico"
+                    self.alert.toggle()
+                }
             }
-            if error == nil && self.email.isEmpty == false{
-                self.alertMensaje = "Se ha enviado un link para validar la cuenta a su correo electrónico"
-                self.alert.toggle()
-            }
-                    
         }
-        
     }
     
     /* Función que envia un email con un link de recuperación de la contraseña */
