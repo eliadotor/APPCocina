@@ -8,7 +8,6 @@
 import SwiftUI
 import Firebase
 
-
 struct NuevaRecetaView: View {
     var irANuevaReceta: Binding<Bool>
     @State var irAAnadirIngredientes = false
@@ -22,9 +21,7 @@ struct NuevaRecetaView: View {
     @State var alert = false
     @State var alertMensaje = ""
 
-    
     var body: some View {
-
         VStack(alignment: .leading, spacing: 6){
             HStack {
                 VStack (alignment: .leading){
@@ -32,27 +29,22 @@ struct NuevaRecetaView: View {
                         .font(.title2)
                         .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                         .padding(.bottom)
-                    
                 }
                 .accessibility(addTraits: .isHeader)
                 Spacer()
             }
-
             Section(header: Text("Nombre")){
                 SingleFormView(nombreCampo: "", valorCampo: $viewModel.receta.titulo)
             }
-    
             Section(header: Text("Duración")){
                 SingleFormView(nombreCampo: "", valorCampo: $duracion)
-                    .keyboardType(.numberPad)
             }
             Section(header: Text("Raciones")){
                 SingleFormView(nombreCampo: "", valorCampo: $raciones)
-                    .keyboardType(.numberPad)
             }
             Section(){
                 HStack {
-                    Picker("Categoria 􀆈", selection: $viewModel.receta.categoria) {
+                    Picker("Categoria >", selection: $viewModel.receta.categoria) {
                         ForEach(viewModel.categorias, id: \.self) {
                             Text($0)
                         }

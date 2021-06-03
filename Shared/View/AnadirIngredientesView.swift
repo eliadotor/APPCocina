@@ -43,7 +43,7 @@ struct AnadirIngredientesView: View {
 
             Section(){
                 HStack {
-                    Picker("Unidad 􀆈", selection: $viewModel.ingrediente.unidad) {
+                    Picker("Unidad >", selection: $viewModel.ingrediente.unidad) {
                         ForEach(viewModel.medidas, id: \.self) {
                             Text($0)
                         }

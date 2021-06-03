@@ -10,9 +10,6 @@ import UIKit
 
 
 let imagenAlternativa = UIImage(systemName: "qrcode.viewfinder")
-let imagenAlter = UIImage(systemName: "doc.text")
-
-
 struct ImagenStorage: View {
     @ObservedObject var imagenLoader: Loader
     
@@ -45,12 +42,14 @@ struct ImagenListaStorage: View {
     }
     
     var body: some View {
-        Image(uiImage: imagen ?? imagenAlter!)
-            .resizable()
-            .aspectRatio(contentMode: .fill)
-            .frame(width: 60, height: 60)
-            .clipped()
-            .cornerRadius(12)
+        if imagen != nil {
+            Image(uiImage: imagen!)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 60, height: 60)
+                .clipped()
+                .cornerRadius(12)
+        }
     }
 }
 
@@ -66,9 +65,11 @@ struct ImagenRecetaStorage: View {
     }
     
     var body: some View {
-        Image(uiImage: imagen ?? imagenAlter!)
-            .resizable()
-            .aspectRatio(contentMode: .fit)
+        if imagen != nil {
+            Image(uiImage: imagen!)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+        }
     }
 }
 
@@ -84,12 +85,14 @@ struct ImagenRecetasStorage: View {
     }
     
     var body: some View {
-        Image(uiImage: imagen ?? imagenAlter!)
-            .resizable()
-            .aspectRatio(contentMode: .fill)
-            .frame(width: 160, height: 160, alignment: .center)
-            .clipped()
-            .cornerRadius(12)
+        if imagen != nil {
+            Image(uiImage: imagen!)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 160, height: 160, alignment: .center)
+                .clipped()
+                .cornerRadius(12)
+        }
     }
 }
 
@@ -105,12 +108,18 @@ struct ImagenHomeStorage: View {
     }
     
     var body: some View {
-        Image(uiImage: imagen ?? imagenAlter!)
-            .resizable()
-            .aspectRatio(contentMode: .fill)
-            .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
-            .clipped()
-            .cornerRadius(12)
+        if imagen != nil {
+            Image(uiImage: imagen!)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+                .clipped()
+                .cornerRadius(12)
+        } else {
+            Text("Cargando imagen...")
+                .foregroundColor(.white)
+                .padding()
+        }
     }
 }
 

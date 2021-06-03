@@ -46,41 +46,31 @@ struct RecetasView: View {
             .onAppear() {
                 self.viewModel.getRecetas()
             }
-            .toolbar {
-                ToolbarItem (placement: .navigationBarTrailing){
-                    Button(action: {
-                        nuevaReceta = true
-                    }, label: {
-                        Label("Nuevo código", systemImage: "plus")
-                    })
-                }
-            }
-            .sheet(isPresented: $nuevaReceta) {
-                NuevaRecetaView(irANuevaReceta: irARecetas, ref: refReceta)
-            }
         }
     }
 }
 
 struct MisRecetasView: View {
     @EnvironmentObject var viewModel: RecetaViewModel
-    @State private var nuevaReceta = false
+    @State var irANuevaReceta = false
+
     var body: some View {
-        List() {
-            ForEach(viewModel.recetas) { receta in
-                NavigationLink(destination: DetallesRecetaView(refReceta: receta.id!, crear: false)){
-                    VStack(alignment: .leading) {
-                        HStack{
-                            ImagenListaStorage(imagenUrl: receta.foto)
-                            Text(receta.titulo).font(.title)
+        VStack{
+            List() {
+                ForEach(viewModel.recetas) { receta in
+                    NavigationLink(destination: DetallesRecetaView(refReceta: receta.id!, crear: false)){
+                        VStack(alignment: .leading) {
+                            HStack{
+                                ImagenListaStorage(imagenUrl: receta.foto)
+                                Text(receta.titulo).font(.title)
+                            }
                         }
                     }
+                }.onDelete { (index) in
+                    let id = self.viewModel.recetas[index.first!].id
+                    self.viewModel.eliminar(id: id!)
+                    self.viewModel.recetas.remove(atOffsets: index)
                 }
-            }.onDelete { (index) in
-                let id = self.viewModel.recetas[index.first!].id
-                self.viewModel.eliminar(id: id!)
-                self.viewModel.recetas.remove(atOffsets: index)
-                
             }
         }.navigationBarTitle("Mis Recetas", displayMode: .inline)
         .onAppear() {
@@ -89,7 +79,7 @@ struct MisRecetasView: View {
         .toolbar {
             ToolbarItem (placement: .navigationBarTrailing){
                 Button(action: {
-                    nuevaReceta = true
+                    irANuevaReceta = true
                 }, label: {
                     Label("Nueva receta", systemImage: "plus")
                 })
