@@ -11,9 +11,11 @@ import Firebase
 
 struct DetallesCodigoView: View {
     @ObservedObject var viewModel = CodigosViewModel()
+    @Environment(\.presentationMode) var modoPresentacion
     @State private var editarCodigo = false
     @State var id = ""
     var idCodigo: String
+    var escaneado = false
     var formatoFecha: DateFormatter {
         let formato = DateFormatter()
         formato.dateFormat = "dd-MM-yyyy"
@@ -41,7 +43,6 @@ struct DetallesCodigoView: View {
                             Text(codigo.descripcion)
                                 .font(.system(size: 18))
                                 .padding(.bottom, 2)
-
                         }
                         if formatoFecha.string(from: codigo.fecha) != "01-06-2020" {
                             Text("Fecha de conservación:")
@@ -60,6 +61,11 @@ struct DetallesCodigoView: View {
                             Text(codigo.caducidad, formatter: formatoFecha)
                                 .font(.system(size: 18))
                                 .padding(.bottom, 2)
+                        }
+                        if escaneado {
+                            Button("Aceptar") {
+                                modoPresentacion.wrappedValue.dismiss()
+                            }.buttonStyle(EstiloBoton())
                         }
                     }
                     Spacer()
