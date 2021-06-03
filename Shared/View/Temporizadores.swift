@@ -8,48 +8,75 @@ import SwiftUI
 
 struct Temporizadores: View {
     @ObservedObject var temporizador = TemporizadorViewModel()
-@State var minutos = 0
-@State var segundos = 0
-    @State var titulo = "Nuevo temporizador de 0 minutos y 0 segundos."
+    @State var minutos = 0
+    @State var segundos = 0
+   
     var body: some View {
-    VStack {
-        HStack {
-            Text(titulo)
+        VStack {
+            Text("Temporizador")
+                .font(.system(size: 40))
                 .accessibility(addTraits: .isHeader)
-        }
-        Spacer()
-        HStack {
-        Picker("Minutos", selection: $minutos){
-            ForEach(0...120, id: \.self) {
-                Text("\($0)")
+                .padding()
+            if !temporizador.encurso {
+                HStack {
+                    Picker("Minutos", selection: $minutos) {
+                        ForEach(0...120, id: \.self) {
+                            Text("\($0)")
+                        }
+                    }
+                    .frame(minWidth: 80, maxWidth: .infinity)
+                    .clipped()
+                    .cornerRadius(1)
+                    Text("minutos")
+                        .foregroundColor(.orange)
+                    Picker(selection: $segundos, label: Text("Segundos").foregroundColor(.orange)) {
+                        ForEach(0...59, id: \.self) {
+                            Text("\($0)")
+                        }
+                    }.frame(minWidth: 80, maxWidth: .infinity)
+                    .clipped()
+                    .cornerRadius(5)
+                    Text("segundos")
+                        .foregroundColor(.orange)
+                }.padding(30)
+            } else {
+                Text(temporizador.tiempoToString)
+                    .font(.system(size: 60))
+                    .foregroundColor(.orange)
             }
-        }
-        Picker("Segundos", selection: $segundos){
-            ForEach(0...59, id: \.self) {
-                Text("\($0)")
+            if !temporizador.encurso {
+                Button("Iniciar") {
+                    temporizador.setTiempo(minutos: minutos, segundos: segundos)
+                    temporizador.setSonido("temporizador")
+                    if !temporizador.encurso {
+                        temporizador.iniciar()
+                        segundos = 0
+                        minutos = 0
+                        tts.speakVo(text: "Temporizador iniciado")
+                    }
+                }.buttonStyle(EstiloBoton())
+                .padding(50)
+                .accessibilityHint("Pulsa dos veces para iniciar el temporizador")                    
+            } else {
+                Button("Terminar") {
+                    if temporizador.encurso {
+                        temporizador.terminar()
+                        segundos = 0
+                        minutos = 0
+                        tts.speakVo(text: "Temporizador finalizado")
+                        temporizador.encurso = false
+                    }
+                }.buttonStyle(EstiloBoton())
+                .padding(50)
+                .accessibilityHint("Pulsa dos veces para terminar el temporizador")
             }
-        }
-        }
-        Spacer()
-        HStack {
-            Button("Iniciar temporizador") {
-                temporizador.setTiempo(minutos: minutos, segundos: segundos)
-                temporizador.setSonido("temporizador")
-                if !temporizador.encurso {
-                    temporizador.iniciar()
-                    segundos = 0
-                    minutos = 0
-                    tts.speakVo(text: "Temporizador iniciado")
-                }
-            }
-            .accessibilityHint("Pulsa dos veces para iniciar el temporizador")
-            .disabled(temporizador.encurso)
-            if temporizador.encurso {
             Spacer()
-            Text(temporizador.tiempoToString)
-            }
-        }
-        Spacer()
+        }.alert(isPresented: $temporizador.alert, content: {
+            Alert(title: Text(temporizador.alertMensaje), dismissButton: .cancel(Text("Aceptar")){
+                temporizador.encurso = false
+                temporizador.terminarSonido()
+            })
+        })
+        
     }
-}
 }
