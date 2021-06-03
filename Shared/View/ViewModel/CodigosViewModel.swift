@@ -78,8 +78,9 @@ class CodigosViewModel: ObservableObject {
 
     /* Función que guarda la imagen en la base de datos
      * Parámetro: imagen -> imagen del códigoQR que se va a guardar
+     * ref -> ref del códigoQR en el que se va a guardar la url de la imagen generada
      */
-    func guardarImgCodigo(imagen: UIImage) {
+    func guardarImgCodigo(imagen: UIImage, ref: String) {
         let storageRef = self.storage.reference()
         let nombreImagen = UUID()
         let directorio = storageRef.child("codigos/\(nombreImagen)")
@@ -90,6 +91,15 @@ class CodigosViewModel: ObservableObject {
             if error == nil {
                 print("Guardo imagen")
                 self.codigo.imagenURL = String(describing: directorio)
+                self.bd.collection("codigos").document(ref).updateData(["imagenURL" : self.codigo.imagenURL]) { (error) in
+                    if let error = error {
+                        print("Error al editar", error.localizedDescription)
+                        self.alertMensaje = "Error al guardar el códigoQR"
+                        self.alert.toggle()
+                    } else {
+                        print("imagenURL añadida")
+                    }
+                }
             } else {
                 if let error = error?.localizedDescription {
                     print("Error en firebase al cargar imagen", error)

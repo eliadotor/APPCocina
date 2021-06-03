@@ -41,7 +41,7 @@ struct CodigosView: View {
                         nuevoCodigo = true
                         self.refCodigo = viewModel.anadirCodigo()
                         self.imagen = viewModel.generarCodigoQR(from: refCodigo)
-                        viewModel.guardarImgCodigo(imagen: imagen)
+                        viewModel.guardarImgCodigo(imagen: imagen, ref: refCodigo)
                     }, label: {
                         Label("Nuevo código", systemImage: "plus")
                     })

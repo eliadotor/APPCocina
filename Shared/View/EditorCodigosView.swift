@@ -15,7 +15,6 @@ struct EditorCodigosView: View {
     @State private var eliminado = false
 
     // Alertas
-    @State var alerta = false
     @State var alert = false
     @State var alertMensaje = ""
     
