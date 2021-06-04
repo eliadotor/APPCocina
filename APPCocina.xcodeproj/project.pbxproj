@@ -476,11 +476,11 @@
 			};
 			buildConfigurationList = 45BAAF98263494450021A780 /* Build configuration list for PBXProject "APPCocina" */;
 			compatibilityVersion = "Xcode 9.3";
-			developmentRegion = en;
+			developmentRegion = es;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
-				Base,
+				es,
+                Base,
 			);
 			mainGroup = 45BAAF94263494450021A780;
 			packageReferences = (
