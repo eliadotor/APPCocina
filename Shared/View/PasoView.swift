@@ -19,65 +19,86 @@ struct PasoView: View {
     @State private var terminarReceta = false
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            HStack {
-                Text("Paso \(viewModel.paso.id)")
-                    .font(.title2)
-                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                    .padding(.bottom)
-                    .accessibility(addTraits: .isHeader)
-                Spacer()
-            }
-            Text(viewModel.paso.descripcion)
-                .padding(.bottom)
-            HStack {
-                Text("Duración")
-                Text("\(viewModel.paso.duracion) min")
+        VStack {
+            VStack(alignment: .leading, spacing: 6) {
+                HStack {
+                    Text("Paso \(viewModel.paso.id)")
+                        .font(.title2)
+                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                        .padding(.vertical)
+                        .accessibility(addTraits: .isHeader)
+                    Spacer()
+                }
+                Text("Descripción: ")
                     .foregroundColor(.orange)
                     .fontWeight(.bold)
-            }.padding(.bottom)
+                Text(viewModel.paso.descripcion)
+                    .padding(.bottom)
+                Text("Duración: ")
+                    .foregroundColor(.orange)
+                    .fontWeight(.bold)
+                Text("\(viewModel.paso.duracion) min")
+                .padding(.bottom)
+            }
+            Divider()
             if temporizador.encurso {
-                Text(temporizador.tiempoToString)
+                HStack{
+                    Spacer()
+                    Text(temporizador.tiempoToString)
+                        .font(.system(size: 60))
+                        .foregroundColor(.orange)
+                    Spacer()
+                }
             }
             if viewModel.paso.duracion != 0 {
-                Button("Iniciar paso") {
-                    temporizador.setTiempo(viewModel.paso.duracion)
-                    if paso < viewModel.pasos.count-1 {
-                        temporizador.setSonido("paso")
+                if !temporizador.encurso {
+                    Button("Iniciar paso") {
+                        temporizador.setTiempo(viewModel.paso.duracion)
+                        if paso < viewModel.pasos.count {
+                            temporizador.setSonido("paso")
+                        } else {
+                            temporizador.setSonido("finReceta")
+                        }
+                        temporizador.iniciar()
+                    }.foregroundColor(.orange)
+                    .buttonStyle(EstiloBotonSecundario())
+                    .foregroundColor(.white)
+                } else {
+                    Button("Terminar") {
+                        if temporizador.encurso {
+                            temporizador.terminar()
+                            tts.speakVo(text: "Paso \(viewModel.paso.id) finalizado")
+                            temporizador.encurso = false
+                        }
                     }
-                    else {
-                    temporizador.setSonido("finReceta")
-                    }
-                    temporizador.iniciar()
+                    .buttonStyle(EstiloBoton())
                 }
-                .disabled(temporizador.encurso)
             }
-                NavigationLink(destination: PasoView(refReceta: refReceta, paso: paso+1), isActive: $temporizador.finalizado)
-                {
-                    EmptyView()
-                }
-                .hidden()
-                NavigationLink(destination: PasoView(refReceta: refReceta, paso: paso+1), isActive: $siguientePaso)
-                {
-                    EmptyView()
-                }
-                .hidden()
-                NavigationLink(destination: Text("Receta terminada"), isActive: $terminarReceta)
-                {
-                    Text("probando")
-                }
-                .hidden()
-            Button(paso < viewModel.pasos.count-1 ? "Siguiente paso" : "Terminar receta") {
-                if paso < viewModel.pasos.count-1 {
-                    siguientePaso = true
-                     return
-                }
-                    terminarReceta = true
-                }
-            .disabled(temporizador.encurso)
-            .navigationBarTitle("Paso \(paso)", displayMode: .inline)
+            NavigationLink(destination: PasoView(refReceta: refReceta, paso: paso+1), isActive: $temporizador.finalizado) {
+                EmptyView()
+            }
+            .hidden()
+            NavigationLink(destination: PasoView(refReceta: refReceta, paso: paso+1), isActive: $siguientePaso) {
+                EmptyView()
+            }
+            .hidden()
+            NavigationLink(destination: ContentView(seleccionado: 1), isActive: $terminarReceta) {
+            }
+            .hidden()
+            if !temporizador.encurso {
+                Button(paso < viewModel.pasos.count ? "Siguiente paso" : "Terminar receta") {
+                    if paso < viewModel.pasos.count {
+                        siguientePaso = true
+                        return
+                    } else {
+                        tts.speakVo(text: "Receta finalizada")
+                        terminarReceta = true
+                    }
+                }.buttonStyle(EstiloBoton())
+                .navigationBarTitle("Paso \(paso)", displayMode: .inline)
+            }
             Spacer()
-        }.padding()
+        }.padding(.horizontal, 40)
         .onAppear() {
             viewModel.getPaso(ref: refReceta, id: paso)
             viewModel.getPasos(ref: refReceta)

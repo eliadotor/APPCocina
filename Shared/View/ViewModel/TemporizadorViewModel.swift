@@ -74,7 +74,6 @@ class TemporizadorViewModel: ObservableObject {
         self.finalizado = true
         temporizador?.invalidate()
         temporizador = nil
-        tts.speakVo(text: "Temporizador finalizado")
         Sound.play(file: "\(self.sonido).wav")
         self.alertMensaje = "Temporizador finalizado"
         self.alert.toggle()
