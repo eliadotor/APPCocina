@@ -11,7 +11,6 @@ import SwiftUI
 struct PasoView: View {
     var refReceta = ""
     @State var comenzarReceta = false
-    //@State var irAInicio = false
     @ObservedObject private var viewModel = PasoViewModel()
     @State var paso: Int
     @ObservedObject private var temporizador = TemporizadorViewModel()

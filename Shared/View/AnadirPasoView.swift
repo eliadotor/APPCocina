@@ -37,7 +37,6 @@ struct AnadirPasoView: View {
                 }
                 Section(header: Text("Duración")){
                     SingleFormView(nombreCampo: "", valorCampo: $duracion)
-                        .keyboardType(.numberPad)
                 }
                 Button(action: {
                     if viewModel.paso.descripcion.isEmpty {
@@ -86,7 +85,7 @@ struct AnadirPasoView: View {
                         Spacer()
                     }
                 }).background(
-                    NavigationLink("", destination: DetallesRecetaView(refReceta: receta, crear: true), isActive: $irADetallesReceta)
+                    NavigationLink("", destination: DetallesRecetaView(refReceta: receta, crear: false), isActive: $irADetallesReceta)
                     .hidden()
                 ).buttonStyle(EstiloBoton())
                 Spacer()

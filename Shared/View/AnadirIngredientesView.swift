@@ -72,6 +72,8 @@ struct AnadirIngredientesView: View {
                 viewModel.ingrediente.cantidad = Int(cantidad)!
                 self.anadir = true
                 viewModel.anadirIngrediente(ref: self.receta)
+                viewModel.ingrediente.unidad = ""
+
             }, label: {
                 HStack {
                     Spacer()
