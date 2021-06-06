@@ -123,3 +123,29 @@ struct ImagenHomeStorage: View {
     }
 }
 
+struct ImagenCuentaStorage: View {
+    @ObservedObject var imagenLoader: Loader
+    
+    init(imagenUrl: String) {
+        self.imagenLoader = Loader(imagenUrl: imagenUrl)
+    }
+    
+    var imagen: UIImage? {
+        self.imagenLoader.data.flatMap(UIImage.init)
+    }
+    
+    var body: some View {
+        if imagen != nil {
+            Image(uiImage: imagen!)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 100, height: 100)
+                .clipped()
+                .cornerRadius(50)
+        } else {
+            Text("Cargando imagen...")
+                .foregroundColor(.white)
+                .padding()
+        }
+    }
+}
