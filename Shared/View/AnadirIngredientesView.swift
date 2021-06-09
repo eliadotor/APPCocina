@@ -60,7 +60,7 @@ struct AnadirIngredientesView: View {
             
             Button(action: {
                 if viewModel.ingrediente.nombre.isEmpty || cantidad.isEmpty {
-                    self.alertMensaje = "Debe rellenar todos los campos"
+                    self.alertMensaje = "Debe rellenar al menos el nombre y la cantidad del ingrediente"
                     self.alert.toggle()
                     return
                 }
@@ -121,7 +121,6 @@ struct AnadirIngredientesView: View {
         }.padding(.horizontal)
         .padding()
         .navigationBarTitle("Ingredientes", displayMode: .inline)
-        .navigationBarItems(leading: NuevaRecetaView(irANuevaReceta: irANuevaReceta, ref: receta))
         .alert(isPresented: $alert, content: {
             Alert(title: Text("¡Importante!"), message: Text(alertMensaje), dismissButton: .cancel(Text("Aceptar")))
         })

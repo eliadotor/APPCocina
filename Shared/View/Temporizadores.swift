@@ -20,7 +20,7 @@ struct Temporizadores: View {
             if !temporizador.encurso {
                 HStack {
                     Picker("Minutos", selection: $minutos) {
-                        ForEach(0...120, id: \.self) {
+                        ForEach(0...59, id: \.self) {
                             Text("\($0)")
                         }
                     }

@@ -66,22 +66,30 @@ struct PasoView: View {
                     Button("Terminar") {
                         if temporizador.encurso {
                             temporizador.terminar()
-                            tts.speakVo(text: "Paso \(viewModel.paso.id) finalizado")
+                            if paso < viewModel.pasos.count-1 {
+                                tts.speakVo(text: "Paso \(viewModel.paso.id) finalizado")
+                            } else {
+                                tts.speakVo(text: "Receta finalizada")
+                                terminarReceta = true
+                            }
                             temporizador.encurso = false
                         }
                     }
                     .buttonStyle(EstiloBoton())
                 }
             }
+            if paso < viewModel.pasos.count-1 {
             NavigationLink(destination: PasoView(refReceta: refReceta, paso: paso+1), isActive: $temporizador.finalizado) {
                 EmptyView()
             }
             .hidden()
+            }
             NavigationLink(destination: PasoView(refReceta: refReceta, paso: paso+1), isActive: $siguientePaso) {
                 EmptyView()
             }
             .hidden()
             NavigationLink(destination: ContentView(seleccionado: 1), isActive: $terminarReceta) {
+                EmptyView()
             }
             .hidden()
             if !temporizador.encurso {
