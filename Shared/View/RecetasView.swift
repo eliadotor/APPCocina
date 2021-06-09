@@ -14,6 +14,7 @@ struct RecetasView: View {
     @State private var nuevaReceta = false
     var irARecetas: Binding<Bool>
     @State private var buscarReceta = ""
+    @State private var alturaVista : CGFloat = 0
     
     var columnas: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     var body: some View {
@@ -26,22 +27,30 @@ struct RecetasView: View {
                             .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                             .padding(.top)
                         
-                    }.padding(.vertical)
-                    .padding(.leading, 21)
+                    }.padding(.top)
+                    .padding(.leading, 18)
                     .accessibility(addTraits: .isHeader)
                     Spacer()
                 }
-                SingleFormView(nombreCampo: "Buscar recetas", valorCampo: $buscarReceta, protegido: false)
-                    .padding(.horizontal, 21)
-                LazyVGrid(columns: columnas, alignment: .center, spacing: 18) {
-                    ForEach(viewModel.recetas) { receta in
-                        NavigationLink(destination: DetallesRecetaView(refReceta: receta.id!, crear: false)){
-                            VStack(alignment: .leading) {
-                                ImagenRecetasStorage(imagenUrl: receta.foto)
-                            }.padding(.horizontal,2)
+                VStack {
+                    SearchBar(text: self.$buscarReceta)
+                        .padding(.bottom)
+                    LazyVGrid(columns: columnas, alignment: .center, spacing: 18) {
+                        ForEach(viewModel.recetas.filter {
+                            self.buscarReceta.lowercased().isEmpty ? true :
+                            $0.titulo.lowercased().contains(self.buscarReceta.lowercased())
+                        }) { receta in
+                            NavigationLink(destination: DetallesRecetaView(refReceta: receta.id!, crear: false)){
+                                VStack(alignment: .leading) {
+                                    ImagenRecetasStorage(imagenUrl: receta.foto)
+                                }.padding(.horizontal,2)
+                            }
                         }
-                    }
-                }.padding()
+                    }.padding(.horizontal, 8)
+                }.padding(.horizontal, 8)
+                .padding(.vertical, 8)
+                .offset(y: -self.alturaVista)
+                .animation(.spring())
             }.navigationBarHidden(true)
             .onAppear() {
                 self.viewModel.getRecetas()
@@ -53,11 +62,19 @@ struct RecetasView: View {
 struct MisRecetasView: View {
     @EnvironmentObject var viewModel: RecetaViewModel
     @State var irANuevaReceta = false
+    @State private var buscarReceta = ""
+
 
     var body: some View {
         VStack{
+            SearchBar(text: self.$buscarReceta)
+                .padding(.vertical, 20)
+                .padding(.horizontal, 6)
             List() {
-                ForEach(viewModel.recetas) { receta in
+                ForEach(viewModel.recetas.filter {
+                    self.buscarReceta.lowercased().isEmpty ? true :
+                    $0.titulo.lowercased().contains(self.buscarReceta.lowercased())
+                }) { receta in
                     NavigationLink(destination: DetallesRecetaView(refReceta: receta.id!, crear: false)){
                         VStack(alignment: .leading) {
                             HStack{
