@@ -110,6 +110,7 @@ struct ImagenHomeStorage: View {
     var body: some View {
         if imagen != nil {
             Image(uiImage: imagen!)
+                .interpolation(.none)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)

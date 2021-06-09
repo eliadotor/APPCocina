@@ -15,21 +15,20 @@ struct Home: View {
 
     var body: some View {
         ScrollView() {
-            HStack {
-                VStack (alignment: .leading){
-                    Text("APP Cocina")
-                        .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                        .padding(.top)
-                    
-                }.padding()
-                .accessibility(addTraits: .isHeader)
-                Spacer()
-            }
+            VStack {
+                HStack {
+                    Image("TRACn")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 180)
+                        .accessibility(addTraits: .isHeader)
+                    Spacer()
+                }
+            }.padding()
             TextField("Buscar recetas", text: $buscarReceta)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .font(.headline)
-                .padding()
+                .padding([.horizontal, .top])
             BotonCrearReceta()
             Seccion(tituloSeccion: "Destacados", ref1: self.refImagen, ref2: self.refImagen)
             Seccion(tituloSeccion: "Recientes", ref1: self.refImagen, ref2: self.refImagen)

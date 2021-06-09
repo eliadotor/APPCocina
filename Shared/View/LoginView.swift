@@ -13,11 +13,6 @@ struct LoginView: View {
     
     var body: some View {
         VStack {
-            /*Text("APP de Cocina")
-                .font(.title)
-                .foregroundColor(.white)
-                .padding(
-                    [.top, .bottom])*/
             Image("TRAC")
                 .resizable()
                 .aspectRatio(contentMode: .fill)
@@ -36,7 +31,7 @@ struct LoginView: View {
                 })
                 .buttonStyle(EstiloBoton())
                 .background(NavigationLink("",
-                                           destination: RegistroView()))
+                                           destination: ContentView(seleccionado: 0)))
                 NavigationLink("Crear una cuenta",
                                        destination: RegistroView())
                     .padding(.bottom)

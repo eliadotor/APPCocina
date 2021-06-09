@@ -13,12 +13,6 @@ struct RegistroView: View {
     
     var body: some View {
         ScrollView {
-            /*Text("APP de Cocina")
-                .font(.title)
-                .foregroundColor(.white)
-                .padding(
-                    [.top, .bottom]
-                )*/
             Image("TRAC")
                 .resizable()
                 .aspectRatio(contentMode: .fill)

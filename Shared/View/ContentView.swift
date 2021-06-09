@@ -23,7 +23,7 @@ struct ContentView: View {
                 TabView(selection: $seleccionado) {
                     Home(irHome: $irAHome)
                         .tabItem {
-                            Label("Home", systemImage: "house.fill")
+                            Label("Inicio", systemImage: "house.fill")
                         }.tag(0)
                     RecetasView(irARecetas: $irARecetas).environmentObject(RecetaViewModel())
                         .tabItem {
@@ -31,11 +31,11 @@ struct ContentView: View {
                     }.tag(1)
                     LectorCodigosView()
                         .tabItem {
-                            Label("Códigos", systemImage: "qrcode.viewfinder")
+                            Label("Lector QR", systemImage: "qrcode.viewfinder")
                     }.tag(2)
                     Temporizadores()
                         .tabItem {
-                            Label("Temporizadores", systemImage: "timer")
+                            Label("Temporizador", systemImage: "timer")
                     }.tag(3)
                     Cuenta(irCuenta: $irACuenta)
                         .tabItem {
