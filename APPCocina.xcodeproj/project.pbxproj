@@ -30,6 +30,7 @@
 		45332B79264D972A0030314A /* Receta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45332B78264D972A0030314A /* Receta.swift */; };
 		45332B7F264D976F0030314A /* Ingrediente.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45332B7E264D976F0030314A /* Ingrediente.swift */; };
 		45332B85264D97980030314A /* PasoReceta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45332B84264D97980030314A /* PasoReceta.swift */; };
+		4537A839266BFCFA00AED089 /* InicioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4537A838266BFCFA00AED089 /* InicioView.swift */; };
 		45491D3C265973FE001AF231 /* CodigoQR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45491D3B265973FE001AF231 /* CodigoQR.swift */; };
 		45491D4226597486001AF231 /* CodigosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45491D4126597486001AF231 /* CodigosViewModel.swift */; };
 		45491D4826597579001AF231 /* LectorCodigosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45491D4726597579001AF231 /* LectorCodigosView.swift */; };
@@ -51,6 +52,8 @@
 		458E92C826543A31008CC0A9 /* RegistroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458E92C726543A31008CC0A9 /* RegistroView.swift */; };
 		458EED302657A4150057A482 /* RecetasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458EED2F2657A4150057A482 /* RecetasView.swift */; };
 		458EED312657A4150057A482 /* RecetasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458EED2F2657A4150057A482 /* RecetasView.swift */; };
+		45968795266CBBD300A8FBE2 /* Usuario.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45968794266CBBD300A8FBE2 /* Usuario.swift */; };
+		45968797266CBC7A00A8FBE2 /* UsuarioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45968796266CBC7A00A8FBE2 /* UsuarioViewModel.swift */; };
 		45A48748264EB60000939FC4 /* RecetaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A48747264EB60000939FC4 /* RecetaViewModel.swift */; };
 		45A48756264EE53100939FC4 /* IngredienteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A48755264EE53000939FC4 /* IngredienteViewModel.swift */; };
 		45A4875C264EE54300939FC4 /* PasoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A4875B264EE54300939FC4 /* PasoViewModel.swift */; };
@@ -107,6 +110,7 @@
 		45332B78264D972A0030314A /* Receta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Receta.swift; sourceTree = "<group>"; };
 		45332B7E264D976F0030314A /* Ingrediente.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingrediente.swift; sourceTree = "<group>"; };
 		45332B84264D97980030314A /* PasoReceta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasoReceta.swift; sourceTree = "<group>"; };
+		4537A838266BFCFA00AED089 /* InicioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InicioView.swift; sourceTree = "<group>"; };
 		45491D3B265973FE001AF231 /* CodigoQR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodigoQR.swift; sourceTree = "<group>"; };
 		45491D4126597486001AF231 /* CodigosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodigosViewModel.swift; sourceTree = "<group>"; };
 		45491D4726597579001AF231 /* LectorCodigosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LectorCodigosView.swift; sourceTree = "<group>"; };
@@ -120,6 +124,8 @@
 		458E92C126543A29008CC0A9 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		458E92C726543A31008CC0A9 /* RegistroView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistroView.swift; sourceTree = "<group>"; };
 		458EED2F2657A4150057A482 /* RecetasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecetasView.swift; sourceTree = "<group>"; };
+		45968794266CBBD300A8FBE2 /* Usuario.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Usuario.swift; sourceTree = "<group>"; };
+		45968796266CBC7A00A8FBE2 /* UsuarioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsuarioViewModel.swift; sourceTree = "<group>"; };
 		45A48747264EB60000939FC4 /* RecetaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecetaViewModel.swift; sourceTree = "<group>"; };
 		45A48755264EE53000939FC4 /* IngredienteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredienteViewModel.swift; sourceTree = "<group>"; };
 		45A4875B264EE54300939FC4 /* PasoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasoViewModel.swift; sourceTree = "<group>"; };
@@ -221,6 +227,7 @@
 				45491D4726597579001AF231 /* LectorCodigosView.swift */,
 				45491D4D265975D0001AF231 /* DetallesCodigoView.swift */,
 				45AFC742265AFF2A00C57F29 /* EditorCodigosView.swift */,
+				4537A838266BFCFA00AED089 /* InicioView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -239,6 +246,7 @@
 				45332B7E264D976F0030314A /* Ingrediente.swift */,
 				45332B84264D97980030314A /* PasoReceta.swift */,
 				45491D3B265973FE001AF231 /* CodigoQR.swift */,
+				45968794266CBBD300A8FBE2 /* Usuario.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -337,6 +345,7 @@
 				45A48755264EE53000939FC4 /* IngredienteViewModel.swift */,
 				45A4875B264EE54300939FC4 /* PasoViewModel.swift */,
 				45491D4126597486001AF231 /* CodigosViewModel.swift */,
+				45968796266CBC7A00A8FBE2 /* UsuarioViewModel.swift */,
 			);
 			name = ViewModel;
 			path = View/ViewModel;
@@ -480,7 +489,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				es,
-                Base,
+				Base,
 			);
 			mainGroup = 45BAAF94263494450021A780;
 			packageReferences = (
@@ -545,15 +554,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				45BB40DD265116BA00EC1537 /* DetallesPasosView.swift in Sources */,
+				4537A839266BFCFA00AED089 /* InicioView.swift in Sources */,
 				458EED302657A4150057A482 /* RecetasView.swift in Sources */,
 				458E92BC26543927008CC0A9 /* RegistroViewModel.swift in Sources */,
 				45022592264063CD00876A16 /* Listas.swift in Sources */,
 				45BAAFC5263494490021A780 /* ContentView.swift in Sources */,
 				45A48772264EF40E00939FC4 /* AnadirPasoView.swift in Sources */,
 				45332B79264D972A0030314A /* Receta.swift in Sources */,
+				45968795266CBBD300A8FBE2 /* Usuario.swift in Sources */,
 				4502257D264060EE00876A16 /* DetallesRecetaView.swift in Sources */,
 				4571B853265F9CD400B2FE98 /* Loader.swift in Sources */,
 				45332B85264D97980030314A /* PasoReceta.swift in Sources */,
+				45968797266CBC7A00A8FBE2 /* UsuarioViewModel.swift in Sources */,
 				4502255C26405F3000876A16 /* Home.swift in Sources */,
 				45BAAFC3263494490021A780 /* APPCocinaApp.swift in Sources */,
 				45A48762264EE79C00939FC4 /* NuevaRecetaView.swift in Sources */,
@@ -750,6 +762,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = APPCocina.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YW82H8FU3C;
 				ENABLE_PREVIEWS = YES;
@@ -772,6 +785,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = APPCocina.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YW82H8FU3C;
 				ENABLE_PREVIEWS = YES;

@@ -35,7 +35,7 @@ struct ContentView: View {
                     }.tag(2)
                     Temporizadores()
                         .tabItem {
-                            Label("Temporizadores", systemImage: "list.bullet")
+                            Label("Temporizadores", systemImage: "timer")
                     }.tag(3)
                     Cuenta(irCuenta: $irACuenta)
                         .tabItem {
@@ -43,7 +43,7 @@ struct ContentView: View {
                     }.tag(4)
                 }
             } else {
-                LoginView()
+                InicioView()
             }
         }.navigationViewStyle(StackNavigationViewStyle())
         .accentColor(.orange)

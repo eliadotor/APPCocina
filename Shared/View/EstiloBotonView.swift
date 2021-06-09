@@ -49,3 +49,31 @@ struct EstiloBotonSecundario: ButtonStyle {
         .padding(.top)
     }
 }
+
+struct EstiloBotonLogin: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+        .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+        .font(.title2)
+        .foregroundColor(.white)
+        .frame(height: 45)
+        .background(Color.orange)
+        .cornerRadius(10)
+        .padding()
+    }
+}
+
+
+struct EstiloBotonLoginApple: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+        .frame(minWidth: /*@START_MENU_TOKEN@*/0/*@END_MENU_TOKEN@*/, maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+        .font(.title2)
+        .foregroundColor(.white)
+        .frame(height: 45)
+        .background(Color.black)
+        .cornerRadius(10)
+        .padding()
+    }
+}
+

@@ -7,23 +7,21 @@
 import SwiftUI
 
 struct LoginView: View {
-    
     @EnvironmentObject var viewModel: RegistroViewModel
     @Environment(\.presentationMode) var modoPresentacion
     @State var irAHome = false
     
     var body: some View {
         VStack {
-            Text("APP de Cocina")
+            /*Text("APP de Cocina")
                 .font(.title)
                 .foregroundColor(.white)
                 .padding(
-                    [.top, .bottom]
-                )
-
-            Image(systemName: "timer")
-                .font(.largeTitle)
-                .foregroundColor(.orange)
+                    [.top, .bottom])*/
+            Image("TRAC")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 100, height: 100)
             VStack {
                 // TextField
                 SingleFormView(nombreCampo: "Email", valorCampo: $viewModel.email)
@@ -51,7 +49,7 @@ struct LoginView: View {
             })
             .foregroundColor(.orange)
             Spacer()
-        }.navigationBarHidden(true)
+        }
         .alert(isPresented: $viewModel.alert, content: {
             Alert(title: Text("¡Importante!"), message: Text(viewModel.alertMensaje), dismissButton: .cancel(Text("Aceptar")))
         })
