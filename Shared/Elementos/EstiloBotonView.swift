@@ -7,12 +7,6 @@
 
 import SwiftUI
 
-struct EstiloBotonView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
-
 struct EstiloBotonCrearReceta: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
