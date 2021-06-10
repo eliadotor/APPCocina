@@ -13,9 +13,10 @@ import AuthenticationServices
 let img = "gs://appcocina-5d597.appspot.com/TRAC.jpg"
 struct InicioView: View {
     @State private var inicioSesion = false
+    @State private var crearCuenta = false
+
     @State var currentNonce: String?
     
-    // Adapted from https://auth0.com/docs/api-auth/tutorials/nonce#generate-a-cryptographically-random-nonce
     private func randomNonceString(length: Int = 32) -> String {
       precondition(length > 0)
       let charset: Array<Character> =
@@ -32,7 +33,6 @@ struct InicioView: View {
           }
           return random
         }
-
         randoms.forEach { random in
           if remainingLength == 0 {
             return
@@ -76,13 +76,14 @@ struct InicioView: View {
                     }, label: {
                         HStack {
                             Image(systemName: "envelope")
+                                .font(.system(size: 11))
                             Text("Iniciar sesión con tu email")
                         }
                     }).foregroundColor(.black)
                     .frame(width: 350, height: 35, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                     .background(Color.white)
                     .cornerRadius(5)
-                    .font(.system(size: 15))
+                    .font(.system(size: 14))
                     .background(NavigationLink(
                                     "", destination:
                                     LoginView(),
@@ -110,21 +111,17 @@ struct InicioView: View {
                                               print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
                                               return
                                             }
-                                            // Initialize a Firebase credential.
+                                            // Initializar credencial de Firebase
                                             let credential = OAuthProvider.credential(withProviderID: "apple.com",
                                                                                       idToken: idTokenString,
                                                                                       rawNonce: nonce)
-                                            // Sign in with Firebase.
+                                            // Registrado con Firebase
                                             Auth.auth().signIn(with: credential) { (authResult, error) in
                                               if (error != nil) {
-                                                // Error. If error.code == .MissingOrInvalidNonce, make sure
-                                                // you're sending the SHA256-hashed nonce as a hex string with
-                                                // your request to Apple.
                                                 print(error?.localizedDescription as Any)
                                                 return
                                               }
-                                              // User is signed in to Firebase with Apple.
-                                              // ...
+                                              // Inicio de sesión con apple
                                                 print("Inicio de sesión")
                                             }
                                             print("\(String(describing: Auth.auth().currentUser?.uid))")
@@ -135,17 +132,31 @@ struct InicioView: View {
                                 break
                             }
                         })
+                        .frame(width: 350, height: 35, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        .padding(.bottom, 10)
 
-
+                    Button(action: {
+                        self.crearCuenta = true
+                    }, label: {
+                        //
+                    })
+                    .frame(width: 350, height: 35, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    .background(Color.black)
+                    .opacity(0.5)
+                    .cornerRadius(5)
+                    .background(NavigationLink(
+                                    "", destination: RegistroView(),
+                                    isActive: $crearCuenta).hidden())
+                    .overlay(
+                        HStack {
+                            Text("Crear una cuenta")
+                                .foregroundColor(.white)
+                                .font(.system(size: 14))
+                        }
+                    )
                 }.padding()
-                .frame(width: 350, height: 115, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 .navigationTitle("")
             )
     }
 }
 
-struct InicioView_Previews: PreviewProvider {
-    static var previews: some View {
-        InicioView()
-    }
-}

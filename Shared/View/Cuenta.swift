@@ -18,159 +18,94 @@ struct Cuenta: View {
     @State private var refCodigo = "zx3mKocuLpfwfIusCC8R"
 
     var body: some View {
-        VStack (alignment: .leading){
-            VStack (alignment: .leading, spacing: 6){
-                ForEach(self.viewModel.usuarios) { usuario in
-                    HStack {
-                        VStack {
-                            Text("Hola, \(usuario.nick)")
-                                .font(.title2)
-                                .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                        }
-                        .accessibility(addTraits: .isHeader)
-                        Spacer()
-                        VStack {
-                            Button(action: {
-                                viewModel.logout()
-                            }, label: {
-                                Text("Cerrar sesión")
-                                    .font(.system(size: 14))
-                            }).background(NavigationLink("",
-                                                        destination: LoginView()))
-                            .padding(.vertical)
-                        }
-                    }.padding(.bottom)
-                    HStack {
-                        ImagenCuentaStorage(imagenUrl: usuario.foto)
-                        VStack(alignment: .leading){
-                            Text(usuario.nombre)
-                            Text(usuario.nick)
+        ScrollView {
+            if viewModel.logueado {
+                VStack (alignment: .leading){
+                    VStack (alignment: .leading, spacing: 6){
+                        ForEach(self.viewModel.usuarios) { usuario in
+                            HStack {
+                                VStack {
+                                    Text("Hola, \(usuario.nick)")
+                                        .font(.title2)
+                                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                                }
+                                .accessibility(addTraits: .isHeader)
+                                Spacer()
+                                VStack {
+                                    Button(action: {
+                                        viewModel.logout()
+                                    }, label: {
+                                        Text("Cerrar sesión")
+                                            .font(.system(size: 14))
+                                    }).background(NavigationLink("",
+                                                                destination: LoginView()))
+                                    .padding(.vertical)
+                                }
+                            }.padding(.bottom)
+                            HStack {
+                                ImagenCuentaStorage(imagenUrl: usuario.foto)
+                                VStack(alignment: .leading){
+                                    Text(usuario.nombre)
+                                    Text(usuario.nick)
+                                }
+                            }
                         }
                     }
+                    VStack{
+                        Button(action: {
+                            irARecetas = true
+                            
+                        }, label: {
+                            VStack(alignment: .leading){
+                                Label("Mis recetas", systemImage: "note.text")
+                                .font(.title2)
+                                HStack {
+                                    NavigationLink(destination: DetallesRecetaView(refReceta: refReceta, crear: false)){
+                                        VStack(alignment: .leading) {
+                                            ImagenHomeStorage(imagenUrl: ref)
+                                        }.padding(.horizontal,2)
+                                    }
+                                    NavigationLink(destination: DetallesRecetaView(refReceta: refReceta, crear: false)){
+                                        VStack(alignment: .leading) {
+                                            ImagenHomeStorage(imagenUrl: ref)
+                                        }.padding(.horizontal,2)
+                                    }
+                                }
+                            }
+                        }).background(NavigationLink("",
+                                                     destination: MisRecetasView().environmentObject(RecetaViewModel()), isActive: $irARecetas))
+                        .padding(.vertical)
+                        Button(action: {
+                            irACodigos = true
+                        }, label: {
+                            VStack(alignment: .leading) {
+                                Label("Mis códigos", systemImage: "qrcode.viewfinder")
+                                    .font(.title2)
+                                HStack {
+                                    NavigationLink(destination: DetallesCodigoView(idCodigo: refCodigo, escaneado: false)){
+                                        VStack(alignment: .leading) {
+                                            ImagenHomeStorage(imagenUrl: refC)
+                                        }
+                                    }
+                                    NavigationLink(destination: DetallesCodigoView(idCodigo: refCodigo, escaneado: false)){
+                                        VStack(alignment: .leading) {
+                                            ImagenHomeStorage(imagenUrl: refC)
+                                            
+                                        }
+                                    }
+                                }
+                            }
+                        }).background(NavigationLink("",
+                                                     destination: CodigosView().environmentObject(CodigosViewModel()), isActive: $irACodigos))
+                        .padding(.vertical)
+                        Spacer()
+                    }
+                }.padding()
+                .navigationBarHidden(true)
+                .onAppear {
+                    self.viewModel.getUsuario()
                 }
             }
-            VStack{
-                Button(action: {
-                    irARecetas = true
-                    
-                }, label: {
-                    VStack(alignment: .leading){
-                        Label("Mis recetas", systemImage: "note.text")
-                        .font(.title2)
-                        HStack {
-                            NavigationLink(destination: DetallesRecetaView(refReceta: refReceta, crear: false)){
-                                VStack(alignment: .leading) {
-                                    ImagenHomeStorage(imagenUrl: ref)
-                                }.padding(.horizontal,2)
-                            }
-                            NavigationLink(destination: DetallesRecetaView(refReceta: refReceta, crear: false)){
-                                VStack(alignment: .leading) {
-                                    ImagenHomeStorage(imagenUrl: ref)
-                                }.padding(.horizontal,2)
-                            }
-                        }
-                    }
-                }).background(NavigationLink("",
-                                             destination: MisRecetasView().environmentObject(RecetaViewModel()), isActive: $irARecetas))
-                .padding(.vertical)
-                Button(action: {
-                    irACodigos = true
-                }, label: {
-                    VStack(alignment: .leading) {
-                        Label("Mis códigos", systemImage: "qrcode.viewfinder")
-                            .font(.title2)
-                        HStack {
-                            NavigationLink(destination: DetallesCodigoView(idCodigo: refCodigo, escaneado: false)){
-                                VStack(alignment: .leading) {
-                                    ImagenHomeStorage(imagenUrl: refC)
-                                }
-                            }
-                            NavigationLink(destination: DetallesCodigoView(idCodigo: refCodigo, escaneado: false)){
-                                VStack(alignment: .leading) {
-                                    ImagenHomeStorage(imagenUrl: refC)
-                                    
-                                }
-                            }
-                        }
-                    }
-                }).background(NavigationLink("",
-                                             destination: CodigosView().environmentObject(CodigosViewModel()), isActive: $irACodigos))
-                .padding(.vertical)
-                Spacer()
-            }
-        }.padding()
-        .navigationBarHidden(true)
-        .onAppear {
-            self.viewModel.getUsuario()
         }
     }
 }
-
-/*
- var body: some View {
-     ScrollView {
-         //if viewModel.logueado {
-             VStack {
-                 HStack {
-                     VStack (alignment: .leading){
-                         Text("Mi cuenta")
-                             .font(.title2)
-                             .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                             .padding(.bottom)
-                         
-                     }
-                     .accessibility(addTraits: .isHeader)
-                     Spacer()
-                 }
-                 HStack {
-                     /*ImagenCuentaStorage(imagenUrl: viewModelUsuario.usuarios[0].foto)
-                     VStack(alignment: .leading){
-                         Text(viewModelUsuario.usuarios[0].nombre)
-                         Text(viewModelUsuario.usuarios[0].nick)
-                     }*/
-                 }
-                 Button(action: {
-                     irARecetas = true
-                     
-                 }, label: {
-                     Text("Mis recetas")
-                         .foregroundColor(Color.orange)
-                 }).background(NavigationLink("",
-                                              destination: MisRecetasView().environmentObject(RecetaViewModel()), isActive: $irARecetas))
-                 Button(action: {
-                     irACodigos = true
-                 }, label: {
-                     Text("Mis códigos")
-                         .foregroundColor(Color.orange)
-                 }).background(NavigationLink("",
-                                              destination: CodigosView().environmentObject(CodigosViewModel()), isActive: $irACodigos))
-                 Button(action: {
-                     viewModel.logout()
-                 }, label: {
-                     Text("Cerrar sesión")
-                         .foregroundColor(Color.orange)
-                 }).background(NavigationLink("",
-                                             destination: LoginView()))
-             }.padding()
-             .onAppear {
-                 viewModel.logueado = viewModel.signedIn
-                 viewModelUsuario.getUsuario()
-             }
-             /*.toolbar {
-                 ToolbarItem (placement: .navigationBarLeading){
-                     //Text("Hola, \(viewModelUsuario.usuarios[0].nick)!")
-                 }
-                 ToolbarItem (placement: .navigationBarTrailing){
-                     Button(action: {
-                         viewModel.logout()
-                     }, label: {
-                         Text("Cerrar sesión")
-                             .foregroundColor(Color.orange)
-                     }).background(NavigationLink("",
-                                                 destination: LoginView()))
-                 }
-             }*/
-        // }
-     }
- }
- */
