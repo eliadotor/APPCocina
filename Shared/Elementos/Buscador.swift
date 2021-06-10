@@ -9,14 +9,12 @@
 import SwiftUI
  
 struct SearchBar: View {
-    @Binding var text: String
- 
-    @State private var isEditing = false
+    @Binding var texto: String
+    @State private var editando = false
  
     var body: some View {
         HStack {
- 
-            TextField("Search ...", text: $text)
+            TextField("Buscar...", text: $texto)
                 .padding(7)
                 .padding(.horizontal, 25)
                 .background(Color(.systemGray6))
@@ -28,9 +26,9 @@ struct SearchBar: View {
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                             .padding(.leading, 8)
                  
-                        if isEditing {
+                        if editando {
                             Button(action: {
-                                self.text = ""
+                                self.texto = ""
                             }) {
                                 Image(systemName: "multiply.circle.fill")
                                     .foregroundColor(.gray)
@@ -41,16 +39,15 @@ struct SearchBar: View {
                 )
                 .padding(.horizontal, 10)
                 .onTapGesture {
-                    self.isEditing = true
+                    self.editando = true
                 }
  
-            if isEditing {
+            if editando {
                 Button(action: {
-                    self.isEditing = false
-                    self.text = ""
- 
+                    self.editando = false
+                    self.texto = ""
                 }) {
-                    Text("Cancel")
+                    Text("Cancelar")
                 }
                 .padding(.trailing, 10)
                 .transition(.move(edge: .trailing))
@@ -59,39 +56,3 @@ struct SearchBar: View {
         }
     }
 }
-
-/*import Foundation
-import SwiftUI
-
-struct SearchBar : UIViewRepresentable {
-    
-    func makeCoordinator() -> SearchBar.Coordinator {
-        return Coordinator(text: self.$text)
-    }
-    
-    @Binding var text : String
-    
-    func makeUIView(context: UIViewRepresentableContext<SearchBar>) -> UISearchBar {
-        let searchBar = UISearchBar(frame: .zero)
-        searchBar.delegate = context.coordinator
-        return searchBar
-    }
-    
-    func updateUIView(_ uiView: UISearchBar, context: UIViewRepresentableContext<SearchBar>) {
-        uiView.text = text
-    }
-    
-    class Coordinator: NSObject, UISearchBarDelegate {
-        
-        @Binding var text : String
-        
-        init(text: Binding<String>){
-            _text = text
-        }
-        
-        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-            text = searchText
-        }
-    
-    }
-}*/

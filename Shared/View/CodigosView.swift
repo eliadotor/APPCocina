@@ -20,7 +20,7 @@ struct CodigosView: View {
     var body: some View {
         VStack {
             ScrollView([ .vertical ], showsIndicators: false){
-                SearchBar(text: self.$buscarCodigo)
+                SearchBar(texto: self.$buscarCodigo)
                     .padding(.top, 20)
                     .padding(.horizontal, 6)
                 LazyVGrid(columns: columnas, alignment: .center, spacing: 18) {

@@ -152,7 +152,6 @@ class CodigosViewModel: ObservableObject {
                 print("Edito")
             }
         }
-       
     }
 
     /* Función que obtiene todos los códigosQR de un usuario

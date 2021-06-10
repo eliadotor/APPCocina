@@ -33,7 +33,7 @@ struct RecetasView: View {
                     Spacer()
                 }
                 VStack {
-                    SearchBar(text: self.$buscarReceta)
+                    SearchBar(texto: self.$buscarReceta)
                         .padding(.bottom)
                     LazyVGrid(columns: columnas, alignment: .center, spacing: 18) {
                         ForEach(viewModel.recetas.filter {
@@ -67,7 +67,7 @@ struct MisRecetasView: View {
 
     var body: some View {
         VStack{
-            SearchBar(text: self.$buscarReceta)
+            SearchBar(texto: self.$buscarReceta)
                 .padding(.vertical, 20)
                 .padding(.horizontal, 6)
             List() {
