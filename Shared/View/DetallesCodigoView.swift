@@ -67,6 +67,7 @@ struct DetallesCodigoView: View {
                                 modoPresentacion.wrappedValue.dismiss()
                             }.buttonStyle(EstiloBoton())
                         }
+                        Spacer()
                     }
                     Spacer()
                 }
