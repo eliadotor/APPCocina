@@ -21,7 +21,6 @@
 		45332B19264D14160030314A /* FirebaseInstallations in Frameworks */ = {isa = PBXBuildFile; productRef = 45332B18264D14160030314A /* FirebaseInstallations */; };
 		45332B1B264D14160030314A /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 45332B1A264D14160030314A /* FirebaseStorage */; };
 		45332B1D264D14160030314A /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 45332B1C264D14160030314A /* FirebaseFunctions */; };
-		45332B1F264D14160030314A /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 45332B1E264D14160030314A /* FirebaseMessaging */; };
 		45332B21264D14160030314A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 45332B20264D14160030314A /* FirebaseAuth */; };
 		45332B23264D14160030314A /* FirebaseDynamicLinks in Frameworks */ = {isa = PBXBuildFile; productRef = 45332B22264D14160030314A /* FirebaseDynamicLinks */; };
 		45332B29264D16370030314A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 45332B28264D16370030314A /* GoogleService-Info.plist */; };
@@ -167,7 +166,6 @@
 				45332B17264D14160030314A /* FirebaseFirestore in Frameworks */,
 				45332B21264D14160030314A /* FirebaseAuth in Frameworks */,
 				45332B19264D14160030314A /* FirebaseInstallations in Frameworks */,
-				45332B1F264D14160030314A /* FirebaseMessaging in Frameworks */,
 				45491D55265976A5001AF231 /* CodeScanner in Frameworks */,
 				45332B1B264D14160030314A /* FirebaseStorage in Frameworks */,
 				458606E2265E335F00537377 /* FirebaseAnalytics in Frameworks */,
@@ -400,7 +398,6 @@
 				45332B18264D14160030314A /* FirebaseInstallations */,
 				45332B1A264D14160030314A /* FirebaseStorage */,
 				45332B1C264D14160030314A /* FirebaseFunctions */,
-				45332B1E264D14160030314A /* FirebaseMessaging */,
 				45332B20264D14160030314A /* FirebaseAuth */,
 				45332B22264D14160030314A /* FirebaseDynamicLinks */,
 				45332B75264D970A0030314A /* FirebaseFirestoreSwift-Beta */,
@@ -1056,11 +1053,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 45332B15264D14150030314A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFunctions;
-		};
-		45332B1E264D14160030314A /* FirebaseMessaging */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 45332B15264D14150030314A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseMessaging;
 		};
 		45332B20264D14160030314A /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
