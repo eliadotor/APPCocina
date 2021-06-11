@@ -44,7 +44,7 @@ struct NuevaRecetaView: View {
             }
             Section(){
                 HStack {
-                    Picker("Categoria >", selection: $viewModel.receta.categoria) {
+                    Picker("Categoría >", selection: $viewModel.receta.categoria) {
                         ForEach(viewModel.categorias, id: \.self) {
                             Text($0)
                         }
@@ -52,7 +52,9 @@ struct NuevaRecetaView: View {
                     .pickerStyle(MenuPickerStyle())
                     .foregroundColor(.black)
                     Spacer()
+                    if viewModel.receta.categoria != "" {
                     Text(viewModel.receta.categoria)
+                    }
                 }
                 .padding()
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.orange, lineWidth: 1).frame(height: 40))
@@ -83,6 +85,7 @@ struct NuevaRecetaView: View {
             }
             .background(
                 NavigationLink("", destination: AnadirIngredientesView(receta: ref, irANuevaReceta: irANuevaReceta, irAAnadirIngredientes: $irAAnadirIngredientes), isActive: $irAAnadirIngredientes)
+                    .accessibilityHidden(true)
             )
             .buttonStyle(EstiloBoton())
             Spacer()
