@@ -1,3 +1,4 @@
+
 //
 //  DetallesReceta.swift
 //  APPCocina
@@ -21,10 +22,12 @@ struct DetallesRecetaView: View {
         ScrollView {
             VStack (alignment: .leading){
                 ImagenRecetaStorage(imagenUrl: viewModelR.receta.foto)
+                    .accessibilityHidden(true)
                 Text(viewModelR
                         .receta.titulo)
                     .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                     .padding(.horizontal)
+                    .accessibility(addTraits: .isHeader)
                 HStack {
                     Text("\(viewModelR.receta.duracion) min")
                         .font(.system(size: 18))
@@ -46,15 +49,19 @@ struct DetallesRecetaView: View {
                             Text("\(ingrediente.cantidad)")
                                 .foregroundColor(.orange)
                                 .fontWeight(.bold)
+                                .accessibilityHidden(true)
                             if ingrediente.unidad != ""{
                                 Text(ingrediente.unidad)
                                     .foregroundColor(.orange)
                                     .fontWeight(.bold)
+                                    .accessibilityHidden(true)
                                 Text("de")
+                                    .accessibilityHidden(true)
                             }
                             Text(ingrediente.nombre)
                             Spacer()
                         }
+                        .accessibilityLabel(ingrediente.unidad != "" ? "\(ingrediente.cantidad) \(ingrediente.unidad) de \(ingrediente.nombre)." : "\(ingrediente.cantidad) \(ingrediente.nombre).")
                     }
                     Text("PASOS")
                         .font(.system(size: 18))
@@ -70,8 +77,10 @@ struct DetallesRecetaView: View {
                                 Text("\(paso.duracion) min")
                                     .foregroundColor(.orange)
                                     .fontWeight(.bold)
+                                    .accessibilityHidden(true)
                             }
                         }
+                        .accessibilityLabel(paso.duracion>0 ? "\(paso.descripcion) \(paso.duracion) minutos." : "\(paso.descripcion).")
                     }
                 }.padding(.horizontal)
                 .onAppear() {
@@ -90,6 +99,7 @@ struct DetallesRecetaView: View {
                 }).buttonStyle(EstiloBoton())
                 .background(
                     NavigationLink("", destination: PasoView(refReceta: refReceta, paso: 1), isActive: $comenzarReceta)
+                        .accessibilityHidden(true)
                 )
                 .padding([.horizontal, .bottom])
                 Spacer()
