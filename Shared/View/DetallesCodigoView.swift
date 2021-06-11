@@ -35,6 +35,7 @@ struct DetallesCodigoView: View {
                             .frame(width: 250, height: 250)
                             .shadow(radius: 5)
                             .padding(.bottom)
+                            .accessibilityHidden(true)
                         if codigo.descripcion != "" {
                             Text("Descripción:")
                                 .font(.system(size: 18))

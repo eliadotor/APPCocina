@@ -21,13 +21,10 @@ class TemporizadorViewModel: ObservableObject {
     @Published var finalizado = false
     @Published var sonido = "defecto"
     @Published var sonar = true
-    
     @Published var temporizador: Timer? = nil
-    
     // Alertas
     @Published var alert = false
     @Published var alertMensaje = ""
-    
     /* Función que asigna el tiempo (en minutos y segundos) al temporizador
      * Parámetros: minutos -> número de minutos
      * segundos -> número de segundos
