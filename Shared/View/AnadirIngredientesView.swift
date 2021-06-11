@@ -51,7 +51,9 @@ struct AnadirIngredientesView: View {
                     .pickerStyle(MenuPickerStyle())
                     .foregroundColor(.black)
                     Spacer()
+                    if viewModel.ingrediente.unidad != "" {
                     Text(viewModel.ingrediente.unidad)
+                    }
                 }
                 .padding()
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.orange, lineWidth: 1).frame(height: 40))
