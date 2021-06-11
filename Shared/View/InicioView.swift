@@ -64,6 +64,7 @@ struct InicioView: View {
             .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
             .aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
             .opacity(0.7)
+            .accessibilityHidden(true)
             .overlay(
                 VStack {
                     /*Image("TracSin")
@@ -144,14 +145,18 @@ struct InicioView: View {
                     .background(Color.black)
                     .opacity(0.5)
                     .cornerRadius(5)
+                    .accessibilityLabel("Crear una cuenta")
                     .background(NavigationLink(
                                     "", destination: RegistroView(),
-                                    isActive: $crearCuenta).hidden())
+                                    isActive: $crearCuenta)
+                                    .accessibilityHidden(true)
+)
                     .overlay(
                         HStack {
                             Text("Crear una cuenta")
                                 .foregroundColor(.white)
                                 .font(.system(size: 14))
+                                .accessibilityHidden(true)
                         }
                     )
                 }.padding()
