@@ -17,6 +17,7 @@ struct LoginView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 100, height: 100)
+                .accessibilityHidden(true)
             VStack {
                 // TextField
                 SingleFormView(nombreCampo: "Email", valorCampo: $viewModel.email)
@@ -31,7 +32,10 @@ struct LoginView: View {
                 })
                 .buttonStyle(EstiloBoton())
                 .background(NavigationLink("",
-                                           destination: ContentView(seleccionado: 0)))
+                                           destination: ContentView(seleccionado: 0))
+                                .accessibilityHidden(true)
+
+                )
                 NavigationLink("Crear una cuenta",
                                        destination: RegistroView())
                     .padding(.bottom)
