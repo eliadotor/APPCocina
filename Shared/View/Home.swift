@@ -22,6 +22,7 @@ struct Home: View {
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 180)
                         .accessibility(addTraits: .isHeader)
+                        .accessibilityLabel("TRAC")
                     Spacer()
                 }
             }.padding()
@@ -70,7 +71,6 @@ struct Seccion: View {
                     Text(tituloSeccion)
                         .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                         .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                    
                 }.padding(.horizontal)
                 .accessibility(addTraits: .isHeader)
                 Spacer()
@@ -81,11 +81,13 @@ struct Seccion: View {
                         ImagenHomeStorage(imagenUrl: ref1)
                     }.padding(.horizontal,2)
                 }
+                .accessibilityLabel("Receta de ejemplo 1.")
                 NavigationLink(destination: DetallesRecetaView(refReceta: ref, crear: false)){
                     VStack(alignment: .leading) {
                         ImagenHomeStorage(imagenUrl: ref1)
                     }.padding(.horizontal,2)
                 }
+                .accessibilityLabel("Receta de ejemplo 2.")
             }.padding()
         }
     }
