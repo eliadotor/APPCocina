@@ -30,6 +30,7 @@ struct LectorCodigosView: View {
             VStack {
                 Spacer()
                 Rectangle().stroke(Color.orange, lineWidth: 1).frame(width: 250, height: 250)
+                    .accessibilityLabel("Esperando código QR.")
                 Spacer()
             }
         )
