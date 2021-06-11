@@ -43,6 +43,7 @@ struct RecetasView: View {
                             NavigationLink(destination: DetallesRecetaView(refReceta: receta.id!, crear: false)){
                                 VStack(alignment: .leading) {
                                     ImagenRecetasStorage(imagenUrl: receta.foto)
+                                    Text(receta.titulo).font(.title)
                                 }.padding(.horizontal,2)
                             }
                         }
