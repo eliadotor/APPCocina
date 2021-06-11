@@ -19,9 +19,10 @@ struct Temporizadores: View {
                 .padding()
             if !temporizador.encurso {
                 HStack {
-                    Picker("Minutos", selection: $minutos) {
+                    Picker(selection: $minutos, label: Text("Minutos").foregroundColor(.orange)) {
                         ForEach(0...59, id: \.self) {
                             Text("\($0)")
+                                .accessibilityLabel($0 != 1 ? "\($0) Minutos" : "\($0) Minuto")
                         }
                     }
                     .frame(minWidth: 80, maxWidth: .infinity)
@@ -29,15 +30,19 @@ struct Temporizadores: View {
                     .cornerRadius(1)
                     Text("minutos")
                         .foregroundColor(.orange)
+                        .accessibilityHidden(true)
                     Picker(selection: $segundos, label: Text("Segundos").foregroundColor(.orange)) {
                         ForEach(0...59, id: \.self) {
                             Text("\($0)")
+                                .accessibilityLabel($0 != 1 ? "\($0) Segundos" : "\($0) Segundo")
                         }
-                    }.frame(minWidth: 80, maxWidth: .infinity)
+                    }
+                    .frame(minWidth: 80, maxWidth: .infinity)
                     .clipped()
                     .cornerRadius(5)
                     Text("segundos")
                         .foregroundColor(.orange)
+                        .accessibilityHidden(true)
                 }.padding(30)
             } else {
                 Text(temporizador.tiempoToString)
@@ -56,10 +61,11 @@ struct Temporizadores: View {
                     }
                 }.buttonStyle(EstiloBoton())
                 .padding(50)
-                .accessibilityHint("Pulsa dos veces para iniciar el temporizador")                    
+                .accessibilityHint("Pulsa dos veces para iniciar el temporizador")
             } else {
                 Button("Terminar") {
                     if temporizador.encurso {
+                        temporizador.sonar = false
                         temporizador.terminar()
                         segundos = 0
                         minutos = 0
@@ -80,3 +86,4 @@ struct Temporizadores: View {
         
     }
 }
+

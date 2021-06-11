@@ -20,6 +20,7 @@ class TemporizadorViewModel: ObservableObject {
     @Published var encurso = false
     @Published var finalizado = false
     @Published var sonido = "defecto"
+    @Published var sonar = true
     
     @Published var temporizador: Timer? = nil
     
@@ -58,9 +59,10 @@ class TemporizadorViewModel: ObservableObject {
     
     /* Función que inicia el temporizador */
     func iniciar() {
+        self.sonar = true
+        self.encurso = true
         temporizador = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
             RunLoop.current.add(timer, forMode: RunLoop.Mode.common)
-            self.encurso = true
             self.contador -= 1
             if self.contador < 1 {
                 self.encurso = false
@@ -74,7 +76,9 @@ class TemporizadorViewModel: ObservableObject {
         self.finalizado = true
         temporizador?.invalidate()
         temporizador = nil
+        if self.sonar {
         Sound.play(file: "\(self.sonido).wav")
+        }
         self.alertMensaje = "Temporizador finalizado"
         self.alert.toggle()
     }
