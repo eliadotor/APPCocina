@@ -37,13 +37,18 @@ struct Cuenta: View {
                                     }, label: {
                                         Text("Cerrar sesión")
                                             .font(.system(size: 14))
-                                    }).background(NavigationLink("",
-                                                                destination: LoginView()))
+                                    }
+                                    ).background(NavigationLink("",
+                                                                destination: LoginView())
+                                                    .accessibilityHidden(true)
+                                    )
                                     .padding(.vertical)
                                 }
+
                             }.padding(.bottom)
                             HStack {
                                 ImagenCuentaStorage(imagenUrl: usuario.foto)
+                                    .accessibilityHidden(true)
                                 VStack(alignment: .leading){
                                     Text(usuario.nombre)
                                     Text(usuario.nick)
@@ -73,7 +78,9 @@ struct Cuenta: View {
                                 }
                             }
                         }).background(NavigationLink("",
-                                                     destination: MisRecetasView().environmentObject(RecetaViewModel()), isActive: $irARecetas))
+                                                     destination: MisRecetasView().environmentObject(RecetaViewModel()), isActive: $irARecetas)
+                                        .accessibilityHidden(true)
+                        )
                         .padding(.vertical)
                         Button(action: {
                             irACodigos = true
@@ -96,7 +103,9 @@ struct Cuenta: View {
                                 }
                             }
                         }).background(NavigationLink("",
-                                                     destination: CodigosView().environmentObject(CodigosViewModel()), isActive: $irACodigos))
+                                                     destination: CodigosView().environmentObject(CodigosViewModel()), isActive: $irACodigos)
+                                        .accessibilityHidden(true)
+                        )
                         .padding(.vertical)
                         Spacer()
                     }
