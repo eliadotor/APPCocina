@@ -18,6 +18,7 @@ struct RegistroView: View {
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 60, height: 60)
                 .padding(.top)
+                .accessibilityHidden(true)
             VStack {
                 // TextField
                 SingleFormView(nombreCampo: "Nombre", valorCampo: $viewModel.usuario.nombre)
@@ -54,7 +55,6 @@ struct RegistroView: View {
                     NavigationLink("política de privacidad",
                                            destination: EmptyView())
                         .foregroundColor(.orange)
-                    
                     Spacer()
                 }.padding(.top)
                 if registrar && !viewModel.acepto {
