@@ -16,8 +16,15 @@ struct ValidacionFormularioView: View {
         HStack {
             Image(systemName: nombreIcono)
                 .foregroundColor(colorIcono)
-            Text(texto)
-                .foregroundColor(.gray)
+                .accessibilityHidden(true)
+            if nombreIcono == "xmark.circle" {
+                Text(texto)
+                    .foregroundColor(.gray)
+            }else {
+                Text(texto)
+                    .foregroundColor(.gray)
+                    .accessibilityHidden(true)
+            }
             Spacer()
         }
     }
