@@ -69,9 +69,6 @@ struct RegistroView: View {
                 }, label: {
                     Text("Registrarse")
                 })
-                .background(NavigationLink("",
-                                           destination: LoginView()),
-                            alignment: .center)
                 .buttonStyle(EstiloBoton())
                 NavigationLink("Iniciar sesión",
                                        destination: LoginView())

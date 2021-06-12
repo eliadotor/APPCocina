@@ -25,7 +25,7 @@ struct PasoView: View {
                         .font(.title2)
                         .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                         .padding(.vertical)
-                        .accessibility(addTraits: .isHeader)
+                        .accessibilityHidden(true)
                     Spacer()
                 }
                 Text("Descripción: ")

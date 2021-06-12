@@ -148,9 +148,9 @@ struct InicioView: View {
                     .accessibilityLabel("Crear una cuenta")
                     .background(NavigationLink(
                                     "", destination: RegistroView(),
-                                    isActive: $crearCuenta)
+                                    isActive: $crearCuenta).hidden()
                                     .accessibilityHidden(true)
-)
+                    )
                     .overlay(
                         HStack {
                             Text("Crear una cuenta")

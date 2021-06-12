@@ -51,6 +51,7 @@ struct CodigosView: View {
                         viewModel.guardarImgCodigo(imagen: imagen, ref: refCodigo)
                     }, label: {
                         Label("Nuevo código", systemImage: "plus")
+                            .accessibilityLabel("Editar")
                     })
                 }
             }
