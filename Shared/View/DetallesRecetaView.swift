@@ -120,9 +120,9 @@ struct DetallesRecetaView: View {
                                 irARecetas = true
                             }, label: {
                                 Text("Recetas")
-                                    .font(.headline)
+                                    .font(.title2)
                                     .fontWeight(.bold)
-                                    .foregroundColor(.orange)
+                                    .foregroundColor(.black)
                             })
                             .padding(.trailing, 20)
                             .padding(.top, 5)
