@@ -135,33 +135,25 @@ struct InicioView: View {
                         })
                         .frame(width: 350, height: 35, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                         .padding(.bottom, 10)
-
-                    Button(action: {
-                        self.crearCuenta = true
-                    }, label: {
+                    VStack {
                         //
-                    })
-                    .frame(width: 350, height: 35, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    }.frame(width: 350, height: 35, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                     .background(Color.black)
                     .opacity(0.5)
                     .cornerRadius(5)
-                    .accessibilityLabel("Crear una cuenta")
-                    .background(NavigationLink(
-                                    "", destination: RegistroView(),
-                                    isActive: $crearCuenta).hidden()
-                                    .accessibilityHidden(true)
-                    )
                     .overlay(
-                        HStack {
+                        Button(action: {
+                            self.crearCuenta = true
+                        }, label: {
                             Text("Crear una cuenta")
                                 .foregroundColor(.white)
                                 .font(.system(size: 14))
                                 .accessibilityHidden(true)
-                        }
-                    )
-                }.padding()
-                .navigationTitle("")
-            )
+                        }).background(NavigationLink("", destination: RegistroView(), isActive: $crearCuenta).hidden())
+                )
+            }.padding()
+            .navigationTitle("")
+        )
     }
 }
 
