@@ -41,10 +41,9 @@ struct RecetasView: View {
                             $0.titulo.lowercased().contains(self.buscarReceta.lowercased())
                         }) { receta in
                             NavigationLink(destination: DetallesRecetaView(refReceta: receta.id!, crear: false)){
-                                VStack(alignment: .leading) {
-                                    ImagenRecetasStorage(imagenUrl: receta.foto)
-                                        .accessibilityLabel(receta.titulo)
-                                }.padding(.horizontal,2)
+                                ImagenRecetasStorage(imagenUrl: receta.foto)
+                                    .accessibilityLabel(receta.titulo)
+                                    .padding(.horizontal,2)
                             }
                         }
                     }.padding(.horizontal, 8)
@@ -77,11 +76,9 @@ struct MisRecetasView: View {
                     $0.titulo.lowercased().contains(self.buscarReceta.lowercased())
                 }) { receta in
                     NavigationLink(destination: DetallesRecetaView(refReceta: receta.id!, crear: false)){
-                        VStack(alignment: .leading) {
-                            HStack{
-                                ImagenListaStorage(imagenUrl: receta.foto)
-                                Text(receta.titulo).font(.title)
-                            }
+                        HStack{
+                            ImagenListaStorage(imagenUrl: receta.foto)
+                            Text(receta.titulo).font(.title)
                         }
                     }
                 }.onDelete { (index) in
