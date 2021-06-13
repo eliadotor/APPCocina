@@ -17,19 +17,20 @@ struct Home: View {
         ScrollView() {
             VStack {
                 HStack {
-                    Image("TRACn")
+                    Image("TRAC")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(width: 180)
+                        .frame(width: 150)
+                        .padding(.top)
+                        .padding(.bottom, 6)
                         .accessibility(addTraits: .isHeader)
-                        .accessibilityLabel("TRAC")
                     Spacer()
                 }
-            }.padding()
+            }
             TextField("Buscar recetas", text: $buscarReceta)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .font(.headline)
-                .padding([.horizontal, .top])
+                .padding(.horizontal)
             BotonCrearReceta()
             Seccion(tituloSeccion: "Destacados", ref1: self.refImagen, ref2: self.refImagen)
             Seccion(tituloSeccion: "Recientes", ref1: self.refImagen, ref2: self.refImagen)

@@ -67,11 +67,12 @@ struct InicioView: View {
             .accessibilityHidden(true)
             .overlay(
                 VStack {
-                    /*Image("TracSin")
+                    Image("TRACblanco")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 150, height: 150)
-                        .padding(.bottom, 150)*/
+                        .padding(.bottom, 200)
+                        .accessibilityLabel("Te damos la bienvenida a TRAC. Inicia sesión o regístrate.")
                     Button(action: {
                         self.inicioSesion = true
                     }, label: {
@@ -148,9 +149,10 @@ struct InicioView: View {
                             Text("Crear una cuenta")
                                 .foregroundColor(.white)
                                 .font(.system(size: 14))
-                                .accessibilityHidden(true)
                         }).background(NavigationLink("", destination: RegistroView(), isActive: $crearCuenta).hidden())
-                )
+                    )
+                    .padding(.bottom, 220)
+                    Spacer()
             }.padding()
             .navigationTitle("")
         )
