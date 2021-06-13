@@ -85,12 +85,13 @@ struct AnadirPasoView: View {
                         Spacer()
                     }
                 }).background(
-                    NavigationLink("", destination: DetallesRecetaView(refReceta: receta, crear: false), isActive: $irADetallesReceta)
+                    NavigationLink("", destination: DetallesRecetaView(refReceta: receta, crear: true), isActive: $irADetallesReceta)
                     .hidden()
                 ).buttonStyle(EstiloBoton())
                 Spacer()
             }.padding(.horizontal)
             .padding()
+            .navigationBarTitle("Paso", displayMode: .inline)
             .alert(isPresented: $alert, content: {
                 Alert(title: Text("¡Importante!"), message: Text(alertMensaje), dismissButton: .cancel(Text("Aceptar")))
             })
