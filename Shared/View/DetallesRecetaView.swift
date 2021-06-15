@@ -119,15 +119,13 @@ struct DetallesRecetaView: View {
                             Button(action: {
                                 irARecetas = true
                             }, label: {
-                                Text("Recetas")
-                                    .font(.title2)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.black)
+                                Label("", systemImage: "house.fill")
+                                    .accessibilityLabel("Ir a la pantalla de inicio")
                             })
-                            .padding(.trailing, 20)
-                            .padding(.top, 5)
+                            .padding(.trailing, 22)
+                            .padding(.top, 16)
                             .background(NavigationLink("",
-                                destination: ContentView(seleccionado: 1), isActive: $irARecetas))
+                                destination: ContentView(seleccionado: 0), isActive: $irARecetas))
                             Spacer()
                         }
                     }

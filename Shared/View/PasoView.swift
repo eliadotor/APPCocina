@@ -88,7 +88,7 @@ struct PasoView: View {
                 EmptyView()
             }
             .hidden()
-            NavigationLink(destination: ContentView(seleccionado: 1), isActive: $terminarReceta) {
+            NavigationLink(destination: ContentView(seleccionado: 0), isActive: $terminarReceta) {
                 EmptyView()
             }
             .hidden()
